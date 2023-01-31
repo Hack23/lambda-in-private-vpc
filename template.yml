@@ -270,7 +270,7 @@ Resources:
         MemorySize: 256
         PackageType: 
         Role: 
-        Runtime: "provided"
+        Runtime: "nodejs18.x"
         Timeout: 30
         VpcConfig:
             SecurityGroupIds:
