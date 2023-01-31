@@ -1,0 +1,243 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ""
+Resources:
+  VPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: "10.1.0.0/16"
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+  PrivateSubnet1:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.1.0.0/24"
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Subnet AZ A"
+      AvailabilityZone:
+        Fn::Select:
+          - "0"
+          - Fn::GetAZs:
+              Ref: "AWS::Region"
+  PrivateSubnet2:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.1.1.0/24"
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Subnet AZ B"
+      AvailabilityZone:
+        Fn::Select:
+          - "1"
+          - Fn::GetAZs:
+              Ref: "AWS::Region"
+  PrivateSubnet3:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.1.2.0/24"
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Subnet AZ C"
+      AvailabilityZone:
+        Fn::Select:
+          - "2"
+          - Fn::GetAZs:
+              Ref: "AWS::Region"
+  RouteTablePrivate1:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Route Table A"
+  RouteTablePrivate1Association1:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId:
+        Ref: "RouteTablePrivate1"
+      SubnetId:
+        Ref: "PrivateSubnet1"
+  RouteTablePrivate2:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Route Table B"
+  RouteTablePrivate2Association1:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId:
+        Ref: "RouteTablePrivate2"
+      SubnetId:
+        Ref: "PrivateSubnet2"
+  RouteTablePrivate3:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId:
+        Ref: "VPC"
+      Tags:
+        - Key: "Name"
+          Value: "Private Route Table C"
+  RouteTablePrivate3Association1:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId:
+        Ref: "RouteTablePrivate3"
+      SubnetId:
+        Ref: "PrivateSubnet3"
+  Route53QueryLoggingGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      RetentionInDays: 7
+  Route53QueryLoggingConfig:
+    Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
+    Properties:
+      DestinationArn:
+        !GetAtt "Route53QueryLoggingGroup.Arn"
+  Route53QueryLoggingConfigAssociation:
+    Type: "AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation"
+    Properties:
+      ResolverQueryLogConfigId:
+        Fn::GetAtt:
+          - "Route53QueryLoggingConfig"
+          - "Id"
+      ResourceId:
+        Ref: "VPC"
+  FlowLogs:
+    Type: "AWS::EC2::FlowLog"
+    Properties:
+      ResourceType: "VPC"
+      ResourceId:
+        Ref: "VPC"
+      TrafficType: "ALL"
+      LogDestinationType: "cloud-watch-logs"
+      LogGroupName: "vpcprivate"
+      DeliverLogsPermissionArn:
+        Fn::GetAtt:
+          - "IamRoleForFlowLogs"
+          - "Arn"
+  IamRoleForFlowLogs:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - vpc-flow-logs.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+  FlowLogsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: FlowLogs
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogGroups
+              - logs:DescribeLogStreams
+            Effect: Allow
+            Resource: '*'
+      Roles:
+        - !Ref 'IamRoleForFlowLogs'
+  VPCEndpoint:
+    Type: "AWS::EC2::VPCEndpoint"
+    Properties:
+      VpcEndpointType: "Interface"
+      ServiceName:
+        Fn::Join:
+          - ""
+          -
+            - "com.amazonaws."
+            - Ref: "AWS::Region"
+            - ".ec2"
+      VpcId:
+        Ref: "VPC"
+      PrivateDnsEnabled: true
+      SecurityGroupIds:
+        - Ref: "SgForVPCEndpoint"
+  SgForVPCEndpoint:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Security group to allow access to ec2 VPC Endpoint"
+      SecurityGroupIngress:
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "tcp"
+          FromPort: "443"
+          ToPort: "443"
+      SecurityGroupEgress:
+        - CidrIp: "0.0.0.0/0"
+          IpProtocol: "-1"
+      VpcId:
+        Ref: "VPC"
+  VPCEndpointS3:
+    Type: "AWS::EC2::VPCEndpoint"
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ""
+          -
+            - "com.amazonaws."
+            - Ref: "AWS::Region"
+            - ".s3"
+      VpcId:
+        Ref: "VPC"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal: "*"
+            Action:
+              - "*"
+            Resource:
+              - "*"
+      RouteTableIds:
+        - Ref: "RouteTablePrivate1"
+        - Ref: "RouteTablePrivate2"
+        - Ref: "RouteTablePrivate3"     
+  VPCEndpointDynamoDb:
+    Type: "AWS::EC2::VPCEndpoint"
+    Properties:
+      ServiceName:
+        Fn::Join:
+          - ""
+          -
+            - "com.amazonaws."
+            - Ref: "AWS::Region"
+            - ".dynamodb"
+      VpcId:
+        Ref: "VPC"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal: "*"
+            Action:
+              - "*"
+            Resource:
+              - "*"
+      RouteTableIds:
+        - Ref: "RouteTablePrivate1"
+        - Ref: "RouteTablePrivate2"
+        - Ref: "RouteTablePrivate3"     
+Parameters: {}
+Metadata: {}
+Conditions: {}
