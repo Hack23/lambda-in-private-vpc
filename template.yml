@@ -237,7 +237,48 @@ Resources:
       RouteTableIds:
         - Ref: "RouteTablePrivate1"
         - Ref: "RouteTablePrivate2"
-        - Ref: "RouteTablePrivate3"     
+        - Ref: "RouteTablePrivate3"
+  LambdaSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupName: "Lambda Security Group"
+      GroupDescription: "Lambda Traffic"
+      VpcId: !Ref "VPC"
+      SecurityGroupEgress:
+      - IpProtocol: "tcp"
+        FromPort: "443"
+        ToPort: "43"
+        CidrIp: "0.0.0.0/0"
+  InstanceSecurityGroupIngress:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    DependsOn: "InstanceSecurityGroup"
+    Properties:
+      GroupId: !Ref "LambdaSecurityGroup"
+      IpProtocol: "tcp"
+      FromPort: "443"
+      ToPort: "43"
+      SourceSecurityGroupId: !Ref "LambdaSecurityGroup"
+  Lambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+        Code:
+          S3Bucket: 
+          S3Key: 
+        Description: "lambda"
+        FunctionName: 
+        Handler: 
+        MemorySize: 256
+        PackageType: 
+        Role: 
+        Runtime: "provided"
+        Timeout: 30
+        VpcConfig:
+            SecurityGroupIds:
+            - !Ref "InstanceSecurityGroup"
+            SubnetIds:
+            - !Ref "PrivateSubnet1"
+            - !Ref "PrivateSubnet2"
+            - !Ref "PrivateSubnet3"
 Parameters: {}
 Metadata: {}
 Conditions: {}
