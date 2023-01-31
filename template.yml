@@ -274,7 +274,7 @@ Resources:
         Timeout: 30
         VpcConfig:
             SecurityGroupIds:
-            - !Ref "InstanceSecurityGroup"
+            - !Ref "LambdaSecurityGroup"
             SubnetIds:
             - !Ref "PrivateSubnet1"
             - !Ref "PrivateSubnet2"
