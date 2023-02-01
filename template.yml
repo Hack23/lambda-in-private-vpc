@@ -100,7 +100,7 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      RetentionInDays: 7
+      RetentionInDays: 30
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
     Properties:
