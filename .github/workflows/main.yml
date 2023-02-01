@@ -14,7 +14,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Run cfn-nag
-        uses: stelligent/cfn-nag-sarif-action@v1
+        uses: stelligent/cfn_nag@master
         with:
           input_path: .
       - name: Run Checkov action
