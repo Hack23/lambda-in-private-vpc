@@ -258,18 +258,44 @@ Resources:
       FromPort: "443"
       ToPort: "43"
       SourceSecurityGroupId: !Ref "LambdaSecurityGroup"
+  LambdaFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: AppendToLogsPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: "*"
   Lambda:
     Type: "AWS::Lambda::Function"
     Properties:
-        Code:
-          S3Bucket: 
-          S3Key: 
+      Code:
+        ZipFile: |
+          exports.handler = async (event) => {
+            return "OK";
+          }
         Description: "lambda"
         FunctionName: 
-        Handler: 
+        Handler: index.handler
         MemorySize: 256
         PackageType: 
-        Role: 
+        Role: !GetAtt LambdaFunctionRole.Arn
         Runtime: "nodejs18.x"
         Timeout: 30
         VpcConfig:
