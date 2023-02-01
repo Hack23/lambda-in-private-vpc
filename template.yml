@@ -299,12 +299,12 @@ Resources:
         Runtime: "nodejs18.x"
         Timeout: 30
         VpcConfig:
-            SecurityGroupIds:
-            - !Ref "LambdaSecurityGroup"
-            SubnetIds:
-            - !Ref "PrivateSubnet1"
-            - !Ref "PrivateSubnet2"
-            - !Ref "PrivateSubnet3"
+          SecurityGroupIds:
+          - !Ref "LambdaSecurityGroup"
+          SubnetIds:
+          - !Ref "PrivateSubnet1"
+          - !Ref "PrivateSubnet2"
+          - !Ref "PrivateSubnet3"
 Parameters: {}
 Metadata: {}
 Conditions: {}
