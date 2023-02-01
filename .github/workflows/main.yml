@@ -1,3 +1,4 @@
+name: Scan IAC
 on: [push]
 
 permissions:
