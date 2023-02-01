@@ -300,11 +300,11 @@ Resources:
         Timeout: 30
         VpcConfig:
           SecurityGroupIds:
-          - !Ref "LambdaSecurityGroup"
+            - !Ref "LambdaSecurityGroup"
           SubnetIds:
-          - !Ref "PrivateSubnet1"
-          - !Ref "PrivateSubnet2"
-          - !Ref "PrivateSubnet3"
+            - !Ref "PrivateSubnet1"
+            - !Ref "PrivateSubnet2"
+            - !Ref "PrivateSubnet3"
 Parameters: {}
 Metadata: {}
 Conditions: {}
