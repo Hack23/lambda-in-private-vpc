@@ -22,3 +22,7 @@ jobs:
           output_file_path: reports/results.sarif # folder and name of results file
           download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
           log_level: DEBUG # optional: set log level. Default WARNING
+      - name: Run cfn-nag
+        uses: stelligent/cfn-nag-sarif-action@v1
+        with:
+          input_path: .
