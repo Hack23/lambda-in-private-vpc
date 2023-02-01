@@ -13,6 +13,10 @@ jobs:
         uses: mikaelvesavuori/standardlint-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Run cfn-nag
+        uses: stelligent/cfn-nag-sarif-action@v1
+        with:
+          input_path: .
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@master
@@ -22,7 +26,3 @@ jobs:
           output_format: sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
           output_file_path: reports/results.sarif # folder and name of results file
           download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
-      - name: Run cfn-nag
-        uses: stelligent/cfn-nag-sarif-action@v1
-        with:
-          input_path: .
