@@ -290,21 +290,21 @@ Resources:
           exports.handler = async (event) => {
             return "OK";
           }
-        Description: "lambda"
-        FunctionName: 
-        Handler: index.handler
-        MemorySize: 256
-        PackageType: 
-        Role: !GetAtt LambdaFunctionRole.Arn
-        Runtime: "nodejs18.x"
-        Timeout: 30
-        VpcConfig:
-          SecurityGroupIds:
-            - !Ref "LambdaSecurityGroup"
-          SubnetIds:
-            - !Ref "PrivateSubnet1"
-            - !Ref "PrivateSubnet2"
-            - !Ref "PrivateSubnet3"
+      Description: "lambda"
+      FunctionName: 
+      Handler: index.handler
+      MemorySize: 256
+      PackageType: 
+      Role: !GetAtt LambdaFunctionRole.Arn
+      Runtime: "nodejs18.x"
+      Timeout: 30
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref "LambdaSecurityGroup"
+        SubnetIds:
+          - !Ref "PrivateSubnet1"
+          - !Ref "PrivateSubnet2"
+          - !Ref "PrivateSubnet3"
 Parameters: {}
 Metadata: {}
 Conditions: {}
