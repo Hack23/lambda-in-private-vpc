@@ -100,7 +100,8 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      RetentionInDays: 30
+      KmsKeyId: "aws/cloudwatch"
+      RetentionInDays: 30      
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
     Properties:
@@ -183,9 +184,13 @@ Resources:
           IpProtocol: "tcp"
           FromPort: "443"
           ToPort: "443"
+          Description: "Allow inbound https"
       SecurityGroupEgress:
         - CidrIp: "0.0.0.0/0"
-          IpProtocol: "-1"
+          IpProtocol: "tcp"
+          FromPort: "443"
+          ToPort: "443"
+          Description: "Allow inbound https"
       VpcId:
         Ref: "VPC"
   VPCEndpointS3:
@@ -249,6 +254,7 @@ Resources:
         FromPort: "443"
         ToPort: "43"
         CidrIp: "0.0.0.0/0"
+        Description: "Allow outbound https"
   InstanceSecurityGroupIngress:
     Type: "AWS::EC2::SecurityGroupIngress"
     DependsOn: "InstanceSecurityGroup"
@@ -257,6 +263,7 @@ Resources:
       IpProtocol: "tcp"
       FromPort: "443"
       ToPort: "43"
+      Description: "Allow inbound https"
       SourceSecurityGroupId: !Ref "LambdaSecurityGroup"
   LambdaFunctionRole:
     Type: AWS::IAM::Role
@@ -270,18 +277,8 @@ Resources:
             - lambda.amazonaws.com
           Action:
           - sts:AssumeRole
-      Path: "/"
-      Policies:
-      - PolicyName: AppendToLogsPolicy
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Effect: Allow
-            Action:
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-            Resource: "*"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   Lambda:
     Type: "AWS::Lambda::Function"
     Properties:
@@ -293,6 +290,8 @@ Resources:
       Description: "lambda"
       FunctionName: 
       Handler: index.handler
+      Architectures:
+        - arm64      
       MemorySize: 256
       PackageType: 
       Role: !GetAtt LambdaFunctionRole.Arn
