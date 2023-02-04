@@ -234,11 +234,11 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
-            Principal: "*"
+            Principal: "todo"
             Action:
-              - "*"
+              - "dynamodb:todo"
             Resource:
-              - "*"
+              - "todo"
       RouteTableIds:
         - Ref: "RouteTablePrivate1"
         - Ref: "RouteTablePrivate2"
@@ -285,6 +285,7 @@ Resources:
       Code:
         ZipFile: |
           exports.handler = async (event) => {
+            console.info("EVENT\n" + JSON.stringify(event, null, 2));
             return "OK";
           }
       Description: "lambda"
