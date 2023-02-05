@@ -141,24 +141,8 @@ Resources:
                 - vpc-flow-logs.amazonaws.com
             Action:
               - sts:AssumeRole
-      Path: /
-  FlowLogsPolicy:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: FlowLogs
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-              - logs:DescribeLogGroups
-              - logs:DescribeLogStreams
-            Effect: Allow
-            Resource: '*'
-      Roles:
-        - !Ref 'IamRoleForFlowLogs'
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   VPCEndpoint:
     Type: "AWS::EC2::VPCEndpoint"
     Properties:
@@ -246,7 +230,6 @@ Resources:
   LambdaSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
-      GroupName: "Lambda Security Group"
       GroupDescription: "Lambda Traffic"
       VpcId: !Ref "VPC"
       SecurityGroupEgress:
@@ -294,6 +277,7 @@ Resources:
       Architectures:
         - arm64      
       MemorySize: 256
+      ReservedConcurrentExecutions: 1
       PackageType: 
       Role: !GetAtt LambdaFunctionRole.Arn
       Runtime: "nodejs18.x"
