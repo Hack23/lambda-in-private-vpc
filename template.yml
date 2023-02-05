@@ -235,7 +235,7 @@ Resources:
       SecurityGroupEgress:
       - IpProtocol: "tcp"
         FromPort: "443"
-        ToPort: "43"
+        ToPort: "443"
         CidrIp: "0.0.0.0/0"
         Description: "Allow outbound https"
   InstanceSecurityGroupIngress:
