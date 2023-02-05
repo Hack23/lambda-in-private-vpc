@@ -278,6 +278,8 @@ Resources:
         - arm64      
       MemorySize: 256
       ReservedConcurrentExecutions: 1
+      DeadLetterConfig:
+        TargetArn: "targetArn"
       PackageType: 
       Role: !GetAtt LambdaFunctionRole.Arn
       Runtime: "nodejs18.x"
