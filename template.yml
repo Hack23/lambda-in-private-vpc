@@ -245,7 +245,7 @@ Resources:
       GroupId: !Ref "LambdaSecurityGroup"
       IpProtocol: "tcp"
       FromPort: "443"
-      ToPort: "43"
+      ToPort: "443"
       Description: "Allow inbound https"
       SourceSecurityGroupId: !Ref "LambdaSecurityGroup"
   LambdaFunctionRole:
