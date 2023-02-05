@@ -164,17 +164,17 @@ Resources:
     Properties:
       GroupDescription: "Security group to allow access to ec2 VPC Endpoint"
       SecurityGroupIngress:
-        - CidrIp: "0.0.0.0/0"
+        - CidrIp: "10.1.0.0/16"
           IpProtocol: "tcp"
           FromPort: "443"
           ToPort: "443"
-          Description: "Allow inbound https"
+          Description: "Allow inbound https from inside vpc"
       SecurityGroupEgress:
-        - CidrIp: "0.0.0.0/0"
+        - CidrIp: "10.1.0.0/16"
           IpProtocol: "tcp"
           FromPort: "443"
           ToPort: "443"
-          Description: "Allow inbound https"
+          Description: "Allow outbound https inside vpc"
       VpcId:
         Ref: "VPC"
   VPCEndpointS3:
@@ -236,8 +236,8 @@ Resources:
       - IpProtocol: "tcp"
         FromPort: "443"
         ToPort: "443"
-        CidrIp: "0.0.0.0/0"
-        Description: "Allow outbound https"
+        CidrIp: "10.1.0.0/16"
+        Description: "Allow outbound https inside vpc"
   InstanceSecurityGroupIngress:
     Type: "AWS::EC2::SecurityGroupIngress"
     DependsOn: "InstanceSecurityGroup"
