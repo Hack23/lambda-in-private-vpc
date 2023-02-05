@@ -3,7 +3,10 @@ on: [push]
 
 permissions:
   checks: write
-
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+env:
+  AWS_REGION : "eu-west-1"
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -26,6 +29,12 @@ jobs:
           output_format: sarif
           output_file_path: reports/results.sarif 
           download_external_modules: true
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::1234567890:role/example-role
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
