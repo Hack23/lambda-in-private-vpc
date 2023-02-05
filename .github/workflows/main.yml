@@ -21,8 +21,14 @@ jobs:
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
-          file: template.yml # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
-          framework: cloudformation # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
-          output_format: sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
-          output_file_path: reports/results.sarif # folder and name of results file
-          download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
+          file: template.yml
+          framework: cloudformation
+          output_format: sarif
+          output_file_path: reports/results.sarif 
+          download_external_modules: true
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: lambda-vpc
+          template: template.yml
+          #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
