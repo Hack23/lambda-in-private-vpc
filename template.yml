@@ -164,7 +164,7 @@ Resources:
     Properties:
       GroupDescription: "Security group to allow access to ec2 VPC Endpoint"
       SecurityGroupIngress:
-        - CidrIp: "10.1.0.0/16"
+        - GroupId: !Ref "LambdaSecurityGroup"
           IpProtocol: "tcp"
           FromPort: "443"
           ToPort: "443"
