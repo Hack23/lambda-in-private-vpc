@@ -189,6 +189,7 @@ Resources:
             - ".s3"
       VpcId:
         Ref: "VPC"
+      PrivateDnsEnabled: true        
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -214,6 +215,7 @@ Resources:
             - ".dynamodb"
       VpcId:
         Ref: "VPC"
+      PrivateDnsEnabled: true        
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
