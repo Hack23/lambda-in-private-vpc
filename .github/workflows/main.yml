@@ -16,6 +16,10 @@ jobs:
         uses: mikaelvesavuori/standardlint-action@v1.0.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - name: Testing with CFN Lint Command
+        uses: scottbrenner/cfn-lint-action@v2
+        with:
+          command: cfn-lint -t ./template.yml
       - name: Run cfn-nag
         uses: stelligent/cfn_nag@master
         with:
