@@ -100,7 +100,7 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: "aws/cloudwatch"
+      KmsKeyId: "alias/aws/cloudwatch"
       RetentionInDays: 30      
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
@@ -164,7 +164,7 @@ Resources:
     Properties:
       GroupDescription: "Security group to allow access to ec2 VPC Endpoint"
       SecurityGroupIngress:
-        - GroupId: !Ref "LambdaSecurityGroup"
+        - SourceSecurityGroupId: !Ref "LambdaSecurityGroup"
           IpProtocol: "tcp"
           FromPort: "443"
           ToPort: "443"
