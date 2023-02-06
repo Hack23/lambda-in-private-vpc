@@ -283,7 +283,7 @@ Resources:
       ReservedConcurrentExecutions: 1
       DeadLetterConfig:
         TargetArn: "targetArn"
-      PackageType: 
+      PackageType: "Zip"
       Role: !GetAtt LambdaFunctionRole.Arn
       Runtime: "nodejs18.x"
       Timeout: 30
