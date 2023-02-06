@@ -100,7 +100,7 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: alias/aws/cloudwatch
+      KmsKeyId: "alias/aws/cloudwatch"
       RetentionInDays: 30      
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
@@ -271,7 +271,7 @@ Resources:
       Subscription:
         - Endpoint: 'admin@hack23.com'
           Protocol: email
-      KmsMasterKeyId: alias/aws/sns      
+      KmsMasterKeyId: alias/aws/sns
   Lambda:
     Type: "AWS::Lambda::Function"
     Properties:
