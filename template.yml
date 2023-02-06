@@ -267,7 +267,6 @@ Resources:
       - "arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy"
   DeadLetterTopic:
     Type: AWS::SNS::Topic
-    DependsOn: Application
     Properties:
       Subscription:
         - Endpoint: 'admin@hack23.com'
@@ -290,7 +289,7 @@ Resources:
       MemorySize: 256
       ReservedConcurrentExecutions: 1
       DeadLetterConfig:
-        TargetArn: !GetAtt DeadLetterTopic.Arn
+        TargetArn: Ref DeadLetterTopic
       PackageType: "Zip"
       Role: !GetAtt LambdaFunctionRole.Arn
       Runtime: "nodejs18.x"
