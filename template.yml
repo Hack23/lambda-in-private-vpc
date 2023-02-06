@@ -242,7 +242,6 @@ Resources:
         Description: "Allow outbound https inside vpc"
   InstanceSecurityGroupIngress:
     Type: "AWS::EC2::SecurityGroupIngress"
-    DependsOn: "InstanceSecurityGroup"
     Properties:
       GroupId: !Ref "LambdaSecurityGroup"
       IpProtocol: "tcp"
