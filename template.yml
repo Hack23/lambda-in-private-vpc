@@ -100,7 +100,7 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: "alias/aws/cloudwatch"
+      KmsKeyId: alias/aws/sns
       RetentionInDays: 30      
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
