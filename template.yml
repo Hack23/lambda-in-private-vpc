@@ -100,7 +100,7 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: "alias/aws/cloudwatch"
+      KmsKeyId: alias/aws/cloudwatch
       RetentionInDays: 30      
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
@@ -265,6 +265,14 @@ Resources:
       ManagedPolicyArns:
       - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
       - "arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy"
+  DeadLetterTopic:
+    Type: AWS::SNS::Topic
+    DependsOn: Application
+    Properties:
+      Subscription:
+        - Endpoint: 'admin@hack23.com'
+          Protocol: email
+      KmsMasterKeyId: alias/aws/sns      
   Lambda:
     Type: "AWS::Lambda::Function"
     Properties:
@@ -282,7 +290,7 @@ Resources:
       MemorySize: 256
       ReservedConcurrentExecutions: 1
       DeadLetterConfig:
-        TargetArn: "targetArn"
+        TargetArn: !GetAtt DeadLetterTopic.Arn
       PackageType: "Zip"
       Role: !GetAtt LambdaFunctionRole.Arn
       Runtime: "nodejs18.x"
