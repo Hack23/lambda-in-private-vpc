@@ -220,9 +220,10 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
-            Principal: "todo add root"
+            Principal:
+              AWS: !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
             Action:
-              - "dynamodb:todo"
+              - "dynamodb:ListTables"
             Resource:
               - "todo"
       RouteTableIds:
