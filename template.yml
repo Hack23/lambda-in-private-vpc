@@ -100,8 +100,8 @@ Resources:
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: alias/aws/sns
-      RetentionInDays: 30      
+      KmsKeyId: "arn:aws:kms:us-east-1:172017021075:key/74d4491e-a441-404d-ac33-0c66fa1e1bed" #create kms key
+      RetentionInDays: 30
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
     Properties:
