@@ -220,7 +220,7 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
-            Principal: "todo"
+            Principal: "todo add root"
             Action:
               - "dynamodb:todo"
             Resource:
@@ -275,7 +275,7 @@ Resources:
             return "OK";
           }
       Description: "lambda"
-      FunctionName: 
+      FunctionName: audittest
       Handler: index.handler
       Architectures:
         - arm64      
