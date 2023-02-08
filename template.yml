@@ -97,10 +97,50 @@ Resources:
         Ref: "RouteTablePrivate3"
       SubnetId:
         Ref: "PrivateSubnet3"
+
+  EncryptionKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Key used for for stack
+      Enabled: true
+      EnableKeyRotation: true
+      KeyPolicy:
+        Statement:
+          - Sid: manage-key
+            Action:
+              - kms:Decrypt
+              - kms:Encrypt              
+              - kms:GenerateDataKey
+              - kms:ScheduleKeyDeletion
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Resource: '*'
+          - Sid: logs-access-policy-statement
+            Action:
+              - kms:GenerateDataKey
+              - kms:Encrypt
+            Effect: Allow
+            Principal:
+              Service: logs.amazonaws.com
+            Resource: '*'
+          - Sid: route53-access-policy-statement
+            Action:
+              - kms:GenerateDataKey
+              - kms:Encrypt
+            Effect: Allow
+            Principal:
+              Service: route53.amazonaws.com
+            Resource: '*'
+  ArtifactBucketEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/lambda-stack-encryption-key
+      TargetKeyId: !Ref 'EncryptionKey'
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: "arn:aws:kms:us-east-1:172017021075:key/74d4491e-a441-404d-ac33-0c66fa1e1bed" #create kms key
+      KmsKeyId: !Ref 'EncryptionKey'
       RetentionInDays: 30
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
