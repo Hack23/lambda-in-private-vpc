@@ -111,7 +111,7 @@ Resources:
               - kms:*
             Effect: Allow
             Principal:
-              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:role/GithubWorkFlowRole'
             Resource: '*'
           - Sid: logs-access-policy-statement
             Action:
