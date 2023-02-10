@@ -112,6 +112,12 @@ Resources:
               - kms:Encrypt              
               - kms:GenerateDataKey
               - kms:ScheduleKeyDeletion
+              - kms:PutKeyPolicy
+              - kms:UpdateKeyDescription
+              - kms:UpdateCustomKeyStore
+              - kms:TagResource
+              - kms:UntagResource
+              - kms:UpdateAlias
             Effect: Allow
             Principal:
               AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
