@@ -299,6 +299,7 @@ Resources:
           - sts:AssumeRole
       ManagedPolicyArns:
       - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      - "arn:aws:iam::aws:policy/AWSLambdaSQSQueueExecutionRole"
       - "arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy"
   DeadLetterTopic:
     Type: AWS::SNS::Topic
