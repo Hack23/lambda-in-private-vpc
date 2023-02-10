@@ -108,16 +108,7 @@ Resources:
         Statement:
           - Sid: manage-key
             Action:
-              - kms:Decrypt
-              - kms:Encrypt              
-              - kms:GenerateDataKey
-              - kms:ScheduleKeyDeletion
-              - kms:PutKeyPolicy
-              - kms:UpdateKeyDescription
-              - kms:UpdateCustomKeyStore
-              - kms:TagResource
-              - kms:UntagResource
-              - kms:UpdateAlias
+              - kms:*
             Effect: Allow
             Principal:
               AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
