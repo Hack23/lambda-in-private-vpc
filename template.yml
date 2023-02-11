@@ -136,7 +136,6 @@ Resources:
       TargetKeyId: Ref 'EncryptionKey'
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
-    DependsOn : "ArtifactBucketEncryptionKeyAlias"
     Properties:
       KmsKeyId: !GetAtt "EncryptionKey.Arn"
       RetentionInDays: 30
