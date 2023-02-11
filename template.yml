@@ -129,7 +129,7 @@ Resources:
             Principal:
               Service: route53.amazonaws.com
             Resource: '*'
-  ArtifactBucketEncryptionKeyAlias:
+  EncryptionKeyAlias:
     Type: AWS::KMS::Alias
     Properties:
       AliasName: "alias/lambdastackencryptionkey"
@@ -138,7 +138,7 @@ Resources:
     Type: "AWS::Logs::LogGroup"
     DependsOn : "ArtifactBucketEncryptionKeyAlias"
     Properties:
-      KmsKeyId: "alias/lambdastackencryptionkey"
+      KmsKeyId: !GetAtt "EncryptionKey.Arn"
       RetentionInDays: 30
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
