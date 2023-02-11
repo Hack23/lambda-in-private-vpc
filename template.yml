@@ -195,6 +195,10 @@ Resources:
       PrivateDnsEnabled: true
       SecurityGroupIds:
         - Ref: "SgForVPCEndpoint"
+      SubnetIds:
+        - !Ref "PrivateSubnet1"
+        - !Ref "PrivateSubnet2"
+        - !Ref "PrivateSubnet3"       
   SgForVPCEndpoint:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
