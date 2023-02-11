@@ -1,6 +1,26 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "lambda in vpc with vpc endpoints"
 Resources:
+  AppPolicy:
+    Type: AWS::ResilienceHub::ResiliencyPolicy
+    Properties:
+      DataLocationConstraint: AnyLocation
+      Policy:
+        Software:
+          RpoInSecs: 300
+          RtoInSecs: 14400
+        Hardware:
+          RpoInSecs: 300
+          RtoInSecs: 300
+        AZ:
+          RpoInSecs: 300
+          RtoInSecs: 300
+        Region:
+          RpoInSecs: 300
+          RtoInSecs: 900
+      PolicyDescription: "Global Mission Critical"
+      PolicyName: GlobalMissionCritical
+      Tier: MissionCritical
   VPC:
     Type: "AWS::EC2::VPC"
     Properties:
