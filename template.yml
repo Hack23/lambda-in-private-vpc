@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "lambda in vpc"
+Description: "lambda in vpc with vpc endpoints"
 Resources:
   VPC:
     Type: "AWS::EC2::VPC"
