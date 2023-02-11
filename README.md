@@ -17,3 +17,6 @@ Badges
 
 ![Infrastructure](https://github.com/Hack23/lambda-in-private-vpc/raw/main/template.png)
 
+![App recommendation](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec1.png)
+
+![App recommendation2](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec2.png)
