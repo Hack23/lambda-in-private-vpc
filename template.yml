@@ -302,6 +302,7 @@ Resources:
       - "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole"
       - "arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy"
       - "arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess"
+      - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
   DeadLetterTopic:
     Type: AWS::SNS::Topic
     Properties:
