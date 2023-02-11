@@ -97,7 +97,6 @@ Resources:
         Ref: "RouteTablePrivate3"
       SubnetId:
         Ref: "PrivateSubnet3"
-
   EncryptionKey:
     Type: AWS::KMS::Key
     Properties:
@@ -129,11 +128,6 @@ Resources:
             Principal:
               Service: route53.amazonaws.com
             Resource: '*'
-  EncryptionKeyAlias:
-    Type: AWS::KMS::Alias
-    Properties:
-      AliasName: "alias/lambdastackencryptionkey"
-      TargetKeyId: Ref 'EncryptionKey'
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
