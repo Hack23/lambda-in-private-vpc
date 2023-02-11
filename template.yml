@@ -105,17 +105,23 @@ Resources:
       EnableKeyRotation: true
       KeyPolicy:
         Statement:
-          - Sid: manage-key
+          - Sid: manage-key-stack
             Action:
               - kms:*
             Effect: Allow
             Principal:
               AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:role/GithubWorkFlowRole'
             Resource: '*'
+          - Sid: manage-key-root
+            Action:
+              - kms:*
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Resource: '*'
           - Sid: logs-access-policy-statement
             Action:
               - kms:*
-              - kms:Encrypt
             Effect: Allow
             Principal:
               Service: logs.amazonaws.com
@@ -123,7 +129,6 @@ Resources:
           - Sid: route53-access-policy-statement
             Action:
               - kms:*
-              - kms:Encrypt
             Effect: Allow
             Principal:
               Service: route53.amazonaws.com
