@@ -7,6 +7,9 @@ Resources:
       CidrBlock: "10.1.0.0/16"
       EnableDnsHostnames: true
       EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: "Lamba vpc"
   PrivateSubnet1:
     Type: "AWS::EC2::Subnet"
     Properties:
