@@ -202,6 +202,9 @@ Resources:
         - !Ref "PrivateSubnet1"
         - !Ref "PrivateSubnet2"
         - !Ref "PrivateSubnet3"       
+      Tags:
+        - Key: Name
+          Value: "Lamba vpc ec2 endpoint"
   SgForVPCEndpoint:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
@@ -245,6 +248,9 @@ Resources:
         - Ref: "RouteTablePrivate1"
         - Ref: "RouteTablePrivate2"
         - Ref: "RouteTablePrivate3"     
+      Tags:
+        - Key: Name
+          Value: "Lamba vpc s3 endpoint"
   VPCEndpointDynamoDb:
     Type: "AWS::EC2::VPCEndpoint"
     Properties:
@@ -271,6 +277,9 @@ Resources:
         - Ref: "RouteTablePrivate1"
         - Ref: "RouteTablePrivate2"
         - Ref: "RouteTablePrivate3"
+      Tags:
+        - Key: Name
+          Value: "Lamba vpc dynamo endpoint"
   LambdaSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
