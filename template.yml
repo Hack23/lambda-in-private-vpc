@@ -132,12 +132,12 @@ Resources:
   ArtifactBucketEncryptionKeyAlias:
     Type: AWS::KMS::Alias
     Properties:
-      AliasName: alias/lambda-stack-encryption-key
-      TargetKeyId: !Ref 'EncryptionKey'
+      AliasName: alias/lambdastackencryptionkey
+      TargetKeyId: Ref 'EncryptionKey'
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
-      KmsKeyId: !Ref 'EncryptionKey'
+      KmsKeyId: Ref 'EncryptionKey'
       RetentionInDays: 30
   Route53QueryLoggingConfig:
     Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
