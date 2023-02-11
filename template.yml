@@ -8,7 +8,7 @@ Resources:
       Policy:
         Software:
           RpoInSecs: 300
-          RtoInSecs: 14400
+          RtoInSecs: 3600
         Hardware:
           RpoInSecs: 300
           RtoInSecs: 300
