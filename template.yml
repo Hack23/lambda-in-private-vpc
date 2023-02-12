@@ -235,6 +235,38 @@ Resources:
           - "Id"
       ResourceId:
         Ref: "VPC"
+  DNSFIrewallDomainsList:
+    Type: AWS::Route53Resolver::FirewallDomainList
+    Properties: 
+      Domains: 
+        - '*.amazonaws.com'
+      Name: AwsDomains
+  DNSFIrewallAllDomainsList:
+    Type: AWS::Route53Resolver::FirewallDomainList
+    Properties: 
+      Domains: 
+        - '*'
+      Name: AllDomains
+  DNSFIrewallRuleGroup:
+    Type: AWS::Route53Resolver::FirewallRuleGroup
+    Properties:
+      FirewallRules:
+        -
+          Action: ALLOW
+          FirewallDomainListId: !Ref DNSFIrewallDomainsList
+          Priority: 1
+        -
+          Action: BLOCK
+          BlockResponse: NODATA
+          FirewallDomainListId: !Ref DNSFIrewallAllDomainsList
+          Priority: 2
+  DNSFIrewalluleGroupAssociation:
+    Type: AWS::Route53Resolver::FirewallRuleGroupAssociation
+    Properties: 
+      FirewallRuleGroupId: !Ref DNSFIrewallRuleGroup
+      Name: 'DNSFIrewallRuleGroupAssociation'
+      Priority: 101
+      VpcId: !Ref VPC
   FlowLogs:
     Type: "AWS::EC2::FlowLog"
     Properties:
