@@ -5,6 +5,14 @@ Parameters:
     Description: Provide Arn if global dynamodb table is deployed in different region
     Type: String
     Default: ''
+  DomainNamePrefix:
+    Description: Domain name prefix (optional), used to setup route53 dns
+    Type: String
+    Default: api
+  DomainName:
+    Description: Domain name (optional), used to setup route53 dns
+    Type: String
+    Default: hack23.com
 Conditions:
   deployGlobalTable: !Equals
     - ''
@@ -638,4 +646,47 @@ Resources:
               - execute-api:ManageConnections
             Resource:
               - !Join ['',[!Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:',!Ref RestApi, '*']]
+  RestApiDomainCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      CertificateTransparencyLoggingPreference: ENABLED
+      DomainName: !Join
+        - ''
+        - - !Ref 'DomainNamePrefix'
+          - .
+          - !Ref 'DomainName'
+          - ''
+      ValidationMethod: DNS
+  RestApiDomainName:
+    Type: 'AWS::ApiGateway::DomainName'
+    Properties:
+      CertificateArn: !Ref RestApiDomainCertificate
+      DomainName: !Join
+        - ''
+        - - !Ref 'DomainNamePrefix'
+          - .
+          - !Ref 'DomainName'
+          - ''
+  RestApiMapping:
+    Type: 'AWS::ApiGateway::BasePathMapping'
+    Properties:
+      BasePath: "v1"
+      DomainName: !Ref RestApiDomainName
+      RestApiId: !Ref RestApi
+HealthCheckRestApi: 
+  Type: 'AWS::Route53::HealthCheck'
+  Properties: 
+    HealthCheckConfig: 
+      Port: 443
+      Type: HTTPS
+      EnableSNI: True
+      ResourcePath: 'v1/healthcheck'
+      FullyQualifiedDomainName: !Join
+        - ''
+        - - !Ref 'DomainNamePrefix'
+          - .
+          - !Ref 'DomainName'
+          - ''
+      RequestInterval: 30
+      FailureThreshold: 5
 Metadata: {}
