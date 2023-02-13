@@ -39,10 +39,10 @@ jobs:
           role-to-assume: arn:aws:iam::172017021075:role/GithubWorkFlowRole
           role-session-name: githubworkflowrolesessiont2
           aws-region: ${{ env.AWS_REGION }}
-      - name: Deploy to AWS CloudFormation
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: lambda-vpc
-          template: template.yml
-          capabilities: CAPABILITY_NAMED_IAM
-          #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
+#      - name: Deploy to AWS CloudFormation
+#        uses: aws-actions/aws-cloudformation-github-deploy@v1
+#        with:
+#          name: lambda-vpc
+#          template: template.yml
+#          capabilities: CAPABILITY_NAMED_IAM
+#          #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"

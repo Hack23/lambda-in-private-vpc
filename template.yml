@@ -17,13 +17,13 @@ Resources:
       Policy:
         Software:
           RpoInSecs: 300
-          RtoInSecs: 3600
+          RtoInSecs: 1800
         Hardware:
-          RpoInSecs: 300
-          RtoInSecs: 300
+          RpoInSecs: 0
+          RtoInSecs: 0
         AZ:
-          RpoInSecs: 300
-          RtoInSecs: 300
+          RpoInSecs: 0
+          RtoInSecs: 0
         Region:
           RpoInSecs: 300
           RtoInSecs: 900
