@@ -20,3 +20,7 @@ Badges
 ![App recommendation](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec1.png)
 
 ![App recommendation2](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec2.png)
+
+
+https://aws.amazon.com/route53/application-recovery-controller/
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html
