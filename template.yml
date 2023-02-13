@@ -673,20 +673,20 @@ Resources:
       BasePath: "v1"
       DomainName: !Ref RestApiDomainName
       RestApiId: !Ref RestApi
-HealthCheckRestApi: 
-  Type: 'AWS::Route53::HealthCheck'
-  Properties: 
-    HealthCheckConfig: 
-      Port: 443
-      Type: HTTPS
-      EnableSNI: True
-      ResourcePath: 'v1/healthcheck'
-      FullyQualifiedDomainName: !Join
-        - ''
-        - - !Ref 'DomainNamePrefix'
-          - .
-          - !Ref 'DomainName'
+  HealthCheckRestApi: 
+    Type: 'AWS::Route53::HealthCheck'
+    Properties: 
+      HealthCheckConfig: 
+        Port: 443
+        Type: HTTPS
+        EnableSNI: True
+        ResourcePath: 'v1/healthcheck'
+        FullyQualifiedDomainName: !Join
           - ''
-      RequestInterval: 30
-      FailureThreshold: 5
+          - - !Ref 'DomainNamePrefix'
+            - .
+            - !Ref 'DomainName'
+            - ''
+        RequestInterval: 30
+        FailureThreshold: 5
 Metadata: {}
