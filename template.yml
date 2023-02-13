@@ -635,6 +635,4 @@ Resources:
               - execute-api:ManageConnections
             Resource:
               - !Join ['',[!Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:',!Ref RestApi, '*']]
-Parameters: {}
 Metadata: {}
-Conditions: {}
