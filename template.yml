@@ -1,5 +1,15 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "lambda in vpc with vpc endpoints"
+Parameters:
+  GlobalTableArn:
+    Description: Provide Arn if global dynamodb table is deployed in different region
+    Type: String
+    Default: ''
+Conditions:
+  deployGlobalTable: !Not
+    - !Equals
+      - !Ref 'GlobalTableArn'
+      - ''
 Resources:
   AppPolicy:
     Type: AWS::ResilienceHub::ResiliencyPolicy
@@ -467,6 +477,7 @@ Resources:
           - !Ref "PrivateSubnet3"
   GlobalTable:
     Type: AWS::DynamoDB::GlobalTable
+    Condition: deployGlobalTable
     Properties:
       TableName: global-table
       BillingMode: PAY_PER_REQUEST
