@@ -517,12 +517,27 @@ Resources:
           }
       },
       "required": ["name", "date", "location"] }
-
   ApiLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
       KmsKeyId: !GetAtt "EncryptionKey.Arn"
       RetentionInDays: 30
+  CloudWatchRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Action: 'sts:AssumeRole'
+          Effect: Allow
+          Principal:
+            Service: apigateway.amazonaws.com
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs'
+  ApiCloudwatchRoleArn:
+    Type: AWS::ApiGateway::Account
+    Properties: 
+      CloudWatchRoleArn: !GetAtt CloudWatchRole.Arn
   ApiStage:
     Type: AWS::ApiGateway::Stage
     Properties:
