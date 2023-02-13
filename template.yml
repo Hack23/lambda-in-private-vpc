@@ -484,8 +484,12 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
       Replicas:
-        - Region: eu-west-1
-        - Region: eu-central-1
+        - PointInTimeRecoverySpecification:
+            PointInTimeRecoveryEnabled: true
+          Region: eu-west-1
+        - PointInTimeRecoverySpecification:
+            PointInTimeRecoveryEnabled: true
+          Region: eu-central-1
       AttributeDefinitions:
         - AttributeName: primary_key
           AttributeType: S
