@@ -1,0 +1,63 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Resources" : {
+    "appcommonalarmsyntheticcanaryxregion20210401euwest2AlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/app-common-alarm-synthetic-canary-x-region-2021-04-01_eu-west-2",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubSyntheticCanaryXRegionAlarm20210401euwest2Alarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubSyntheticCanaryXRegionAlarm20210401euwest2Alarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "A fallback monitor setup in an independent region to provide alerts in case of a whole region failure. It is triggered when synthetic canary SuccessPercent drops below 100%'\n",
+        "AlarmName" : "AWSResilienceHub-SyntheticCanaryXRegionAlarm-2021-04-01_apigateway_eu-west-2",
+        "ComparisonOperator" : "LessThanThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 5,
+        "Dimensions" : [ {
+          "Name" : "CanaryName",
+          "Value" : {
+            "Ref" : "CanaryName"
+          }
+        } ],
+        "MetricName" : "SuccessPercent",
+        "Namespace" : "CloudWatchSynthetics",
+        "Period" : 60,
+        "Statistic" : "Average",
+        "Threshold" : 100,
+        "TreatMissingData" : "missing",
+        "Unit" : "Percent"
+      }
+    },
+    "appcommonalarmsyntheticcanaryxregion20210401euwest2AlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/app-common-alarm-synthetic-canary-x-region-2021-04-01_eu-west-2",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubSyntheticCanaryXRegionAlarm20210401euwest2Alarm}\",\"referenceId\":\"app_common:alarm:synthetic_canary_x_region:2021-04-01\",\"resourceId\":\"eu-west-2\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    }
+  },
+  "Parameters" : {
+    "SNSTopicARN" : {
+      "Type" : "String",
+      "Description" : "The ARN of the SNS topic to which alarm status changes are to be sent. This must be in the same region being deployed.",
+      "AllowedPattern" : "^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):sns:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]):[0-9]{12}:[A-Za-z0-9/][A-Za-z0-9:_/+=,@.-]{1,256}$"
+    },
+    "CanaryName" : {
+      "Type" : "String"
+    }
+  }
+}

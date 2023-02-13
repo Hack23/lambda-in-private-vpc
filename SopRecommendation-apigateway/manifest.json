@@ -1,0 +1,72 @@
+{
+  "appArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:app/4cbe4024-b6a0-47e1-be41-2a6b48481afb",
+  "appName" : "apigateway",
+  "appAssessmentArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:app-assessment/0622fdfc-8a67-44bb-a196-ab44ea3c3598",
+  "appAssessmentName" : "assessment-report-16763",
+  "recommendationTemplateArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:recommendation-template/642b50ba-bb99-4aca-82b8-19e94c5e6833",
+  "recommendationTemplateName" : "SopRecommendation-apigateway",
+  "recommendationTypes" : [ "Sop" ],
+  "startTime" : "2023-02-13T21:04:11.841Z",
+  "format" : "CfnJson",
+  "recommendations" : [ {
+    "id" : "9f65b47f-2b9e-48ad-9d9f-ab8bb58292b0",
+    "name" : "AWSResilienceHub-ChangeLambdaExecutionTimeLimitSOP_2020-10-26",
+    "type" : "Sop",
+    "referenceId" : "lambda:sop:change_execution_time_limit:2020-10-26",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "ad0fc35f-611d-4de0-8fd3-926dbe4df7a2",
+    "name" : "AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01",
+    "type" : "Sop",
+    "referenceId" : "dynamodb:sop:restore_to_point_in_time:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "0e694ec6-3181-463f-8873-04dbc0280af3",
+    "name" : "AWSResilienceHub-SwitchLambdaVersionInAliasSOP_2020-10-26",
+    "type" : "Sop",
+    "referenceId" : "lambda:sop:switch_lambda_version_in_alias:2020-10-26",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "0b8f9688-fd09-43d1-8770-029693d10b04",
+    "name" : "AWSResilienceHub-ChangeLambdaConcurrencyLimitSOP_2020-10-26",
+    "type" : "Sop",
+    "referenceId" : "lambda:sop:change_concurrency_limit:2020-10-26",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "65c6c1dc-21b7-45d1-ab5d-bb772817793f",
+    "name" : "AWSResilienceHub-ChangeLambdaMemorySizeSOP_2020-10-26",
+    "type" : "Sop",
+    "referenceId" : "lambda:sop:change_memory_size:2020-10-26",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "be282026-a8a7-48fa-bbfe-5667f0e7f744",
+    "name" : "AWSResilienceHub-ChangeLambdaProvisionedConcurrencySOP_2020-10-26",
+    "type" : "Sop",
+    "referenceId" : "lambda:sop:change_provisioned_concurrency:2020-10-26",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  } ]
+}

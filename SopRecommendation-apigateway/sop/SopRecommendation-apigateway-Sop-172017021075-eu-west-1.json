@@ -1,0 +1,316 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Resources" : {
+    "lambdasopswitchlambdaversioninalias20201026arnawslambdaeuwest1172017021075functionaudittestSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-sop-switch-lambda-version-in-alias-2020-10-26_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-SwitchLambdaVersionInAliasSOP_2020-10-26\",\"referenceId\":\"lambda:sop:switch_lambda_version_in_alias:2020-10-26\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"description\":\"Switch Alias of Lambda functions to another version\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbsoprestoretopointintime20200401globaltableSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-sop-restore-to-point-in-time-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01\",\"referenceId\":\"dynamodb:sop:restore_to_point_in_time:2020-04-01\",\"resourceId\":\"global-table\",\"description\":\"Used to restore Dynamodb to a specific point in time.\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "lambda:GetFunction", "lambda:UpdateFunctionConfiguration", "lambda:UpdateAlias" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole"
+        } ]
+      }
+    },
+    "lambdasopchangeexecutiontimelimit20201026arnawslambdaeuwest1172017021075functionaudittestSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-sop-change-execution-time-limit-2020-10-26_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-ChangeLambdaExecutionTimeLimitSOP_2020-10-26\",\"referenceId\":\"lambda:sop:change_execution_time_limit:2020-10-26\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"description\":\"Change execution time limit\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "lambda:PutProvisionedConcurrencyConfig", "lambda:GetProvisionedConcurrencyConfig" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole"
+        } ]
+      }
+    },
+    "AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubChangeLambdaMemorySizeSOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubChangeLambdaMemorySizeSOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "lambda:GetFunction", "lambda:UpdateFunctionConfiguration" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole"
+        } ]
+      }
+    },
+    "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "lambda:UpdateFunctionConfiguration" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole"
+        } ]
+      }
+    },
+    "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "dynamodb:RestoreTableToPointInTime", "dynamodb:DescribeTable", "dynamodb:Scan", "dynamodb:Query", "dynamodb:UpdateItem", "dynamodb:PutItem", "dynamodb:GetItem", "dynamodb:DeleteItem", "dynamodb:BatchWriteItem", "dynamodb:UpdateTable", "dynamodb:DescribeKinesisStreamingDestination", "dynamodb:EnableKinesisStreamingDestination", "dynamodb:DescribeTimeToLive", "dynamodb:UpdateTimeToLive", "dynamodb:ListTagsOfResource", "dynamodb:TagResource", "dynamodb:DescribeContributorInsights", "dynamodb:UpdateContributorInsights", "application-autoscaling:DescribeScalableTargets", "application-autoscaling:RegisterScalableTarget", "cloudwatch:DescribeAlarms", "cloudwatch:PutMetricAlarm", "dynamodb:CreateTableReplica", "dynamodb:CreateTable", "dynamodb:DescribeContinuousBackups", "dynamodb:UpdateContinuousBackups", "ssm:GetAutomationExecution", "ssm:StartAutomationExecution", "kinesis:PutRecord", "kinesis:PutRecords", "kinesis:DescribeStream" ]
+          }, {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "iam:PassRole" ],
+            "Condition" : {
+              "StringEquals" : {
+                "iam:PassedToService" : "application-autoscaling.amazonaws.com"
+              }
+            }
+          }, {
+            "Effect" : "Allow",
+            "Resource" : [ {
+              "Fn::GetAtt" : "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole.Arn"
+            } ],
+            "Action" : [ "iam:PassRole" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole"
+        } ]
+      }
+    },
+    "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole" : {
+      "Type" : "AWS::IAM::Role",
+      "Properties" : {
+        "AssumeRolePolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Principal" : {
+              "Service" : [ "ssm.amazonaws.com" ]
+            },
+            "Action" : [ "sts:AssumeRole" ]
+          } ]
+        }
+      }
+    },
+    "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumePolicy" : {
+      "Type" : "AWS::IAM::Policy",
+      "Properties" : {
+        "PolicyName" : "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumePolicy",
+        "PolicyDocument" : {
+          "Version" : "2012-10-17",
+          "Statement" : [ {
+            "Effect" : "Allow",
+            "Resource" : "*",
+            "Action" : [ "lambda:PutFunctionConcurrency", "logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogGroups", "logs:DescribeLogStreams" ]
+          } ]
+        },
+        "Roles" : [ {
+          "Ref" : "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole"
+        } ]
+      }
+    },
+    "lambdasopchangememorysize20201026arnawslambdaeuwest1172017021075functionaudittestSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-sop-change-memory-size-2020-10-26_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-ChangeLambdaMemorySizeSOP_2020-10-26\",\"referenceId\":\"lambda:sop:change_memory_size:2020-10-26\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"description\":\"Change Memory size\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdasopchangeconcurrencylimit20201026arnawslambdaeuwest1172017021075functionaudittestSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-sop-change-concurrency-limit-2020-10-26_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-ChangeLambdaConcurrencyLimitSOP_2020-10-26\",\"referenceId\":\"lambda:sop:change_concurrency_limit:2020-10-26\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"description\":\"Test Lambda behavior when hitting ReservedConcurrentExecutions value\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdasopchangeprovisionedconcurrency20201026arnawslambdaeuwest1172017021075functionaudittestSopInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Sop/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-sop-change-provisioned-concurrency-2020-10-26_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"documentName\":\"AWSResilienceHub-ChangeLambdaProvisionedConcurrencySOP_2020-10-26\",\"referenceId\":\"lambda:sop:change_provisioned_concurrency:2020-10-26\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"description\":\"Change Provisioned Concurrency\"}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    }
+  },
+  "Outputs" : {
+    "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-SwitchLambdaVersionInAliasSOP_2020-10-26 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : "AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole.Arn"
+      }
+    },
+    "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-ChangeLambdaProvisionedConcurrencySOP_2020-10-26 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : "AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole.Arn"
+      }
+    },
+    "AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-ChangeLambdaMemorySizeSOP_2020-10-26 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : "AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole.Arn"
+      }
+    },
+    "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-ChangeLambdaExecutionTimeLimitSOP_2020-10-26 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : "AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole.Arn"
+      }
+    },
+    "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : [ "AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole", "Arn" ]
+      }
+    },
+    "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole" : {
+      "Description" : "AWSResilienceHub-ChangeLambdaConcurrencyLimitSOP_2020-10-26 Automation Assume Role ARN",
+      "Value" : {
+        "Fn::GetAtt" : "AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole.Arn"
+      }
+    }
+  }
+}

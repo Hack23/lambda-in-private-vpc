@@ -1,0 +1,282 @@
+{
+  "appArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:app/4cbe4024-b6a0-47e1-be41-2a6b48481afb",
+  "appName" : "apigateway",
+  "appAssessmentArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:app-assessment/0622fdfc-8a67-44bb-a196-ab44ea3c3598",
+  "appAssessmentName" : "assessment-report-16763",
+  "recommendationTemplateArn" : "arn:aws:resiliencehub:eu-west-1:172017021075:recommendation-template/7903f679-6e4c-429f-b791-5b3d424fedd2",
+  "recommendationTemplateName" : "AlarmRecommendation-apigateway",
+  "recommendationTypes" : [ "Alarm" ],
+  "startTime" : "2023-02-13T21:03:54.668Z",
+  "format" : "CfnJson",
+  "recommendations" : [ {
+    "id" : "5ebc1a3b-c0af-4773-b33a-0f2261c41964",
+    "name" : "AWSResilienceHub-RestApiGwErrorCountAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "api-gw:alarm:health-count_error:2020-04-01",
+    "items" : [ {
+      "resourceId" : "zhkuxajjsi",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "83f8f10f-156e-4529-b3d4-413a03bf32bd",
+    "name" : "AWSResilienceHub-LambdaAnomalousMemorySoftLimitAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-memory_soft_limit:2020-04-01",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "6eb0b6fd-2f5c-4c24-aacd-7228be3d4943",
+    "name" : "AWSResilienceHub-DynamoDBPendingReplicationCountAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:recovery-pending_replication_count:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "36337016-7f61-4cdb-9690-17c423632b38",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_transact_get_items:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "9645bd8f-e419-4dc3-a6f1-8930f44960d5",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchGetItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_batch_get_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "9c50f4c8-1cc0-4b19-8881-11305779cae4",
+    "name" : "AWSResilienceHub-DynamoDBWriteThrottleEventsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health_write_throttle_events:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "422c7f43-d117-456d-a92c-2598d90812f0",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyDeleteItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_delete_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "5d941614-f9fc-4fbc-a8b0-98f4c973eb9c",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyUpdateItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_update_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "d978ad5e-0c33-4af6-af54-6494cd22f3ec",
+    "name" : "AWSResilienceHub-SyntheticCanaryInRegionAlarm_2021-04-01",
+    "type" : "Alarm",
+    "referenceId" : "app_common:alarm:synthetic_canary:2021-04-01",
+    "items" : [ {
+      "resourceId" : "eu-west-1",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "242ab361-277f-4912-ac1d-303c37f0a1e9",
+    "name" : "AWSResilienceHub-DynamoDBConditionalCheckFailedRequestsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health_conditional_check_failed_requests:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "4d31bb66-e863-49cd-bafe-587f34ca068d",
+    "name" : "AWSResilienceHub-LambdaErrorsAlarm_2020-07-13",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-errors:2020-07-13",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "f4744791-ba68-44f1-8d94-40b1a2074f25",
+    "name" : "AWSResilienceHub-RestApiGw4xxErrorsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "api-gw:alarm:health-4xx_error:2020-04-01",
+    "items" : [ {
+      "resourceId" : "zhkuxajjsi",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "3322b0f5-6c63-4c8d-804b-b80d378859ad",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyGetItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_get_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "8d1b108f-9003-444e-a852-4ae105858de1",
+    "name" : "AWSResilienceHub-SyntheticCanaryXRegionAlarm_2021-04-01",
+    "type" : "Alarm",
+    "referenceId" : "app_common:alarm:synthetic_canary_x_region:2021-04-01",
+    "items" : [ {
+      "resourceId" : "eu-west-2",
+      "account" : "172017021075",
+      "region" : "eu-west-2"
+    } ]
+  }, {
+    "id" : "41938b54-61b1-44e5-819f-f143b8dfb34b",
+    "name" : "AWSResilienceHub-DynamoDBReadThrottleEventsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health_read_throttle_events:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "723af02e-fd7d-42e9-aa25-feb24a3421ef",
+    "name" : "AWSResilienceHub-RestApiGwLatencyAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "api-gw:alarm:health-latency:2020-04-01",
+    "items" : [ {
+      "resourceId" : "zhkuxajjsi",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "7b7fda61-22c5-4343-bf7e-4f9b8f84e8ec",
+    "name" : "AWSResilienceHub-DynamoDBReplicationLatencyAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:recovery-replication_latency:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "884ff75e-a651-4919-8437-062134c0ecb9",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyPutItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_put_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "7cae9dfe-5b8d-424c-a690-5377a749dfc6",
+    "name" : "AWSResilienceHub-LambdaAnomalousDurationCountAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-duration:2020-04-01",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "05f6cdcd-8777-4bc3-ab3f-eb8190e3dee5",
+    "name" : "AWSResilienceHub-LambdaAnomalousInvocationCountAlarm_2020-07-13",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-invocations:2020-07-13",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "1efe88d8-6e0a-4be2-9751-ed8f273c9393",
+    "name" : "AWSResilienceHub-RestApiGw5xxErrorsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "api-gw:alarm:health-5xx_error:2020-04-01",
+    "items" : [ {
+      "resourceId" : "zhkuxajjsi",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "722d723d-defc-4818-b168-43070412a298",
+    "name" : "AWSResilienceHub-LambdaAnomalousMemoryDeviationsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-memory_deviation:2020-04-01",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "c6061c0d-87ae-4706-967f-ef495cff2d8f",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_batch_write_item:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "06ebc057-0003-4994-ab52-638031651a56",
+    "name" : "AWSResilienceHub-LambdaThrottlesAlarm_2020-07-13",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-throttles:2020-07-13",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "7129bcd9-b6c2-4b9b-baff-8c2fb7e33be9",
+    "name" : "AWSResilienceHub-SNSNumberOfNotificationsFailedAlarm_2022-04-04",
+    "type" : "Alarm",
+    "referenceId" : "sns:alarm:number-of-notifications-failed:2022-04-04",
+    "items" : [ {
+      "resourceId" : "arn:aws:sns:eu-west-1:172017021075:lambda-vpc-DeadLetterTopic-N9updhYF6ukA",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "3e8afe18-2ec3-416c-a057-09419225c2cf",
+    "name" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "dynamodb:alarm:health-successful_request_latency_transact_write_items:2020-04-01",
+    "items" : [ {
+      "resourceId" : "global-table",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  }, {
+    "id" : "469f39ad-f121-486a-baf3-76c1add717a7",
+    "name" : "AWSResilienceHub-LambdaConcurrentExecutionsAlarm_2020-04-01",
+    "type" : "Alarm",
+    "referenceId" : "lambda:alarm:health-concurrent_executions:2020-04-01",
+    "items" : [ {
+      "resourceId" : "arn:aws:lambda:eu-west-1:172017021075:function:audittest",
+      "account" : "172017021075",
+      "region" : "eu-west-1"
+    } ]
+  } ]
+}

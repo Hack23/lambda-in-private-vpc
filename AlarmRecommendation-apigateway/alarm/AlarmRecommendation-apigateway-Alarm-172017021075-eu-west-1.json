@@ -1,0 +1,1286 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Parameters" : {
+    "SNSTopicARN" : {
+      "Type" : "String",
+      "Description" : "The ARN of the SNS topic to which alarm status changes are to be sent. This must be in the same region being deployed.",
+      "AllowedPattern" : "^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):sns:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]):[0-9]{12}:[A-Za-z0-9/][A-Za-z0-9:_/+=,@.-]{1,256}$"
+    },
+    "CanaryName" : {
+      "Description" : "The name of a CloudWatch Synthetics canary indicating the overall health status of the application.",
+      "Type" : "String"
+    }
+  },
+  "Resources" : {
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to BatchWriteItem operation, is equal to or greater than the specified 1000.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "BatchWriteItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p70",
+        "Threshold" : 1000,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "lambdaalarmhealthmemorydeviation20200401arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-memory-deviation-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaAnomalousMemoryDeviationsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-memory_deviation:2020-04-01\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to TransactWriteItems operation, is equal to or greater than the specified 1000.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "TransactWriteItems"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p70",
+        "Threshold" : 1000,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "dynamodbalarmhealthwritethrottleevents20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-write-throttle-events-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBWriteThrottleEventsAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthreadthrottleevents20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-read-throttle-events-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBReadThrottleEventsAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaAnomalousMemoryDeviationsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when average memory growth is anomalous with deviation 5",
+        "AlarmName" : "AWSResilienceHub-LambdaAnomalousMemoryDeviationsAlarm-2020-04-01_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "LessThanLowerOrGreaterThanUpperThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Metrics" : [ {
+          "Expression" : "ANOMALY_DETECTION_BAND(m1,5)",
+          "Id" : "ad1"
+        }, {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "memory_utilization",
+              "Namespace" : "LambdaInsights",
+              "Dimensions" : [ {
+                "Name" : "function_name",
+                "Value" : "audittest"
+              } ]
+            },
+            "Period" : 180,
+            "Stat" : "Average"
+          }
+        } ],
+        "ThresholdMetricId" : "ad1",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencybatchgetitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-batch-get-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchGetItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "apigwalarmhealthcounterror20200401zhkuxajjsiAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-count-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubRestApiGwErrorCountAlarm20200401zhkuxajjsiAlarm}\",\"referenceId\":\"api-gw:alarm:health-count_error:2020-04-01\",\"resourceId\":\"zhkuxajjsi\",\"relatedSOPs\":[\"api-gw:sop:update_version_rest:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthduration20200401arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-duration-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaAnomalousDurationCountAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthinvocations20200713arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-invocations-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaAnomalousInvocationCountAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-invocations:2020-07-13\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmrecoveryreplicationlatency20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-recovery-replication-latency-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBReplicationLatencyAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:recovery-replication_latency:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[\"dynamodb:sop:update_provisioned_capacity:2020-04-01\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "apigwalarmhealth5xxerror20200401zhkuxajjsiAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-5xx-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubRestApiGw5xxErrorsAlarm20200401zhkuxajjsiAlarm}\",\"referenceId\":\"api-gw:alarm:health-5xx_error:2020-04-01\",\"resourceId\":\"zhkuxajjsi\",\"relatedSOPs\":[\"api-gw:sop:update_version_rest:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubSNSNumberOfNotificationsFailedAlarm20220404arnawssnseuwest1172017021075lambdavpcDeadLetterTopicN9updhYF6ukAAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmName" : "AWSResilienceHub-SNSNumberOfNotificationsFailedAlarm-2022-04-04_apigateway_arn-aws-sns-eu-west-1-172017021075-lambda-vpc-DeadLetterTopic-N9updhYF6ukA",
+        "AlarmDescription" : "Alarm by AWS ResilienceHub that alerts when there are notifications failures",
+        "MetricName" : "NumberOfNotificationsFailed",
+        "Namespace" : "AWS/SNS",
+        "Dimensions" : [ {
+          "Name" : "TopicName",
+          "Value" : "lambda-vpc-DeadLetterTopic-N9updhYF6ukA"
+        } ],
+        "Period" : 60,
+        "Statistic" : "Sum",
+        "Threshold" : 1,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+        "TreatMissingData" : "notBreaching"
+      }
+    },
+    "apigwalarmhealth4xxerror20200401zhkuxajjsiAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-4xx-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubRestApiGw4xxErrorsAlarm20200401zhkuxajjsiAlarm}\",\"referenceId\":\"api-gw:alarm:health-4xx_error:2020-04-01\",\"resourceId\":\"zhkuxajjsi\",\"relatedSOPs\":[\"api-gw:sop:update_version_rest:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencyputitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-put-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyPutItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthconcurrentexecutions20200401arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-concurrent-executions-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaConcurrentExecutionsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthinvocations20200713arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-invocations-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaAnomalousInvocationCountAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "apigwalarmhealth4xxerror20200401zhkuxajjsiAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-4xx-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubRestApiGw4xxErrorsAlarm20200401zhkuxajjsiAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "snsalarmnumberofnotificationsfailed20220404arnawssnseuwest1172017021075lambdavpcDeadLetterTopicN9updhYF6ukAAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/sns-alarm-number-of-notifications-failed-2022-04-04_arn-aws-sns-eu-west-1-172017021075-lambda-vpc-DeadLetterTopic-N9updhYF6ukA",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubSNSNumberOfNotificationsFailedAlarm20220404arnawssnseuwest1172017021075lambdavpcDeadLetterTopicN9updhYF6ukAAlarm}\",\"referenceId\":\"sns:alarm:number-of-notifications-failed:2022-04-04\",\"resourceId\":\"arn:aws:sns:eu-west-1:172017021075:lambda-vpc-DeadLetterTopic-N9updhYF6ukA\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealththrottles20200713arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-throttles-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaThrottlesAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-throttles:2020-07-13\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[\"lambda:sop:change_concurrency_limit:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "apigwalarmhealth5xxerror20200401zhkuxajjsiAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-5xx-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubRestApiGw5xxErrorsAlarm20200401zhkuxajjsiAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBPendingReplicationCountAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBPendingReplicationCountAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that per table",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "PendingReplicationCount",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "ReceivingRegion",
+          "Value" : "eu-central-1"
+        } ],
+        "Period" : 60,
+        "Statistic" : "Sum",
+        "Threshold" : 100,
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "notBreaching"
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencybatchwriteitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-batch-write-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencytransactgetitems20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-transact-get-items-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaAnomalousMemorySoftLimitAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when memory limit is exceeded with 2000",
+        "AlarmName" : "AWSResilienceHub-LambdaAnomalousMemorySoftLimitAlarm-2020-04-01_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "Dimensions" : [ {
+          "Name" : "function_name",
+          "Value" : "audittest"
+        } ],
+        "MetricName" : "used_memory_max",
+        "Namespace" : "LambdaInsights",
+        "Period" : 180,
+        "Statistic" : "Maximum",
+        "Threshold" : 2000,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "apigwalarmhealthcounterror20200401zhkuxajjsiAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-count-error-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubRestApiGwErrorCountAlarm20200401zhkuxajjsiAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBConditionalCheckFailedRequestsAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when amount of conditional check failed requests is greater than or equal to threshold 1",
+        "AlarmName" : "AWSResilienceHub-DynamoDBConditionalCheckFailedRequestsAlarm-2020-04-01_apigateway_global-table",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "ConditionalCheckFailedRequests",
+        "Namespace" : "AWS/DynamoDB",
+        "Statistic" : "Sum",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        } ],
+        "Period" : 60,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "Threshold" : 1,
+        "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+        "TreatMissingData" : "notBreaching",
+        "Unit" : "Count"
+      }
+    },
+    "AWSResilienceHubSyntheticCanaryInRegionAlarm20210401euwest1Alarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that is triggered when synthetic canary SuccessPercent drops below 100%",
+        "AlarmName" : "AWSResilienceHub-SyntheticCanaryInRegionAlarm-2021-04-01_apigateway_eu-west-1",
+        "ComparisonOperator" : "LessThanThreshold",
+        "EvaluationPeriods" : 3,
+        "DatapointsToAlarm" : 2,
+        "Dimensions" : [ {
+          "Name" : "CanaryName",
+          "Value" : {
+            "Ref" : "CanaryName"
+          }
+        } ],
+        "MetricName" : "SuccessPercent",
+        "Namespace" : "CloudWatchSynthetics",
+        "Period" : 60,
+        "Statistic" : "Average",
+        "Threshold" : 100,
+        "TreatMissingData" : "missing",
+        "Unit" : "Percent"
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencybatchwriteitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-batch-write-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_batch_write_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencyupdateitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-update-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyUpdateItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthreadthrottleevents20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-read-throttle-events-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBReadThrottleEventsAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health_read_throttle_events:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[\"dynamodb:sop:update_provisioned_capacity:2020-04-01\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencyupdateitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-update-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyUpdateItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_update_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubRestApiGw4xxErrorsAlarm20200401zhkuxajjsiAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that tracks the percentage of 4xx responses received from REST API Gateway. Remember that some services may expect a certain percent of legitimate 4xx responses",
+        "AlarmName" : "AWSResilienceHub-RestApiGw4xxErrorsAlarm-2020-04-01_apigateway_zhkuxajjsi",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Metrics" : [ {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "4XXError",
+              "Namespace" : "AWS/ApiGateway",
+              "Dimensions" : [ {
+                "Name" : "ApiName",
+                "Value" : "ApiName"
+              } ]
+            },
+            "Period" : 60,
+            "Stat" : "Average"
+          },
+          "ReturnData" : false
+        }, {
+          "Expression" : "100 * m1",
+          "Id" : "percent4xx",
+          "Label" : "Percent 4xx"
+        } ],
+        "Threshold" : 20,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubDynamoDBReadThrottleEventsAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when amount of read throttle events is greater than 1",
+        "AlarmName" : "AWSResilienceHub-DynamoDBReadThrottleEventsAlarm-2020-04-01_apigateway_global-table",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "ReadThrottleEvents",
+        "Namespace" : "AWS/DynamoDB",
+        "Statistic" : "Sum",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        } ],
+        "Period" : 60,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "Threshold" : 1,
+        "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+        "TreatMissingData" : "notBreaching",
+        "Unit" : "Count"
+      }
+    },
+    "dynamodbalarmhealthconditionalcheckfailedrequests20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-conditional-check-failed-requests-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBConditionalCheckFailedRequestsAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencygetitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-get-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyGetItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealtherrors20200713arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-errors-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaErrorsAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthmemorysoftlimit20200401arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-memory-soft-limit-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaAnomalousMemorySoftLimitAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-memory_soft_limit:2020-04-01\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmrecoverypendingreplicationcount20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-recovery-pending-replication-count-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBPendingReplicationCountAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyUpdateItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyUpdateItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to UpdateItem operation, is equal to or greater than the specified 100",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "UpdateItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p90",
+        "Threshold" : 100,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubRestApiGwErrorCountAlarm20200401zhkuxajjsiAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that tracks REST API Gateway invocation anomalies",
+        "AlarmName" : "AWSResilienceHub-RestApiGwErrorCountAlarm-2020-04-01_apigateway_zhkuxajjsi",
+        "ComparisonOperator" : "LessThanLowerOrGreaterThanUpperThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "TreatMissingData" : "missing",
+        "Metrics" : [ {
+          "Expression" : "ANOMALY_DETECTION_BAND(m1,5)",
+          "Id" : "ad1"
+        }, {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "Count",
+              "Namespace" : "AWS/ApiGateway",
+              "Dimensions" : [ {
+                "Name" : "ApiName",
+                "Value" : "ApiName"
+              } ]
+            },
+            "Period" : 60,
+            "Stat" : "SampleCount"
+          }
+        } ],
+        "ThresholdMetricId" : "ad1"
+      }
+    },
+    "dynamodbalarmrecoverypendingreplicationcount20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-recovery-pending-replication-count-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBPendingReplicationCountAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:recovery-pending_replication_count:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[\"dynamodb:sop:update_provisioned_capacity:2020-04-01\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyPutItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyPutItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to PutItem operation, is equal to or greater than the specified 100.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "PutItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p90",
+        "Threshold" : 100,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencytransactwriteitems20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-transact-write-items-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaAnomalousDurationCountAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when duration is anomalous with band width 5",
+        "AlarmName" : "AWSResilienceHub-LambdaAnomalousDurationCountAlarm-2020-04-01_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "LessThanLowerOrGreaterThanUpperThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Metrics" : [ {
+          "Expression" : "ANOMALY_DETECTION_BAND(m1,5)",
+          "Id" : "ad1"
+        }, {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "Duration",
+              "Namespace" : "AWS/Lambda",
+              "Dimensions" : [ {
+                "Name" : "FunctionName",
+                "Value" : "audittest"
+              } ]
+            },
+            "Period" : 180,
+            "Stat" : "Average"
+          }
+        } ],
+        "ThresholdMetricId" : "ad1",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "apigwalarmhealthlatency20200401zhkuxajjsiAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-latency-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubRestApiGwLatencyAlarm20200401zhkuxajjsiAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyGetItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyGetItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to GetItem operation, is equal to or greater than the specified 100.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "GetItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p90",
+        "Threshold" : 100,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubRestApiGw5xxErrorsAlarm20200401zhkuxajjsiAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that tracks the percentage of 5xx responses received from REST API Gateway. Triggers when the 5xx are over 10 percent",
+        "AlarmName" : "AWSResilienceHub-RestApiGw5xxErrorsAlarm-2020-04-01_apigateway_zhkuxajjsi",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Metrics" : [ {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "5XXError",
+              "Namespace" : "AWS/ApiGateway",
+              "Dimensions" : [ {
+                "Name" : "ApiName",
+                "Value" : "ApiName"
+              } ]
+            },
+            "Period" : 60,
+            "Stat" : "Average"
+          },
+          "ReturnData" : false
+        }, {
+          "Expression" : "100 * m1",
+          "Id" : "percent5xx",
+          "Label" : "Percent 5xx"
+        } ],
+        "Threshold" : 10,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencytransactgetitems20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-transact-get-items-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_transact_get_items:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencybatchgetitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-batch-get-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchGetItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_batch_get_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealtherrors20200713arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-errors-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaErrorsAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-errors:2020-07-13\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[\"lambda:sop:switch_lambda_version_in_alias:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthconcurrentexecutions20200401arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-concurrent-executions-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaConcurrentExecutionsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-concurrent_executions:2020-04-01\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "lambdaalarmhealthmemorydeviation20200401arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-memory-deviation-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaAnomalousMemoryDeviationsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthwritethrottleevents20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-write-throttle-events-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBWriteThrottleEventsAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health_write_throttle_events:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[\"dynamodb:sop:update_provisioned_capacity:2020-04-01\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencytransactwriteitems20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-transact-write-items-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_transact_write_items:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to TransactGetItems operation, is equal to or greater than the specified 1000.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "TransactGetItems"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p70",
+        "Threshold" : 1000,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "snsalarmnumberofnotificationsfailed20220404arnawssnseuwest1172017021075lambdavpcDeadLetterTopicN9updhYF6ukAAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/sns-alarm-number-of-notifications-failed-2022-04-04_arn-aws-sns-eu-west-1-172017021075-lambda-vpc-DeadLetterTopic-N9updhYF6ukA",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubSNSNumberOfNotificationsFailedAlarm20220404arnawssnseuwest1172017021075lambdavpcDeadLetterTopicN9updhYF6ukAAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubRestApiGwLatencyAlarm20200401zhkuxajjsiAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that tracks abnormal response time from REST API Gateway",
+        "AlarmName" : "AWSResilienceHub-RestApiGwLatencyAlarm-2020-04-01_apigateway_zhkuxajjsi",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Dimensions" : [ {
+          "Name" : "ApiName",
+          "Value" : "ApiName"
+        } ],
+        "MetricName" : "Latency",
+        "Namespace" : "AWS/ApiGateway",
+        "ExtendedStatistic" : "p90",
+        "Period" : 60,
+        "Threshold" : 2000,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyDeleteItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyDeleteItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to DeleteItem operation, is equal to or greater than the specified 100.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "DeleteItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p90",
+        "Threshold" : 100,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubDynamoDBWriteThrottleEventsAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when write throttle events is greater than 1",
+        "AlarmName" : "AWSResilienceHub-DynamoDBWriteThrottleEventsAlarm-2020-04-01_apigateway_global-table",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "WriteThrottleEvents",
+        "Namespace" : "AWS/DynamoDB",
+        "Statistic" : "Sum",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        } ],
+        "Period" : 60,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "Threshold" : 1,
+        "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+        "TreatMissingData" : "notBreaching",
+        "Unit" : "Count"
+      }
+    },
+    "lambdaalarmhealthduration20200401arnawslambdaeuwest1172017021075functionaudittestAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-duration-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubLambdaAnomalousDurationCountAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}\",\"referenceId\":\"lambda:alarm:health-duration:2020-04-01\",\"resourceId\":\"arn:aws:lambda:eu-west-1:172017021075:function:audittest\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencydeleteitem20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-delete-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBSuccessfulRequestLatencyDeleteItemAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencygetitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-get-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyGetItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_get_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBReplicationLatencyAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBReplicationLatencyAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when replication from one replica table to another takes too much time",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "ReplicationLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "ReceivingRegion",
+          "Value" : "eu-central-1"
+        } ],
+        "Period" : 60,
+        "Statistic" : "Maximum",
+        "Threshold" : 10,
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubLambdaThrottlesAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when sustained throttles occur",
+        "AlarmName" : "AWSResilienceHub-LambdaThrottlesAlarm-2020-07-13_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 3,
+        "DatapointsToAlarm" : 3,
+        "Dimensions" : [ {
+          "Name" : "FunctionName",
+          "Value" : "audittest"
+        } ],
+        "MetricName" : "Throttles",
+        "Namespace" : "AWS/Lambda",
+        "Period" : 60,
+        "Statistic" : "Maximum",
+        "Threshold" : 0,
+        "TreatMissingData" : "breaching"
+      }
+    },
+    "lambdaalarmhealthmemorysoftlimit20200401arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-memory-soft-limit-2020-04-01_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaAnomalousMemorySoftLimitAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubDynamoDBSuccessfulRequestLatencyBatchGetItemAlarm20200401globaltableAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmName" : "AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchGetItemAlarm-2020-04-01_apigateway_global-table",
+        "AlarmDescription" : "Alarm by AWS Resilience Hub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to BatchGetItem operation, is equal to or greater than the specified 1000.",
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "MetricName" : "SuccessfulRequestLatency",
+        "Namespace" : "AWS/DynamoDB",
+        "Dimensions" : [ {
+          "Name" : "TableName",
+          "Value" : "global-table"
+        }, {
+          "Name" : "Operation",
+          "Value" : "BatchGetItem"
+        } ],
+        "Period" : 60,
+        "ExtendedStatistic" : "p70",
+        "Threshold" : 1000,
+        "EvaluationPeriods" : 1,
+        "DatapointsToAlarm" : 1,
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "AWSResilienceHubLambdaAnomalousInvocationCountAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when invocation count is anomalous with band width 2",
+        "AlarmName" : "AWSResilienceHub-LambdaAnomalousInvocationCountAlarm-2020-07-13_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "LessThanLowerOrGreaterThanUpperThreshold",
+        "DatapointsToAlarm" : 3,
+        "EvaluationPeriods" : 3,
+        "Metrics" : [ {
+          "Expression" : "ANOMALY_DETECTION_BAND(m1,2)",
+          "Id" : "ad1"
+        }, {
+          "Id" : "m1",
+          "MetricStat" : {
+            "Metric" : {
+              "MetricName" : "Invocations",
+              "Namespace" : "AWS/Lambda",
+              "Dimensions" : [ {
+                "Name" : "FunctionName",
+                "Value" : "audittest"
+              } ]
+            },
+            "Period" : 300,
+            "Stat" : "Sum"
+          }
+        } ],
+        "ThresholdMetricId" : "ad1",
+        "TreatMissingData" : "missing"
+      }
+    },
+    "appcommonalarmsyntheticcanary20210401euwest1AlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/app-common-alarm-synthetic-canary-2021-04-01_eu-west-1",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubSyntheticCanaryInRegionAlarm20210401euwest1Alarm}\",\"referenceId\":\"app_common:alarm:synthetic_canary:2021-04-01\",\"resourceId\":\"eu-west-1\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencydeleteitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-delete-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyDeleteItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_delete_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "appcommonalarmsyntheticcanary20210401euwest1AlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/app-common-alarm-synthetic-canary-2021-04-01_eu-west-1",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubSyntheticCanaryInRegionAlarm20210401euwest1Alarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "apigwalarmhealthlatency20200401zhkuxajjsiAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/api-gw-alarm-health-latency-2020-04-01_zhkuxajjsi",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubRestApiGwLatencyAlarm20200401zhkuxajjsiAlarm}\",\"referenceId\":\"api-gw:alarm:health-latency:2020-04-01\",\"resourceId\":\"zhkuxajjsi\",\"relatedSOPs\":[\"api-gw:sop:update_version_rest:2020-10-26\"]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaConcurrentExecutionsAlarm20200401arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports concurrent execution status",
+        "AlarmName" : "AWSResilienceHub-LambdaConcurrentExecutionsAlarm-2020-04-01_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 5,
+        "DatapointsToAlarm" : 3,
+        "Dimensions" : [ {
+          "Name" : "FunctionName",
+          "Value" : "audittest"
+        } ],
+        "MetricName" : "ConcurrentExecutions",
+        "Namespace" : "AWS/Lambda",
+        "Period" : 60,
+        "Statistic" : "Average",
+        "Threshold" : 1,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "lambdaalarmhealththrottles20200713arnawslambdaeuwest1172017021075functionaudittestAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/lambda-alarm-health-throttles-2020-07-13_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubLambdaThrottlesAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "AWSResilienceHubLambdaErrorsAlarm20200713arnawslambdaeuwest1172017021075functionaudittestAlarm" : {
+      "Type" : "AWS::CloudWatch::Alarm",
+      "Properties" : {
+        "AlarmActions" : [ {
+          "Ref" : "SNSTopicARN"
+        } ],
+        "AlarmDescription" : "Alarm by AWS Resilience Hub that reports when sustained errors occur",
+        "AlarmName" : "AWSResilienceHub-LambdaErrorsAlarm-2020-07-13_apigateway_arn-aws-lambda-eu-west-1-172017021075-function-audittest",
+        "ComparisonOperator" : "GreaterThanThreshold",
+        "EvaluationPeriods" : 3,
+        "DatapointsToAlarm" : 3,
+        "Dimensions" : [ {
+          "Name" : "FunctionName",
+          "Value" : "audittest"
+        } ],
+        "MetricName" : "Errors",
+        "Namespace" : "AWS/Lambda",
+        "Period" : 60,
+        "Statistic" : "Maximum",
+        "Threshold" : 0,
+        "TreatMissingData" : "missing"
+      }
+    },
+    "dynamodbalarmrecoveryreplicationlatency20200401globaltableAlarmSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-recovery-replication-latency-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "${AWSResilienceHubDynamoDBReplicationLatencyAlarm20200401globaltableAlarm}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthsuccessfulrequestlatencyputitem20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-successful-request-latency-put-item-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBSuccessfulRequestLatencyPutItemAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health-successful_request_latency_put_item:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    },
+    "dynamodbalarmhealthconditionalcheckfailedrequests20200401globaltableAlarmInfoSSMParameter" : {
+      "Type" : "AWS::SSM::Parameter",
+      "Properties" : {
+        "Name" : "/ResilienceHub/Info/Alarm/4cbe4024-b6a0-47e1-be41-2a6b48481afb/dynamodb-alarm-health-conditional-check-failed-requests-2020-04-01_global-table",
+        "Type" : "String",
+        "Value" : {
+          "Fn::Sub" : "{\"alarmName\":\"${AWSResilienceHubDynamoDBConditionalCheckFailedRequestsAlarm20200401globaltableAlarm}\",\"referenceId\":\"dynamodb:alarm:health_conditional_check_failed_requests:2020-04-01\",\"resourceId\":\"global-table\",\"relatedSOPs\":[]}"
+        },
+        "Description" : "SSM Parameter for identifying installed resources."
+      }
+    }
+  }
+}
