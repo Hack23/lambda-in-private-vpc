@@ -6,10 +6,9 @@ Parameters:
     Type: String
     Default: ''
 Conditions:
-  deployGlobalTable: !Not
-    - !Equals
-      - !Ref 'GlobalTableArn'
-      - ''
+  deployGlobalTable: !Equals
+    - ''
+    - !Ref 'GlobalTableArn'
 Resources:
   AppPolicy:
     Type: AWS::ResilienceHub::ResiliencyPolicy
