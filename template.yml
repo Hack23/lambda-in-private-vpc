@@ -465,6 +465,22 @@ Resources:
           - !Ref "PrivateSubnet1"
           - !Ref "PrivateSubnet2"
           - !Ref "PrivateSubnet3"
+  GlobalTable:
+    Type: AWS::DynamoDB::GlobalTable
+    Properties:
+      TableName: global-table
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      Replicas:
+        - Region: eu-west-1
+        - Region: eu-central-1
+      AttributeDefinitions:
+        - AttributeName: primary_key
+          AttributeType: S
+      KeySchema:
+        - AttributeName: primary_key
+          KeyType: HASH
   RestApi:
     Type: AWS::ApiGateway::RestApi
     Properties:
