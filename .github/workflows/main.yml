@@ -44,4 +44,5 @@ jobs:
         with:
           name: lambda-vpc
           template: template.yml
+          capabilities: CAPABILITY_NAMED_IAM
           #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
