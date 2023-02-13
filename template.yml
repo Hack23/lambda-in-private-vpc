@@ -435,7 +435,7 @@ Resources:
       Code:
         ZipFile: |
           exports.handler = async (event) => {
-            console.info("EVENT\n" + JSON.stringify(event, null, 2));
+            console.info("EVENT" + JSON.stringify(event, null, 2));
             return "OK";
           }
       Description: "lambda"
@@ -458,6 +458,120 @@ Resources:
           - !Ref "PrivateSubnet1"
           - !Ref "PrivateSubnet2"
           - !Ref "PrivateSubnet3"
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      ApiKeySourceType: HEADER
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Name: ApiName
+  ApiResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt RestApi.RootResourceId
+      PathPart: "test"
+      RestApiId: !Ref RestApi
+  PostMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      ApiKeyRequired: false
+      AuthorizationType: AWS_IAM
+      HttpMethod: POST
+      Integration:
+        ConnectionType: INTERNET
+        Credentials: !GetAtt ApiRole.Arn
+        IntegrationHttpMethod: POST
+        IntegrationResponses:
+          - StatusCode: 200
+        PassthroughBehavior: WHEN_NO_MATCH
+        TimeoutInMillis: 29000
+        Type: AWS
+        Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
+      RequestValidatorId: !Ref ApiRequestValidator
+      RequestModels:
+        application/json:
+          !Ref RequestModel
+      MethodResponses:
+        - StatusCode: 200
+      OperationName: 'lambda'
+      ResourceId: !Ref ApiResource
+      RestApiId: !Ref RestApi
+  RequestModel:
+    Type: AWS::ApiGateway::Model
+    Properties:
+      ContentType: 'application/json'
+      RestApiId: !Ref RestApi
+      Schema: {"$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Stats",
+      "type": "object",
+      "properties": {
+          "name": {
+              "type": "string"
+          },
+          "location": {
+              "type": "string"
+          },
+          "date": {
+              "type": "string"
+          }
+      },
+      "required": ["name", "date", "location"] }
+  ApiStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref ApiDeployment
+      Description: "API Stage v1"
+      RestApiId: !Ref RestApi
+      StageName: "v1"   
+  ApiRequestValidator:
+    Type: AWS::ApiGateway::RequestValidator
+    Properties:
+      Name: !Ref ValidatorName
+      RestApiId: !Ref RestApi
+      ValidateRequestBody: True
+      ValidateRequestParameters: False
+  ApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: PostMethod
+    Properties:
+      RestApiId: !Ref RestApi
+  ApiRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: ''
+            Effect: 'Allow'
+            Principal:
+              Service:
+                - 'apigateway.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: "ApiRolePolicy"
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 'lambda:*'
+                Resource: !GetAtt Lambda.Arn
+  ApiUserPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Allows user to trigger the test API
+      ManagedPolicyName: "ApiUserPolicy"
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - execute-api:Invoke
+              - execute-api:ManageConnections
+            Resource:
+              - !Join ['',[!Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:',!Ref RestApi, '*']]
 Parameters: {}
 Metadata: {}
 Conditions: {}
