@@ -216,6 +216,13 @@ Resources:
             Principal:
               Service: route53.amazonaws.com
             Resource: '*'
+          - Sid: api-access-policy-statement
+            Action:
+              - kms:*
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+            Resource: '*'
   Route53QueryLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
@@ -532,6 +539,7 @@ Resources:
           Effect: Allow
           Principal:
             Service: apigateway.amazonaws.com
+      Path: /
       ManagedPolicyArns:
         - 'arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs'
   ApiCloudwatchRoleArn:
@@ -546,6 +554,7 @@ Resources:
       RestApiId: !Ref RestApi
       StageName: "v1"
       CacheClusterEnabled: True
+      CacheClusterSize: "0.5"
       TracingEnabled: True
       AccessLogSetting:
         DestinationArn:
