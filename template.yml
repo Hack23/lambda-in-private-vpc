@@ -527,7 +527,7 @@ Resources:
   ApiRequestValidator:
     Type: AWS::ApiGateway::RequestValidator
     Properties:
-      Name: !Ref ValidatorName
+      Name: "RequestValidator"
       RestApiId: !Ref RestApi
       ValidateRequestBody: True
       ValidateRequestParameters: False
