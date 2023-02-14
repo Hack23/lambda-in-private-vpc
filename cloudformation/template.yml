@@ -662,6 +662,9 @@ Resources:
     Properties:
       RegionalCertificateArn: !Ref RestApiDomainCertificate
       SecurityPolicy: "TLS_1_2"
+      EndpointConfiguration:
+        Types: 
+          - "REGIONAL"
       DomainName: !Join
         - ''
         - - !Ref 'DomainNamePrefix'
