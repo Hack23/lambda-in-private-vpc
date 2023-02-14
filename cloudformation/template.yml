@@ -660,7 +660,8 @@ Resources:
   RestApiDomainName:
     Type: 'AWS::ApiGateway::DomainName'
     Properties:
-      CertificateArn: !Ref RestApiDomainCertificate
+      RegionalCertificateArn: !Ref RestApiDomainCertificate
+      SecurityPolicy: "TLS_1_2"
       DomainName: !Join
         - ''
         - - !Ref 'DomainNamePrefix'
