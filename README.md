@@ -68,3 +68,8 @@ Multi region active/active is more resilient to regional failures and dynamodb g
 
 
 ![Region](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResHub-region.png)
+
+
+https://aws.amazon.com/premiumsupport/technology/pes/
+
+
