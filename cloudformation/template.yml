@@ -656,13 +656,6 @@ Resources:
           - .
           - !Ref 'DomainName'
           - ''
-      SubjectAlternativeNames:
-        - !Join
-          - ''
-          - - !Ref 'DomainNamePrefix'
-            - .
-            - !Ref 'DomainName'
-            - ''
       ValidationMethod: DNS
   RestApiDomainName:
     Type: 'AWS::ApiGateway::DomainName'
