@@ -690,3 +690,13 @@ Resources:
         RequestInterval: 30
         FailureThreshold: 5
 Metadata: {}
+Outputs:
+  ApiEndpoint:
+    Value: !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/"
+  ApiEndpointDomain:
+    Value: !Join
+      - ''
+      - - !Ref 'DomainNamePrefix'
+        - .
+        - !Ref 'DomainName'
+        - ''
