@@ -19,16 +19,16 @@ jobs:
       - name: Testing with CFN Lint Command
         uses: scottbrenner/cfn-lint-action@v2
         with:
-          command: cfn-lint -t ./template.yml
+          command: cfn-lint -t cloudformation/template.yml
       - name: Run cfn-nag
         uses: stelligent/cfn_nag@master
         with:
-          input_path: .
+          input_path: cloudformation
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
-          file: template.yml
+          file: cloudformation/template.yml
           framework: cloudformation
           output_format: sarif
           output_file_path: reports/results.sarif 
@@ -43,6 +43,6 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: lambda-vpc
-          template: template.yml
+          template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
           #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
