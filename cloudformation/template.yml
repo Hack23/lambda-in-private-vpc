@@ -671,6 +671,31 @@ Resources:
           - .
           - !Ref 'DomainName'
           - ''
+  DNSRecordCNAMERestApiDomain:
+    Type: AWS::Route53::RecordSet
+    Condition: useDomainName
+    DependsOn: ApiStage
+    Properties:
+      HostedZoneName: !Join
+        - ''
+        - - !Ref 'DomainName'
+          - .
+      Comment: !Join
+        - ''
+        - - !Ref 'DomainNamePrefix'
+          - .
+          - !Ref 'DomainName'
+          - .
+      Name: !Join
+        - ''
+        - - !Ref 'DomainNamePrefix'
+          - .
+          - !Ref 'DomainName'
+          - .
+      Type: 'A'
+      TTL: '300'
+      ResourceRecords:
+        - !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/"
   RestApiMapping:
     Type: 'AWS::ApiGateway::BasePathMapping'
     Properties:
