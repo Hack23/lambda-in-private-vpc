@@ -673,7 +673,6 @@ Resources:
           - ''
   DNSRecordCNAMERestApiDomain:
     Type: AWS::Route53::RecordSet
-    Condition: useDomainName
     DependsOn: ApiStage
     Properties:
       HostedZoneName: !Join
