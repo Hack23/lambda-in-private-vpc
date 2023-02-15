@@ -518,7 +518,7 @@ Resources:
       ParentId: !GetAtt RestApi.RootResourceId
       PathPart: "healthcheck"
       RestApiId: !Ref RestApi
-  PostMethod:
+  HealthCheckMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       ApiKeyRequired: false
@@ -594,7 +594,7 @@ Resources:
       ValidateRequestParameters: False
   ApiDeployment:
     Type: AWS::ApiGateway::Deployment
-    DependsOn: PostMethod
+    DependsOn: HealthCheckMethod
     Properties:
       RestApiId: !Ref RestApi
   ApiRole:
