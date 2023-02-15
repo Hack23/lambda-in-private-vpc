@@ -671,34 +671,34 @@ Resources:
           - .
           - !Ref 'DomainName'
           - ''
-DeliveryApiRoute53RecordSetGroup:
-  Type: AWS::Route53::RecordSetGroup
-  Properties:
-    HostedZoneName:  !Join
-      - ''
-      - - !Ref 'DomainName'
-        - .
-    RecordSets:
-      - Name: !Join
-          - ''
-          - - !Ref 'DomainNamePrefix'
-            - .
-            - !Ref 'DomainName'
-            - .
-        Type: A
-        AliasTarget:
-          HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
-          DNSName: !GetAtt RestApiDomainName.DistributionDomainName
-      - Name: !Join
-          - ''
-          - - !Ref 'DomainNamePrefix'
-            - .
-            - !Ref 'DomainName'
-            - .
-        Type: AAAA
-        AliasTarget:
-          HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
-          DNSName: !GetAtt RestApiDomainName.DistributionDomainName
+  DeliveryApiRoute53RecordSetGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName:  !Join
+        - ''
+        - - !Ref 'DomainName'
+          - .
+      RecordSets:
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
+            DNSName: !GetAtt RestApiDomainName.DistributionDomainName
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
+            DNSName: !GetAtt RestApiDomainName.DistributionDomainName
   DNSRecordCNAMERestApiDomain:
     Type: AWS::Route53::RecordSet
     DependsOn: ApiStage
