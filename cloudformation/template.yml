@@ -483,6 +483,40 @@ Resources:
           - !Ref "PrivateSubnet1"
           - !Ref "PrivateSubnet2"
           - !Ref "PrivateSubnet3"
+  LambdaDynamo:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          let region = process.env.AWS_REGION;
+          AWS.config.update({region: region});
+          const dynamodbClient = new AWS.DynamoDB.DocumentClient();
+          exports.handler =  async function(event, context) {
+            const audit = { "RequestId": context.awsRequestId , "Action": "Write", "Actor": "Api", statusCode: 200}
+            console.info("EVENT : " + JSON.stringify(audit, null, 2));
+            return "OK";
+          }
+      Description: "crud"
+      FunctionName: database
+      Handler: index.handler
+      Architectures:
+        - arm64
+      MemorySize: 256
+      ReservedConcurrentExecutions: 1
+      DeadLetterConfig:
+        TargetArn: !Ref "DeadLetterTopic"
+      PackageType: "Zip"
+      Role: !GetAtt LambdaFunctionRole.Arn
+      Runtime: "nodejs18.x"
+      Timeout: 30
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref "LambdaSecurityGroup"
+        SubnetIds:
+          - !Ref "PrivateSubnet1"
+          - !Ref "PrivateSubnet2"
+          - !Ref "PrivateSubnet3"
   GlobalTable:
     Type: AWS::DynamoDB::GlobalTable
     Condition: deployGlobalTable
