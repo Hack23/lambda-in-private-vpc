@@ -689,7 +689,7 @@ Resources:
           Type: A
           AliasTarget:
             HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
-            DNSName: !GetAtt RestApiDomainName.DistributionDomainName
+            DNSName: !GetAtt RestApiDomainName.RegionalDomainName
         - Name: !Join
             - ''
             - - !Ref 'DomainNamePrefix'
@@ -699,7 +699,7 @@ Resources:
           Type: AAAA
           AliasTarget:
             HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
-            DNSName: !GetAtt RestApiDomainName.DistributionDomainName
+            DNSName: !GetAtt RestApiDomainName.RegionalDomainName
 #  DNSRecordCNAMERestApiDomain:
 #    Type: AWS::Route53::RecordSet
 #    DependsOn: ApiStage
