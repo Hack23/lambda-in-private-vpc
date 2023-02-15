@@ -604,9 +604,7 @@ Resources:
     DependsOn: HealthCheckMethod
     Properties:
       RestApiId: !Ref RestApi
-      DeploymentCanarySettings:
-        PercentTraffic: 25.0
-        UseStageCache: False
+      StageName: !Ref ApiStage
   ApiRole:
     Type: AWS::IAM::Role
     Properties:
