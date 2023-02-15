@@ -723,19 +723,14 @@ Resources:
         Port: 443
         Type: HTTPS
         EnableSNI: True
-        ResourcePath: 'v1/healthcheck'
-        FullyQualifiedDomainName: !Join
-          - ''
-          - - !Ref 'DomainNamePrefix'
-            - .
-            - !Ref 'DomainName'
-            - ''
-        RequestInterval: 30
-        FailureThreshold: 5
+        ResourcePath: !Sub "${ApiStage}/healthcheck"
+        FullyQualifiedDomainName: !Sub "${RestApi}.execute-api.${AWS::Region}.amazonaws.com"
+        RequestInterval: 10
+        FailureThreshold: 3
 Metadata: {}
 Outputs:
   ApiEndpoint:
-    Value: !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/"
+    Value: !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/healthcheck"
   ApiEndpointDomain:
     Value: !Join
       - ''
