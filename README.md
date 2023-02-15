@@ -7,6 +7,8 @@ Zero trust example
 
 Api gateway with schema request validation and cross region replicated dynamodb. Route53 geolocation  dns setup.
 
+https://api.hack23.com/v1/healthcheck
+
 Badges
 [![license](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)]([https://github.com/Hack23/lambda-in-private-vpc](https://github.com/Hack23/lambda-in-private-vpc)/raw/master/LICENSE.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc)
