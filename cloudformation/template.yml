@@ -527,11 +527,9 @@ Resources:
       Integration:
         ConnectionType: INTERNET
         Credentials: !GetAtt ApiRole.Arn
-        IntegrationHttpMethod: GET
+        IntegrationHttpMethod: POST
         IntegrationResponses:
           - StatusCode: 200
-        PassthroughBehavior: WHEN_NO_MATCH
-        TimeoutInMillis: 29000
         Type: AWS
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
       RequestValidatorId: !Ref ApiRequestValidator
@@ -550,19 +548,7 @@ Resources:
       RestApiId: !Ref RestApi
       Schema: {"$schema": "http://json-schema.org/draft-04/schema#",
       "title": "Stats",
-      "type": "object",
-      "properties": {
-          "name": {
-              "type": "string"
-          },
-          "location": {
-              "type": "string"
-          },
-          "date": {
-              "type": "string"
-          }
-      },
-      "required": ["name", "date", "location"] }
+      "type": "object" }
   ApiLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
