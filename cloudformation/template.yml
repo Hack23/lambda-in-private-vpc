@@ -532,7 +532,7 @@ Resources:
           - StatusCode: 200
         Type: AWS
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
-      RequestValidatorId: !Ref ApiRequestValidator
+#      RequestValidatorId: !Ref ApiRequestValidator
       RequestModels:
         application/json:
           !Ref RequestModel
