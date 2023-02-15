@@ -718,8 +718,10 @@ Resources:
         FailureThreshold: 3
 Metadata: {}
 Outputs:
-  ApiEndpoint:
-    Value: !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/healthcheck"
+  GlobalTableArn:
+    Value: !GetAtt "GlobalTable.Arn"
+  HealthCheckUrl:
+    Value: !Sub "https://${DomainNamePrefix}.${DomainName}/${ApiStage}/healthcheck"
   ApiEndpointDomain:
     Value: !Join
       - ''
