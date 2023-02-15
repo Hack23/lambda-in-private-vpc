@@ -721,7 +721,7 @@ Outputs:
 #  GlobalTableArn:
 #    Value: !GetAtt "GlobalTable.Arn"
   ApiStageArn:
-    Value: !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/{RestApi}/stages/${ApiStage}'
+    Value: !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/${RestApi}/stages/${ApiStage}'
   HealthCheckUrl:
     Value: !Sub "https://${DomainNamePrefix}.${DomainName}/${ApiStage}/healthcheck"
   ApiEndpointDomain:
