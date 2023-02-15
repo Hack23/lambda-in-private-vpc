@@ -718,8 +718,8 @@ Resources:
         FailureThreshold: 3
 Metadata: {}
 Outputs:
-  GlobalTableArn:
-    Value: !GetAtt "GlobalTable.Arn"
+#  GlobalTableArn:
+#    Value: !GetAtt "GlobalTable.Arn"
   HealthCheckUrl:
     Value: !Sub "https://${DomainNamePrefix}.${DomainName}/${ApiStage}/healthcheck"
   ApiEndpointDomain:
