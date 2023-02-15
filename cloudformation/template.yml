@@ -584,7 +584,7 @@ Resources:
       TracingEnabled: True
       MethodSettings:
         - HttpMethod: GET
-          ResourcePath: "/"
+          ResourcePath: "/*"
           CachingEnabled: True
           CacheTtlInSeconds: 60
           DataTraceEnabled: True
