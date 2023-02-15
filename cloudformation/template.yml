@@ -604,7 +604,6 @@ Resources:
     DependsOn: HealthCheckMethod
     Properties:
       RestApiId: !Ref RestApi
-      StageName: !Ref ApiStage
   ApiRole:
     Type: AWS::IAM::Role
     Properties:
