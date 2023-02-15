@@ -583,8 +583,8 @@ Resources:
       CacheClusterSize: "0.5"
       TracingEnabled: True
       MethodSettings:
-        - HttpMethod: GET
-          ResourcePath: "/*"
+        - HttpMethod: "*"
+          ResourcePath: "*/"
           CachingEnabled: True
           CacheTtlInSeconds: 60
           DataTraceEnabled: True
