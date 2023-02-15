@@ -458,8 +458,9 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-          exports.handler = async (event) => {
-            console.info("EVENT" + JSON.stringify(event, null, 2));
+          exports.handler =  async function(event, context) {
+            const audit = { "RequestId": context.awsRequestId , "Action": "Healthcheck", "Actor": "Api", statusCode: 200}
+            console.info("EVENT : " + JSON.stringify(audit, null, 2));
             return "OK";
           }
       Description: "lambda"
