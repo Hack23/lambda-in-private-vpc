@@ -688,7 +688,7 @@ Resources:
               - .
           Type: A
           AliasTarget:
-            HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
+            HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
             DNSName: !GetAtt RestApiDomainName.DistributionDomainName
         - Name: !Join
             - ''
@@ -698,32 +698,32 @@ Resources:
               - .
           Type: AAAA
           AliasTarget:
-            HostedZoneId: !GetAtt RestApiDomainName.DistributionHostedZoneId
+            HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
             DNSName: !GetAtt RestApiDomainName.DistributionDomainName
-  DNSRecordCNAMERestApiDomain:
-    Type: AWS::Route53::RecordSet
-    DependsOn: ApiStage
-    Properties:
-      HostedZoneName: !Join
-        - ''
-        - - !Ref 'DomainName'
-          - .
-      Comment: !Join
-        - ''
-        - - !Ref 'DomainNamePrefix'
-          - .
-          - !Ref 'DomainName'
-          - .
-      Name: !Join
-        - ''
-        - - !Ref 'DomainNamePrefix'
-          - .
-          - !Ref 'DomainName'
-          - .
-      Type: 'A'
-      TTL: '300'
-      ResourceRecords:
-        - !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/"
+#  DNSRecordCNAMERestApiDomain:
+#    Type: AWS::Route53::RecordSet
+#    DependsOn: ApiStage
+#    Properties:
+#      HostedZoneName: !Join
+#        - ''
+#        - - !Ref 'DomainName'
+#          - .
+#      Comment: !Join
+#        - ''
+#        - - !Ref 'DomainNamePrefix'
+#          - .
+#          - !Ref 'DomainName'
+#          - .
+#      Name: !Join
+#        - ''
+#        - - !Ref 'DomainNamePrefix'
+#          - .
+#          - !Ref 'DomainName'
+#          - .
+#      Type: 'A'
+#      TTL: '300'
+#      ResourceRecords:
+#        - !Sub "https://${RestApi}.execute-api.${AWS::Region}.amazonaws.com/${ApiStage}/"
   RestApiMapping:
     Type: 'AWS::ApiGateway::BasePathMapping'
     Properties:
