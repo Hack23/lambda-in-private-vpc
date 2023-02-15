@@ -583,12 +583,12 @@ Resources:
       CacheClusterSize: "0.5"
       TracingEnabled: True
       MethodSettings:
-      - HttpMethod: GET
-        ResourcePath: "/"
-        CachingEnabled: true
-        CacheTtlInSeconds: 60
-        DataTraceEnabled: true
-        MetricsEnabled: true
+        - HttpMethod: GET
+          ResourcePath: "/*"
+          CachingEnabled: true
+          CacheTtlInSeconds: 60
+          DataTraceEnabled: true
+          MetricsEnabled: true
       AccessLogSetting:
         DestinationArn:
           !GetAtt "ApiLoggingGroup.Arn"
