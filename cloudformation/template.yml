@@ -508,6 +508,7 @@ Resources:
     Type: AWS::ApiGateway::RestApi
     Properties:
       ApiKeySourceType: HEADER
+      DisableExecuteApiEndpoint: True
       EndpointConfiguration:
         Types:
           - REGIONAL
