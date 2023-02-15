@@ -522,12 +522,12 @@ Resources:
     Type: AWS::ApiGateway::Method
     Properties:
       ApiKeyRequired: false
-      AuthorizationType: AWS_IAM
-      HttpMethod: POST
+      AuthorizationType: NONE
+      HttpMethod: GET
       Integration:
         ConnectionType: INTERNET
         Credentials: !GetAtt ApiRole.Arn
-        IntegrationHttpMethod: POST
+        IntegrationHttpMethod: GET
         IntegrationResponses:
           - StatusCode: 200
         PassthroughBehavior: WHEN_NO_MATCH
