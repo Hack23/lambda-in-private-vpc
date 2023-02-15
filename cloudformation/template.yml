@@ -584,11 +584,12 @@ Resources:
       TracingEnabled: True
       MethodSettings:
         - HttpMethod: GET
-          ResourcePath: "/*"
-          CachingEnabled: true
+          ResourcePath: "/"
+          CachingEnabled: True
           CacheTtlInSeconds: 60
-          DataTraceEnabled: true
-          MetricsEnabled: true
+          DataTraceEnabled: True
+          MetricsEnabled: True
+          CacheDataEncrypted: True
       AccessLogSetting:
         DestinationArn:
           !GetAtt "ApiLoggingGroup.Arn"
