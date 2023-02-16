@@ -47,6 +47,20 @@ Resources:
       Tags:
         - Key: Name
           Value: "Lamba vpc"
+  DefaultVPCSgIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt "VPC.DefaultSecurityGroup"
+      Description: "Force removal of default vpc sg rules"
+      IpProtocol: -1
+      CidrIp: 127.0.0.1/32      
+  DefaultVPCSgEgress:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId: !GetAtt "VPC.DefaultSecurityGroup"
+      Description: "Force removal of default vpc sg rules"
+      IpProtocol: -1
+      CidrIp: 127.0.0.1/32
   PrivateSubnet1:
     Type: "AWS::EC2::Subnet"
     Properties:
