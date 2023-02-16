@@ -47,6 +47,10 @@ Resources:
       Tags:
         - Key: Name
           Value: "Lamba vpc"
+  DefaultVPCSecGrp:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      VpcId: !Ref "VPC"
   PrivateSubnet1:
     Type: "AWS::EC2::Subnet"
     Properties:
