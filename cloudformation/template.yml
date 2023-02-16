@@ -488,10 +488,9 @@ Resources:
     Properties:
       Code:
         ZipFile: |
-          const AWS = require('aws-sdk');
+          const { DynamoDB } = require("@aws-sdk/client-dynamodb");
           let region = process.env.AWS_REGION;
-          AWS.config.update({region: region});
-          const dynamodbClient = new AWS.DynamoDB.DocumentClient();
+          const client = new DynamoDB({ region: region });
           exports.handler =  async function(event, context) {
             const audit = { "RequestId": context.awsRequestId , "Action": "Write", "Actor": "Api", statusCode: 200}
             console.info("EVENT : " + JSON.stringify(audit, null, 2));
