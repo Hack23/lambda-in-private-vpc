@@ -53,7 +53,9 @@ Resources:
       GroupId: !GetAtt "VPC.DefaultSecurityGroup"
       Description: "Force removal of default vpc sg rules"
       IpProtocol: "icmp"
-      CidrIp: 127.0.0.1/32      
+      CidrIp: 127.0.0.1/32
+      FromPort: 7 
+      ToPort: 7
   DefaultVPCSgEgress:
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
@@ -61,6 +63,8 @@ Resources:
       Description: "Force removal of default vpc sg rules"
       IpProtocol: "icmp"
       CidrIp: 127.0.0.1/32
+      FromPort: 7 
+      ToPort: 7
   PrivateSubnet1:
     Type: "AWS::EC2::Subnet"
     Properties:
