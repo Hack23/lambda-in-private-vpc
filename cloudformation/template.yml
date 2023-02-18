@@ -637,6 +637,7 @@ Resources:
           DataTraceEnabled: True
           MetricsEnabled: True
           CacheDataEncrypted: True
+          LoggingLevel: "INFO"
       AccessLogSetting:
         DestinationArn:
           !GetAtt "ApiLoggingGroup.Arn"
