@@ -1,6 +1,8 @@
-name: Scan IAC
-on: [push]
-
+name: Verify and Deploy
+on:
+  push:
+    branches:
+      - masternone
 permissions:
   checks: write
   id-token: write   # This is required for requesting the JWT
