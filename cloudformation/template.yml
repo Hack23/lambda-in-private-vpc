@@ -684,7 +684,7 @@ Resources:
     Type: AWS::IAM::ManagedPolicy
     Properties:
       Description: Allows user to trigger the test API
-      ManagedPolicyName: "ApiUserPolicy"
+      ManagedPolicyName: !Sub 'ApiUserPolicy${AWS::Region}"
       PolicyDocument:
         Version: 2012-10-17
         Statement:
