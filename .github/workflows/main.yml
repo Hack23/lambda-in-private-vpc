@@ -42,8 +42,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Get GlobalTableZoneFrankfurt
         run: |
-            GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue"`
-            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" 
+            GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn 
             echo "GlobalTableZoneFrankfurt=$GlobalTableZoneFrankfurt" >> $GITHUB_ENV
       - name: Show GlobalTableZoneFrankfurt
         run: |
