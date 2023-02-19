@@ -5,7 +5,7 @@ status : WIP
 POC of multi region active/active site with resilience hub policy compliance with RTO/RPO 5 Min for Application/AZ/Region failures with setup SOP and fault injections(proof of executions of SOP)
 Zero trust example
 
-Api gateway with schema request validation and cross region replicated dynamodb. Route53 geolocation  dns setup.
+Api gateway with schema request validation and cross region replicated dynamodb. Route53 geolocation  dns setup. Using https://github.com/aws-samples/amazon-cloudfront-secure-static-site with Cloudfront failover S3 bucket in different region for frontend. 
 
 https://api.hack23.com/v1/healthcheck
 
