@@ -41,9 +41,11 @@ jobs:
           role-session-name: githubworkflowrolesessiont2
           aws-region: ${{ env.AWS_REGION }}
       - name: Get GlobalTableZoneFrankfurt
-        run: GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue"` 
+        run: |
+            GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue"` 
       - name: Show GlobalTableZoneFrankfurt
-        run: echo $GlobalTableZoneFrankfurt
+        run: |
+            echo $GlobalTableZoneFrankfurt
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
