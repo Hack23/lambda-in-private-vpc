@@ -14,9 +14,9 @@ Parameters:
     Type: String
     Default: hack23.com
 Conditions:
-  deployGlobalTable: !Equals
-    - ''
-    - !Ref 'GlobalTableArn'
+#  deployGlobalTable: !Equals
+#    - ''
+#    - !Ref 'GlobalTableArn'
 Resources:
   AppPolicy:
     Type: AWS::ResilienceHub::ResiliencyPolicy
