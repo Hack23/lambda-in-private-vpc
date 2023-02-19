@@ -536,7 +536,7 @@ Resources:
           - !Ref "PrivateSubnet3"
   GlobalTable:
     Type: AWS::DynamoDB::GlobalTable
-    Condition: deployGlobalTable
+#    Condition: deployGlobalTable
     Properties:
       TableName: global-table
       BillingMode: PAY_PER_REQUEST
@@ -770,8 +770,8 @@ Resources:
         FailureThreshold: 3
 Metadata: {}
 Outputs:
-#  GlobalTableArn:
-#    Value: !GetAtt "GlobalTable.Arn"
+  GlobalTable:
+    Value: !GetAtt "GlobalTable.Arn"
   ApiStageArn:
     Value: !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/${RestApi}/stages/${ApiStage}'
   HealthCheckUrl:
