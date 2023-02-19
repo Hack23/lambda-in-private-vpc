@@ -7,6 +7,7 @@ permissions:
   contents: read    # This is required for actions/checkout
 env:
   AWS_REGION : "eu-west-1"
+  AWS_REGION_ZONE : "eu-central-1"  
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -54,4 +55,16 @@ jobs:
           name: lambda-vpc
           template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
-          #parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
+      - name: configure aws credentials Frankfurt region
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::172017021075:role/GithubWorkFlowRole
+          role-session-name: githubworkflowrolesessiont2
+          aws-region: ${{ env.AWS_REGION_ZONE }}
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: lambda-vpc
+          template: cloudformation/template.yml
+          capabilities: CAPABILITY_NAMED_IAM
+          parameter-overrides: "GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }}"

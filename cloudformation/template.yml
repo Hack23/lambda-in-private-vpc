@@ -766,7 +766,7 @@ Resources:
             - .
             - !Ref 'DomainName'
             - ''
-        RequestInterval: 10
+        RequestInterval: 30
         FailureThreshold: 3
 Metadata: {}
 Outputs:
