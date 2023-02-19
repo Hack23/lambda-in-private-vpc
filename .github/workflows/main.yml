@@ -43,13 +43,8 @@ jobs:
       - name: Get GlobalTableZoneFrankfurt
         run: |
             GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue"`
-            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn 
-        env:
-          GlobalTableZoneFrankfurt2 : ${{ GlobalTableZoneFrankfurt }}
-      - name: Show GlobalTableZoneFrankfurt
-        run: |
-            echo $GlobalTableZoneFrankfurt
-            echo $GlobalTableZoneFrankfurt2            
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" 
+            echo arn $GlobalTableZoneFrankfurt
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
