@@ -776,6 +776,18 @@ Outputs:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
   GlobalTableStream:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
+  GlobalTableZoneIrland:
+    Value: !Sub 'arn:aws:dynamodb:eu-west-1:${AWS::AccountId}:table/global-table'
+  GlobalTableIndexIrland:
+    Value: !Sub 'arn:aws:dynamodb:eu-west-1:${AWS::AccountId}:table/global-table'
+  GlobalTableStreamIrland:
+    Value: !Sub 'arn:aws:dynamodb:eu-west-1:${AWS::AccountId}:table/global-table'
+  GlobalTableZoneFrankfurt:
+    Value: !Sub 'arn:aws:dynamodb:eu-central-1:${AWS::AccountId}:table/global-table'
+  GlobalTableIndexFrankfurt:
+    Value: !Sub 'arn:aws:dynamodb:eu-central-1:${AWS::AccountId}:table/global-table'
+  GlobalTableStreamFrankfurt:
+    Value: !Sub 'arn:aws:dynamodb:eu-central-1:${AWS::AccountId}:table/global-table'
   ApiStageArn:
     Value: !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/${RestApi}/stages/${ApiStage}'
   HealthCheckUrl:
