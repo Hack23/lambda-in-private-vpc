@@ -40,6 +40,9 @@ jobs:
           role-to-assume: arn:aws:iam::172017021075:role/GithubWorkFlowRole
           role-session-name: githubworkflowrolesessiont2
           aws-region: ${{ env.AWS_REGION }}
+      - name: Get Stack name with the AWS CLI
+        run: |
+          aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[0].OutputValue"
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
