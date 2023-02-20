@@ -559,7 +559,7 @@ Resources:
     Type: AWS::ApiGateway::RestApi
     Properties:
       ApiKeySourceType: HEADER
-      DisableExecuteApiEndpoint: True
+      DisableExecuteApiEndpoint: False #
       EndpointConfiguration:
         Types:
           - REGIONAL
@@ -719,34 +719,6 @@ Resources:
           - .
           - !Ref 'DomainName'
           - ''
-  DeliveryApiRoute53RecordSetGroup:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneName:  !Join
-        - ''
-        - - !Ref 'DomainName'
-          - .
-      RecordSets:
-        - Name: !Join
-            - ''
-            - - !Ref 'DomainNamePrefix'
-              - .
-              - !Ref 'DomainName'
-              - .
-          Type: A
-          AliasTarget:
-            HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
-            DNSName: !GetAtt RestApiDomainName.RegionalDomainName
-        - Name: !Join
-            - ''
-            - - !Ref 'DomainNamePrefix'
-              - .
-              - !Ref 'DomainName'
-              - .
-          Type: AAAA
-          AliasTarget:
-            HostedZoneId: !GetAtt RestApiDomainName.RegionalHostedZoneId
-            DNSName: !GetAtt RestApiDomainName.RegionalDomainName
   RestApiMapping:
     Type: 'AWS::ApiGateway::BasePathMapping'
     Properties:
@@ -760,16 +732,13 @@ Resources:
         Type: HTTPS
         EnableSNI: True
         ResourcePath: !Sub "${ApiStage}/healthcheck"
-        FullyQualifiedDomainName:  !Join
-          - ''
-          - - !Ref 'DomainNamePrefix'
-            - .
-            - !Ref 'DomainName'
-            - ''
+        FullyQualifiedDomainName: !Sub "${RestApi}.execute-api.${AWS::Region}.amazonaws.com"
         RequestInterval: 30
         FailureThreshold: 3
 Metadata: {}
 Outputs:
+  HealthCheckId:
+    Value: !GetAtt HealthCheckRestApi.HealthCheckId
   AliasTargetHostedZoneId:
     Value: !GetAtt RestApiDomainName.RegionalHostedZoneId
   AliasTargetDNSName:

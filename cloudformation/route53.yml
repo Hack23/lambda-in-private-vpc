@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Route53 dns setup
+Parameters:
+  DomainNamePrefix:
+    Description: ResourceArn to protect
+    Type: String
+    Default: 'api'
+  DomainName:
+    Description: ResourceArn to protect
+    Type: String
+    Default: 'hack23.com'
+  HealthCheckId:
+    Description: HealthCheckId
+    Type: String
+    Default: ''
+  RestApiDomainNameRegionalHostedZoneId:
+    Description: RestApiDomainName RegionalHostedZoneId
+    Type: String
+    Default: ''
+  RestApiDomainNameRegionalDomainName:
+    Description: RestApiDomainName RegionalDomainName
+    Type: String
+    Default: ''
+  HealthCheckId2:
+    Description: HealthCheckId
+    Type: String
+    Default: ''
+  RestApiDomainNameRegionalHostedZoneId2:
+    Description: RestApiDomainName RegionalHostedZoneId
+    Type: String
+    Default: ''
+  RestApiDomainNameRegionalDomainName2:
+    Description: RestApiDomainName RegionalDomainName
+    Type: String
+    Default: ''
+Resources:
+  DeliveryApiRoute53RecordSetGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName:  !Join
+        - ''
+        - - !Ref 'DomainName'
+          - .
+      RecordSets:
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: A
+          HealthCheckId: !Ref HealthCheckId
+          Weight: '50'
+          AliasTarget:
+            HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId
+            DNSName: !Ref  RestApiDomainNameRegionalDomainName
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: A
+          HealthCheckId: !Ref HealthCheckId2
+          Weight: '50'
+          AliasTarget:
+            HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId2
+            DNSName: !Ref  RestApiDomainNameRegionalDomainName2
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: AAAA
+          HealthCheckId: !Ref HealthCheckId
+          Weight: '50'
+          AliasTarget:
+            HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId
+            DNSName: !Ref RestApiDomainNameRegionalDomainName
+        - Name: !Join
+            - ''
+            - - !Ref 'DomainNamePrefix'
+              - .
+              - !Ref 'DomainName'
+              - .
+          Type: AAAA
+          HealthCheckId: !Ref HealthCheckId2
+          Weight: '50'
+          AliasTarget:
+            HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId2
+            DNSName: !Ref RestApiDomainNameRegionalDomainName2
+Metadata: {}
+Outputs:
+  Route53RecordSetGroup:
+    Value: !Ref DeliveryApiRoute53RecordSetGroup
