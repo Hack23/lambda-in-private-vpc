@@ -49,15 +49,27 @@ jobs:
           name: lambda-vpc
           template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
-          parameter-overrides: "DomainNamePrefix=apiirland"
-      - name: Get GlobalTableZoneFrankfurt
+          parameter-overrides: "DomainNamePrefix=api"
+      - name: Get Output Irland
         run: |
             GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn`
             aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn 
             echo "GlobalTableZoneFrankfurt=$GlobalTableZoneFrankfurt" >> $GITHUB_ENV
-      - name: Show GlobalTableZoneFrankfurt
+            HealthCheckId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn 
+            echo "HealthCheckId=$HealthCheckId" >> $GITHUB_ENV            
+            AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn 
+            echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId" >> $GITHUB_ENV
+            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn 
+            echo "AliasTargetDNSName=$AliasTargetDNSName" >> $GITHUB_ENV
+      - name: Show Output Irland
         run: |
             echo "${{ env.GlobalTableZoneFrankfurt }}"
+            echo "${{ env.HealthCheckId }}"
+            echo "${{ env.AliasTargetHostedZoneId }}"
+            echo "${{ env.AliasTargetDNSName }}"            
       - name: configure aws credentials Frankfurt region
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -71,4 +83,33 @@ jobs:
           name: lambda-vpc
           template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
-          parameter-overrides: "DomainNamePrefix=apifrankfurt,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }}"
+          parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }}"
+      - name: Get Output Frankfurt
+        run: |
+            HealthCheckId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn 
+            echo "HealthCheckId2=$HealthCheckId" >> $GITHUB_ENV            
+            AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn 
+            echo "AliasTargetHostedZoneId2=$AliasTargetHostedZoneId" >> $GITHUB_ENV
+            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn 
+            echo "AliasTargetDNSNam2e=$AliasTargetDNSName" >> $GITHUB_ENV
+      - name: Show Output Irland
+        run: |
+            echo "${{ env.HealthCheckId }}"
+            echo "${{ env.AliasTargetHostedZoneId }}"
+            echo "${{ env.AliasTargetDNSName }}"            
+      - name: Deploy to AWS CloudFormation Route53
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: lambda-vpc-route53
+          template: cloudformation/route53.yml
+          capabilities: CAPABILITY_NAMED_IAM
+          parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }},HealthCheckId=${{ env.HealthCheckId }},AliasTargetHostedZoneId=${{ env.AliasTargetHostedZoneId }},AliasTargetDNSName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},AliasTargetHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},AliasTargetDNSName2=${{ env.AliasTargetDNSName2 }}"
+           
+          
+          
+          
+          
+  
