@@ -770,6 +770,10 @@ Resources:
         FailureThreshold: 3
 Metadata: {}
 Outputs:
+  AliasTargetHostedZoneId:
+    Value: !GetAtt RestApiDomainName.RegionalHostedZoneId
+  AliasTargetDNSName:
+    Value: !GetAtt RestApiDomainName.RegionalDomainName
   GlobalTable:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
   GlobalTableIndex:
