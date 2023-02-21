@@ -59,11 +59,11 @@ jobs:
             HealthCheckId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn`
             aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep arn 
             echo "HealthCheckId=$HealthCheckId" >> $GITHUB_ENV            
-            AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn`
-            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep arn 
+            AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]'`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]' 
             echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId" >> $GITHUB_ENV
-            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn`
-            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep arn 
+            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws`
+            aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws 
             echo "AliasTargetDNSName=$AliasTargetDNSName" >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
