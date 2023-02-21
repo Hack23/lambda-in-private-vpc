@@ -772,3 +772,10 @@ Outputs:
         - .
         - !Ref 'DomainName'
         - ''
+  ApiEndpointDomain2:
+    Value: !Join
+      - ''
+      - - !Ref 'DomainNamePrefix'
+        - .
+        - !Ref 'DomainName'
+        - ''
