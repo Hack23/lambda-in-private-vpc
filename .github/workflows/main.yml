@@ -54,13 +54,13 @@ jobs:
       - name: Get Output Irland
         run: |
             GlobalTableZoneFrankfurt=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'GlobalTableZoneFrankfurt'].OutputValue" | grep arn | xargs`
-            echo "GlobalTableZoneFrankfurt=$GlobalTableZoneFrankfurt"
+            echo "GlobalTableZoneFrankfurt=$GlobalTableZoneFrankfurt"  >> $GITHUB_ENV
             HealthCheckId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
-            echo "HealthCheckId=$HealthCheckId"            
+            echo "HealthCheckId=$HealthCheckId"  >> $GITHUB_ENV
             AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
-            echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId" 
+            echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId"  >> $GITHUB_ENV 
             AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
-            echo "AliasTargetDNSName=$AliasTargetDNSName"
+            echo "AliasTargetDNSName=$AliasTargetDNSName"  >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
             echo "${{ env.GlobalTableZoneFrankfurt }}"
@@ -84,11 +84,11 @@ jobs:
       - name: Get Output Frankfurt
         run: |
             HealthCheckId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthCheckId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
-            echo "HealthCheckId2=$HealthCheckId"            
+            echo "HealthCheckId2=$HealthCheckId"  >> $GITHUB_ENV
             AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
-            echo "AliasTargetHostedZoneId2=$AliasTargetHostedZoneId" 
+            echo "AliasTargetHostedZoneId2=$AliasTargetHostedZoneId"  >> $GITHUB_ENV
             AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
-            echo "AliasTargetDNSName2=$AliasTargetDNSName"
+            echo "AliasTargetDNSName2=$AliasTargetDNSName"  >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
             echo "${{ env.HealthCheckId }}"
