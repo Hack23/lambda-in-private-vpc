@@ -1,8 +1,8 @@
 name: Verify and Deploy
 on:
-  push:
-    branches:
-      - masternone
+  pull_request_target:
+    types:
+      - closed
 permissions:
   checks: write
   id-token: write   # This is required for requesting the JWT
@@ -11,7 +11,9 @@ env:
   AWS_REGION : "eu-west-1"
   AWS_REGION_ZONE : "eu-central-1"  
 jobs:
-  main:
+  deploy:
+    if_merged:
+      if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -107,9 +109,3 @@ jobs:
           template: cloudformation/route53.yml
           capabilities: CAPABILITY_NAMED_IAM
           parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }},HealthCheckId=${{ env.HealthCheckId }},AliasTargetHostedZoneId=${{ env.AliasTargetHostedZoneId }},AliasTargetDNSName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},AliasTargetHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},AliasTargetDNSName2=${{ env.AliasTargetDNSName2 }}"
-           
-          
-          
-          
-          
-  
