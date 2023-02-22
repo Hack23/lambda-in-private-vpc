@@ -49,6 +49,7 @@ Resources:
               - !Ref 'DomainName'
               - .
           Type: A
+          SetIdentifier: apizone1a
           HealthCheckId: !Ref HealthCheckId
           Weight: '50'
           AliasTarget:
@@ -61,6 +62,7 @@ Resources:
               - !Ref 'DomainName'
               - .
           Type: A
+          SetIdentifier: apizone2a
           HealthCheckId: !Ref HealthCheckId2
           Weight: '50'
           AliasTarget:
@@ -73,6 +75,7 @@ Resources:
               - !Ref 'DomainName'
               - .
           Type: AAAA
+          SetIdentifier: apizone1aaa
           HealthCheckId: !Ref HealthCheckId
           Weight: '50'
           AliasTarget:
@@ -85,6 +88,7 @@ Resources:
               - !Ref 'DomainName'
               - .
           Type: AAAA
+          SetIdentifier: apizone2aaa
           HealthCheckId: !Ref HealthCheckId2
           Weight: '50'
           AliasTarget:
