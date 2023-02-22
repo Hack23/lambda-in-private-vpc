@@ -100,4 +100,16 @@ jobs:
           name: lambda-vpc-route53
           template: cloudformation/route53.yml
           capabilities: CAPABILITY_NAMED_IAM
-          parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }},HealthCheckId=${{ env.HealthCheckId }},AliasTargetHostedZoneId=${{ env.AliasTargetHostedZoneId }},AliasTargetDNSName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},AliasTargetHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},AliasTargetDNSName2=${{ env.AliasTargetDNSName2 }}"
+          parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }},HealthCheckId=${{ env.HealthCheckId }},RestApiDomainNameRegionalHostedZoneId=${{ env.AliasTargetHostedZoneId }},RestApiDomainNameRegionalDomainName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},RestApiDomainNameRegionalHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},RestApiDomainNameRegionalDomainName2=${{ env.AliasTargetDNSName2 }}"
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
