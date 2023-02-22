@@ -761,7 +761,7 @@ Outputs:
     Value: !Sub 'arn:aws:dynamodb:eu-central-1:${AWS::AccountId}:table/global-table'
   GlobalTableStreamFrankfurt:
     Value: !Sub 'arn:aws:dynamodb:eu-central-1:${AWS::AccountId}:table/global-table'
-  ApiStageArn:
+  ApiStageArn2:
     Value: !Sub 'arn:aws:apigateway:${AWS::Region}::/restapis/${RestApi}/stages/${ApiStage}'
   HealthCheckUrl:
     Value: !Sub "https://${DomainNamePrefix}.${DomainName}/${ApiStage}/healthcheck"
