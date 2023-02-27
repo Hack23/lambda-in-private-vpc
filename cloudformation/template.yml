@@ -564,6 +564,42 @@ Resources:
         Types:
           - REGIONAL
       Name: ApiName
+  AlarmTopic:
+    Type: AWS::SNS::Topic
+    DependsOn: Application
+    Properties:
+      Subscription:
+        - Endpoint: 'admin@hack23.com'
+          Protocol: email
+      KmsMasterKeyId: alias/aws/sns
+  RestApiGw4xxErrorsAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - !Ref 'AlarmTopic'
+      AlarmDescription: Alarm that tracks the percentage of 4xx responses received from REST API Gateway
+        responses
+      AlarmName: RestApiGw4xxErrorsAlarm
+      ComparisonOperator: GreaterThanThreshold
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 3
+      Metrics:
+        - Id: m1
+          MetricStat:
+            Metric:
+              MetricName: 4XXError
+              Namespace: AWS/ApiGateway
+              Dimensions:
+                - Name: ApiName
+                  Value: ApiName
+            Period: 60
+            Stat: Average
+          ReturnData: false
+        - Expression: 100 * m1
+          Id: percent4xx
+          Label: Percent 4xx
+      Threshold: 20
+      TreatMissingData: missing
   ApiResource:
     Type: AWS::ApiGateway::Resource
     Properties:
