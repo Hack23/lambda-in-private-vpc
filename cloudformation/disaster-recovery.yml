@@ -1,0 +1,432 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Disaster recovery test"
+Parameters:
+  ApiRole:
+    Description: ApiRoleArn
+    Type: String
+    Default: ''
+  FaultInjectionExperimentDuration:
+    Type: String
+    Description: 'Enter the Duration of the Access Denied Injection in ISO 8601 Format, e.g. PT2M = 2 Minutes'
+    Default: PT2M        
+Resources:
+  AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - lambda:GetFunction
+              - lambda:UpdateFunctionConfiguration
+              - lambda:UpdateAlias
+      Roles:
+        - !Ref 'AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole'
+  AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubLambdaProvisionedConcurrencySOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubLambdaProvisionedConcurrencySOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - lambda:PutProvisionedConcurrencyConfig
+              - lambda:GetProvisionedConcurrencyConfig
+      Roles:
+        - !Ref 'AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole'
+  AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubChangeLambdaMemorySizeSOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubChangeLambdaMemorySizeSOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - lambda:GetFunction
+              - lambda:UpdateFunctionConfiguration
+      Roles:
+        - !Ref 'AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole'
+  AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - lambda:UpdateFunctionConfiguration
+      Roles:
+        - !Ref 'AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole'
+  AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - dynamodb:RestoreTableToPointInTime
+              - dynamodb:DescribeTable
+              - dynamodb:Scan
+              - dynamodb:Query
+              - dynamodb:UpdateItem
+              - dynamodb:PutItem
+              - dynamodb:GetItem
+              - dynamodb:DeleteItem
+              - dynamodb:BatchWriteItem
+              - dynamodb:UpdateTable
+              - dynamodb:DescribeKinesisStreamingDestination
+              - dynamodb:EnableKinesisStreamingDestination
+              - dynamodb:DescribeTimeToLive
+              - dynamodb:UpdateTimeToLive
+              - dynamodb:ListTagsOfResource
+              - dynamodb:TagResource
+              - dynamodb:DescribeContributorInsights
+              - dynamodb:UpdateContributorInsights
+              - application-autoscaling:DescribeScalableTargets
+              - application-autoscaling:RegisterScalableTarget
+              - cloudwatch:DescribeAlarms
+              - cloudwatch:PutMetricAlarm
+              - dynamodb:CreateTableReplica
+              - dynamodb:CreateTable
+              - dynamodb:DescribeContinuousBackups
+              - dynamodb:UpdateContinuousBackups
+              - ssm:GetAutomationExecution
+              - ssm:StartAutomationExecution
+              - kinesis:PutRecord
+              - kinesis:PutRecords
+              - kinesis:DescribeStream
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - iam:PassRole
+            Condition:
+              StringEquals:
+                iam:PassedToService: application-autoscaling.amazonaws.com
+          - Effect: Allow
+            Resource:
+              - !GetAtt 'AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole.Arn'
+            Action:
+              - iam:PassRole
+      Roles:
+        - !Ref 'AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole'
+  AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumePolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - lambda:PutFunctionConcurrency
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogGroups
+              - logs:DescribeLogStreams
+      Roles:
+        - !Ref 'AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole'
+  AwsFisApiPolicyDenyApiRoleLambda:
+    Type: 'AWS::IAM::ManagedPolicy'
+    Properties:
+      ManagedPolicyName: FISAPI-DenyApiRoleLambda
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Deny
+            Action: 'lambda:*'
+            Resource: '*'
+
+  ############################################################################
+  # Systems Manager Automation document to attach/detach policies to roles
+  #
+  # This document will attach the provided policy ARN to the provided role 
+  # ARN, wait for the provided duration, then detach the provided policy ARN.
+  #
+  # Note: the ability to modify the IAM role is governed by the permissions of 
+  # the execution role provided. To avoid permission escalations, please ensure
+  # that the execution role is constraining both the target role that can be
+  # modified as well as the policies with which it can be modified.
+  ############################################################################
+  SsmAutomationIamAttachDetachDocument:
+    Type: AWS::SSM::Document
+    DeletionPolicy: Delete
+    Properties:
+      Name: FISAPI-IamAttachDetach
+      DocumentType: Automation
+      Tags:
+        - Key: FISAPI-SecTagTest
+          Value: "true"
+      Content:
+        description: "SSMA Document for Injecting Access Denied Faults on AWS Resources by attaching Deny Policies to the Application's IAM User or Role."
+        schemaVersion: '0.3'
+        assumeRole: '{{ AutomationAssumeRole }}'
+        parameters:
+          TargetResourceDenyPolicyArn:
+            type: String
+            description: ARN of Deny IAM Policy for an AWS Resource that will be Attached to the Application Role.
+          Duration:
+            type: String
+            description: The Duration -in ISO-8601 format- of the Injection (Required).
+          TargetApplicationRoleName:
+            type: String
+            description: 'The name (Friendly Name, not ARN) of the Target Role.'
+          AutomationAssumeRole:
+            type: String
+            description: "The ARN of the SSMA Automation Role that allows the attachment of IAM Policies."
+        mainSteps:
+          - name: AttachDenyPolicy
+            action: 'aws:executeAwsApi'
+            inputs:
+              Service: iam
+              Api: AttachRolePolicy
+              RoleName: '{{TargetApplicationRoleName}}'
+              PolicyArn: '{{TargetResourceDenyPolicyArn}}'
+            description: Attach Deny Policy for Experiment Target
+            timeoutSeconds: 10
+          - name: ExperimentDurationSleep
+            action: 'aws:sleep'
+            inputs:
+              Duration: '{{Duration}}'
+            description: Delay Experiment Injection State as per FIS Experiment Duration Parameter
+            onFailure: 'step:RollbackDetachPolicy'
+            onCancel: 'step:RollbackDetachPolicy'
+            nextStep: RollbackDetachPolicy
+          - name: RollbackDetachPolicy
+            action: 'aws:executeAwsApi'
+            inputs:
+              Service: iam
+              Api: DetachRolePolicy
+              RoleName: '{{TargetApplicationRoleName}}'
+              PolicyArn: '{{TargetResourceDenyPolicyArn}}'
+            description: End Experiment by Detaching Deny Policy from Application Role
+            timeoutSeconds: 10
+            isEnd: true
+  SsmAutomationRole:
+    Type: 'AWS::IAM::Role'
+    DeletionPolicy: Delete
+    Properties:
+      Path: /
+      RoleName: FISAPI-SSM-Automation-Role
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+             - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - "ssm.amazonaws.com"
+      Policies:
+      - PolicyName: EnableSsmToAttachDetachPolicies
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Sid: GetRoleAndPolicyDetails
+            Effect: Allow
+            Action:
+              - 'iam:GetRole'
+              - 'iam:GetPolicy'
+              - 'iam:ListAttachedRolePolicies'
+            Resource: '*'
+          - Sid: AllowOnlyTargetResourcePolicies
+            Effect: Allow
+            Action:  
+              - 'iam:DetachRolePolicy'
+              - 'iam:AttachRolePolicy'
+            Resource: '*'
+            Condition:
+              ArnEquals:
+                'iam:PolicyARN':
+                  - !Ref AwsFisApiPolicyDenyApiRoleLambda
+
+
+  FisDenyS3Template:
+    Type: AWS::FIS::ExperimentTemplate
+    DeletionPolicy: Delete
+    Properties: 
+      Actions:
+        InjectAccessDenied:  
+          ActionId: aws:ssm:start-automation-execution
+          Description: Action to deny S3 access
+          Parameters:
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/${SsmAutomationIamAttachDetachDocument}'
+            documentParameters: !Sub >-
+              {
+                "TargetResourceDenyPolicyArn":"${AwsFisApiPolicyDenyApiRoleLambda}", 
+                "Duration": "${FaultInjectionExperimentDuration}", 
+                "TargetApplicationRoleName":"${ApiRole}", 
+                "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
+              }
+            maxDuration: "PT8M"
+      Description: Deny Access to lambda on APi Role.
+      RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
+      StopConditions:
+        - Source: none
+      Tags: 
+        Name: FISAPI-DENY-API-LAMBDAA
+      Targets:
+        {}
+
+  ############################################################################
+  # FIS experiment execution role
+  #
+  # This is an example role to use for the FIS attach/detach policy 
+  # experiment. It is designed to be assumed by the fis.amazonaws.com service 
+  # principal. It also contains a PassRole statement to provide the SSM
+  # automation role to the SSM execution.
+  #
+  # This role explicitly lists SSM document ARNs that can be invoked.
+  #
+  #
+  ############################################################################
+  FisExperimentRole:
+    Type: 'AWS::IAM::Role'
+    DeletionPolicy: Delete
+    Properties:
+      Path: /
+      RoleName: FISAPI-FIS-Injection-ExperimentRole
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - "fis.amazonaws.com"
+      Policies:
+      - PolicyName: EnableSsmToAttachDetachPolicies
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: RequiredReadActionsforAWSFIS
+              Effect: Allow
+              Action:
+                - 'cloudwatch:DescribeAlarms'
+                - 'ssm:GetAutomationExecution'
+                - 'ssm:ListCommands'
+                - 'iam:ListRoles'
+              Resource: '*'
+            - Sid: RequiredSSMStopActionforAWSFIS
+              Effect: Allow
+              Action:
+                - 'ssm:StopAutomationExecution'
+                - 'ssm:CancelCommand'
+              Resource: '*'
+            - Sid: RequiredSSMWriteActionsforAWSFIS
+              Effect: Allow
+              Action:
+                - 'ssm:StartAutomationExecution'
+              Resource: 
+                # Explicitly listed resource - secure but inflexible
+                # Note: the $DEFAULT at the end could also be an explicit version number
+                # Note: the 'automation-definition' is automatically created from 'document' on invocation
+                - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:automation-definition/${SsmAutomationIamAttachDetachDocument}:$DEFAULT'
+            - Sid: RequiredIAMPassRoleforSSMADocuments
+              Effect: Allow
+              Action: 'iam:PassRole'
+              Resource: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}'
+
+
+Outputs:
+  AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
+    Description: AWSResilienceHub-SwitchLambdaVersionInAliasSOP_2020-10-26 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole.Arn'
+  AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole:
+    Description: AWSResilienceHub-ChangeLambdaProvisionedConcurrencySOP_2020-10-26 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubLambdaProvisionedConcurrencySOPAssumeRole.Arn'
+  AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole:
+    Description: AWSResilienceHub-ChangeLambdaMemorySizeSOP_2020-10-26 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubChangeLambdaMemorySizeSOPAssumeRole.Arn'
+  AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole:
+    Description: AWSResilienceHub-ChangeLambdaExecutionTimeLimitSOP_2020-10-26 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubChangeLambdaExecutionTimeLimitSOPAssumeRole.Arn'
+  AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole:
+    Description: AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubRestoreDDBTblFromPointInTimeSOPAssumeRole.Arn'
+  AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole:
+    Description: AWSResilienceHub-ChangeLambdaConcurrencyLimitSOP_2020-10-26 Automation Assume Role ARN
+    Value: !GetAtt 'AWSResilienceHubChangeLambdaConcurrencyLimitSOPAssumeRole.Arn'
