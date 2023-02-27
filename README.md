@@ -13,17 +13,22 @@ Badges
 [![license](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)]([https://github.com/Hack23/lambda-in-private-vpc](https://github.com/Hack23/lambda-in-private-vpc)/raw/master/LICENSE.md)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc)
 
-![Policy](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResilienceHubPolicy.png)
 
-![Route53 Policy](https://github.com/Hack23/lambda-in-private-vpc/raw/main/route53-policy.png)
+# Concepts
 
-![App](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App.png)
+https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html
 
-![Infrastructure](https://github.com/Hack23/lambda-in-private-vpc/raw/main/cloudformation/template.png)
+![Policy](ResilienceHubPolicy.png)
 
-![App recommendation](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec1.png)
+![Route53 Policy](route53-policy.png)
 
-![App recommendation2](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec2.png)
+![App](ResiliencyHub-App.png)
+
+![Infrastructure](cloudformation/template.png)
+
+![App recommendation](ResiliencyHub-App-rec1.png)
+
+![App recommendation2](ResiliencyHub-App-rec2.png)
 
 
 https://aws.amazon.com/route53/application-recovery-controller/
@@ -53,8 +58,6 @@ Please refer to [https://aws.amazon.com/legal/service-level-agreements/](https:/
 SLA MAX = 0.994592393 (0.9995 * 0.999 * 0.99999 * 0.999 1* 0.999 * 0.99999 * 0.9995 * 0.9995 * 0.999)
 
 SLO = 99.45%
-
-SLA level of 99.45 % uptime/availability results in the following periods of allowed downtime/unavailability:
 
 SLA level of 99.45 % uptime/availability results in the following periods of allowed downtime/unavailability:
 
