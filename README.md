@@ -61,8 +61,6 @@ SLO = 99.45%
 
 SLA level of 99.45 % uptime/availability results in the following periods of allowed downtime/unavailability:
 
-SLA level of 99.45 % uptime/availability results in the following periods of allowed downtime/unavailability:
-
 Daily: 7m 55s
 Weekly: 55m 26s
 Monthly: 3h 59m 4.8s
