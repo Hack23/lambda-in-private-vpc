@@ -566,7 +566,6 @@ Resources:
       Name: ApiName
   AlarmTopic:
     Type: AWS::SNS::Topic
-    DependsOn: Application
     Properties:
       Subscription:
         - Endpoint: 'admin@hack23.com'
