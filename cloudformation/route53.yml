@@ -55,7 +55,6 @@ Resources:
           AliasTarget:
             HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId
             DNSName: !Ref  RestApiDomainNameRegionalDomainName
-            EvaluateTargetHealth: True
         - Name: !Join
             - ''
             - - !Ref 'DomainNamePrefix'
@@ -69,7 +68,6 @@ Resources:
           AliasTarget:
             HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId2
             DNSName: !Ref  RestApiDomainNameRegionalDomainName2
-            EvaluateTargetHealth: True
         - Name: !Join
             - ''
             - - !Ref 'DomainNamePrefix'
@@ -83,7 +81,6 @@ Resources:
           AliasTarget:
             HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId
             DNSName: !Ref RestApiDomainNameRegionalDomainName
-            EvaluateTargetHealth: True
         - Name: !Join
             - ''
             - - !Ref 'DomainNamePrefix'
@@ -97,7 +94,6 @@ Resources:
           AliasTarget:
             HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId2
             DNSName: !Ref RestApiDomainNameRegionalDomainName2
-            EvaluateTargetHealth: True
 Metadata: {}
 Outputs:
   Route53RecordSetGroup:
