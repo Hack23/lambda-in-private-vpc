@@ -51,7 +51,6 @@ Resources:
           Type: A
           SetIdentifier: apizone1a
           HealthCheckId: !Ref HealthCheckId
-          EvaluateTargetHealth: True
           Weight: '50'
           AliasTarget:
             HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId
