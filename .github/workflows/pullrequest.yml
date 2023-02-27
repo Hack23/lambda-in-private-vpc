@@ -22,10 +22,10 @@ jobs:
         uses: scottbrenner/cfn-lint-action@v2
         with:
           command: cfn-lint -t cloudformation/route53.yml
-      - name: Testing diaster-recovery with CFN Lint
+      - name: Testing disaster-recovery with CFN Lint
         uses: scottbrenner/cfn-lint-action@v2
         with:
-          command: cfn-lint -t cloudformation/diaster-recovery.yml
+          command: cfn-lint -t cloudformation/disaster-recovery.yml
       - name: Run cfn-nag
         uses: stelligent/cfn_nag@master
         with:
