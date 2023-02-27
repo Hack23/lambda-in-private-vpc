@@ -20,15 +20,15 @@ https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html
 
 ![Policy](ResilienceHubPolicy.png)
 
-![Route53 Policy](https://github.com/Hack23/lambda-in-private-vpc/raw/main/route53-policy.png)
+![Route53 Policy](route53-policy.png)
 
-![App](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App.png)
+![App](ResiliencyHub-App.png)
 
-![Infrastructure](https://github.com/Hack23/lambda-in-private-vpc/raw/main/cloudformation/template.png)
+![Infrastructure](cloudformation/template.png)
 
-![App recommendation](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec1.png)
+![App recommendation](ResiliencyHub-App-rec1.png)
 
-![App recommendation2](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResiliencyHub-App-rec2.png)
+![App recommendation2](ResiliencyHub-App-rec2.png)
 
 
 https://aws.amazon.com/route53/application-recovery-controller/
