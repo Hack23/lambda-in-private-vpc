@@ -334,7 +334,6 @@ Resources:
               - 'dynamodb:*'
               - 'kinesis:*'
               - 'ssm:*'
-
               - 'iam:PassRole'
               - 'cloudwatch:*'
               - 'application-autoscaling:*'
