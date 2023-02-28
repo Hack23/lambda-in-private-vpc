@@ -18,6 +18,15 @@ Badges
 
 https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html
 
+
+# Runbooks
+
+https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html
+https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html
+https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html
+https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html
+
+
 ![Policy](ResilienceHubPolicy.png)
 
 ![Route53 Policy](route53-policy.png)
