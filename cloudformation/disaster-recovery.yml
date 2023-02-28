@@ -375,7 +375,7 @@ Resources:
           ActionId: aws:ssm:start-automation-execution
           Description: Action to delete dynamodb table
           Parameters:
-            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSConfigRemediation-DeleteDynamoDbTable' 
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}::document/AWSConfigRemediation-DeleteDynamoDbTable' 
             documentParameters: !Sub >-
               {
                 "TableName":"global-table", 
@@ -399,13 +399,13 @@ Resources:
           ActionId: aws:ssm:start-automation-execution
           Description: Action to recover dynamodb table from pitr
           Parameters:
-            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01' 
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}::document/AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01' 
             documentParameters: !Sub >-
               {
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBTableTargetName":"global-table-pitr",
                 "RecoveryPointDateTime":"${RecoveryPointDateTime}",
-                "CopyAllProperties":"True",                 
+                "CopyAllProperties": true,                 
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
             maxDuration: "PT8M"
@@ -426,13 +426,13 @@ Resources:
           ActionId: aws:ssm:start-automation-execution
           Description: Action to recover dynamodb table from backup
           Parameters:
-            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSResilienceHub-RestoreDynamoDBTableFromBackupSOP_2020-04-01' 
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}::document/AWSResilienceHub-RestoreDynamoDBTableFromBackupSOP_2020-04-01' 
             documentParameters: !Sub >-
               {
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBSourceTableBackupArn":"${DynamoDBSourceTableBackupArn}",
                 "DynamoDBTableTargetName":"global-table",
-                "CopyAllProperties":"True",
+                "CopyAllProperties":true,
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
             maxDuration: "PT8M"
