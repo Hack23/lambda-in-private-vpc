@@ -14,7 +14,7 @@ Parameters:
     Description: 'DynamoDBSourceTableBackupArn to restore from backup'
   RecoveryPointDateTime:
     Type: String
-    Description: 'RecoveryPointDateTime to restore from pitr'
+    Description: 'RecoveryPointDateTime to restore from pitr in time in format YYYY-MM-DDTHH:MM:SSZ'
 Resources:
   AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
     Type: AWS::IAM::Role
@@ -328,8 +328,18 @@ Resources:
               ArnEquals:
                 'iam:PolicyARN':
                   - !Ref AwsFisApiPolicyDenyApiRoleLambda
+          - Sid: DynanodbRecoverFis
+            Effect: Allow
+            Action:
+              - 'dynamodb:*'
+              - 'kinesis:*'
+              - 'ssm:*'
 
-
+              - 'iam:PassRole'
+              - 'cloudwatch:*'
+              - 'application-autoscaling::*'
+              - 'ssm:*'
+            Resource: '*'
   FisDenyApigatewatLambdaTemplate:
     Type: AWS::FIS::ExperimentTemplate
     DeletionPolicy: Delete
@@ -422,7 +432,7 @@ Resources:
               {
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBSourceTableBackupArn":"${DynamoDBSourceTableBackupArn}",
-                "DynamoDBTableTargetName":"global-table-backup",
+                "DynamoDBTableTargetName":"global-table",
                 "CopyAllProperties":"True",
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
