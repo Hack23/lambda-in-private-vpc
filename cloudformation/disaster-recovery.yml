@@ -337,7 +337,7 @@ Resources:
 
               - 'iam:PassRole'
               - 'cloudwatch:*'
-              - 'application-autoscaling::*'
+              - 'application-autoscaling:*'
               - 'ssm:*'
             Resource: '*'
   FisDenyApigatewatLambdaTemplate:
