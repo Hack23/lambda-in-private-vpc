@@ -768,8 +768,8 @@ Resources:
         EnableSNI: True
         ResourcePath: !Sub "${ApiStage}/healthcheck"
         FullyQualifiedDomainName: !Sub "${RestApi}.execute-api.${AWS::Region}.amazonaws.com"
-        RequestInterval: 30
-        FailureThreshold: 3
+        RequestInterval: 10
+        FailureThreshold: 2
 Metadata: {}
 Outputs:
   HealthCheckId:

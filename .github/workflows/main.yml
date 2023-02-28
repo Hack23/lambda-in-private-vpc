@@ -89,6 +89,8 @@ jobs:
             echo "AliasTargetHostedZoneId2=$AliasTargetHostedZoneId"  >> $GITHUB_ENV
             AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
             echo "AliasTargetDNSName2=$AliasTargetDNSName"  >> $GITHUB_ENV
+            ApiRoleName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'ApiRoleName'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
+            echo "ApiRoleName=$ApiRoleName"  >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
             echo "${{ env.HealthCheckId }}"
@@ -100,16 +102,11 @@ jobs:
           name: lambda-vpc-route53
           template: cloudformation/route53.yml
           capabilities: CAPABILITY_NAMED_IAM
-          parameter-overrides: "DomainNamePrefix=api,HealthCheckId=${{ env.HealthCheckId }},RestApiDomainNameRegionalHostedZoneId=${{ env.AliasTargetHostedZoneId }},RestApiDomainNameRegionalDomainName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},RestApiDomainNameRegionalHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},RestApiDomainNameRegionalDomainName2=${{ env.AliasTargetDNSName2 }}"
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
+          parameter-overrides: "DomainNamePrefix=api,HealthCheckId=${{ env.HealthCheckId }},RestApiDomainNameRegionalHostedZoneId=${{ env.AliasTargetHostedZoneId }},RestApiDomainNameRegionalDomainName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},RestApiDomainNameRegionalHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},RestApiDomainNameRegionalDomainName2=${{ env.AliasTargetDNSName2 }}"          
+      - name: Deploy to AWS CloudFormation Disaster Recovery
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: lambda-vpc-disaster-recovery
+          template: cloudformation/disaster-recovery.yml
+          capabilities: CAPABILITY_NAMED_IAM
+          parameter-overrides: "ApiRole=${{ env.ApiRoleName }}"
