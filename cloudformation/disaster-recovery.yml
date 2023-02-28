@@ -4,17 +4,18 @@ Parameters:
   ApiRole:
     Description: ApiRole Name
     Type: String
-    Default: ''
   FaultInjectionExperimentDuration:
     Type: String
     Description: 'Enter the Duration of the Access Denied Injection in ISO 8601 Format, e.g. PT2M = 2 Minutes'
-    Default: PT2M
+    Default: PT5M
   DynamoDBSourceTableBackupArn:
     Type: String
     Description: 'DynamoDBSourceTableBackupArn to restore from backup'
+    Default: ''
   RecoveryPointDateTime:
     Type: String
     Description: 'RecoveryPointDateTime to restore from pitr in time in format YYYY-MM-DDTHH:MM:SSZ'
+    Default: ''    
 Resources:
   AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
     Type: AWS::IAM::Role
@@ -431,7 +432,7 @@ Resources:
               {
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBSourceTableBackupArn":"${DynamoDBSourceTableBackupArn}",
-                "DynamoDBTableTargetName":"global-table",
+                "DynamoDBTableTargetName":"global-table-backup",
                 "CopyAllProperties":true,
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
@@ -498,8 +499,17 @@ Resources:
               Effect: Allow
               Action: 'iam:PassRole'
               Resource: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}'
-
-
+  HealthCheckApi: 
+    Type: 'AWS::Route53::HealthCheck'
+    Properties: 
+      HealthCheckConfig: 
+        Port: 443
+        Type: HTTPS
+        EnableSNI: True
+        ResourcePath: "v1/healthcheck"
+        FullyQualifiedDomainName: "api.hack23.com"
+        RequestInterval: 10
+        FailureThreshold: 2
 Outputs:
   AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
     Description: AWSResilienceHub-SwitchLambdaVersionInAliasSOP_2020-10-26 Automation Assume Role ARN
