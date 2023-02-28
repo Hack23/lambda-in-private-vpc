@@ -769,7 +769,7 @@ Resources:
         ResourcePath: !Sub "${ApiStage}/healthcheck"
         FullyQualifiedDomainName: !Sub "${RestApi}.execute-api.${AWS::Region}.amazonaws.com"
         RequestInterval: 10
-        FailureThreshold: 2
+        FailureThreshold: 1
 Metadata: {}
 Outputs:
   HealthCheckId:
