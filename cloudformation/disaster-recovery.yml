@@ -336,7 +336,7 @@ Resources:
               - 'ssm:*'
               - 'iam:PassRole'
               - 'cloudwatch:*'
-              - 'application-autoscaling::*'
+              - 'application-autoscaling:*'
               - 'ssm:*'
             Resource: '*'
   FisDenyApigatewatLambdaTemplate:
@@ -493,11 +493,7 @@ Resources:
               Effect: Allow
               Action:
                 - 'ssm:StartAutomationExecution'
-              Resource: 
-                # Explicitly listed resource - secure but inflexible
-                # Note: the $DEFAULT at the end could also be an explicit version number
-                # Note: the 'automation-definition' is automatically created from 'document' on invocation
-                - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:automation-definition/${SsmAutomationIamAttachDetachDocument}:$DEFAULT'
+              Resource: '*'
             - Sid: RequiredIAMPassRoleforSSMADocuments
               Effect: Allow
               Action: 'iam:PassRole'
