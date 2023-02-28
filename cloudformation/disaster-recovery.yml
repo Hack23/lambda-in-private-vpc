@@ -405,7 +405,7 @@ Resources:
               {
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBTableTargetName":"global-table-pitr",
-                "RecoveryPointDateTime":"YYYY-MM-DDTHH:MM:SSZ",
+                "RecoveryPointDateTime":"${RecoveryPointDateTime}",
                 "CopyAllProperties":"True",                 
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
