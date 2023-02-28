@@ -2,13 +2,19 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: "Disaster recovery test"
 Parameters:
   ApiRole:
-    Description: ApiRoleArn
+    Description: ApiRole Name
     Type: String
     Default: ''
   FaultInjectionExperimentDuration:
     Type: String
     Description: 'Enter the Duration of the Access Denied Injection in ISO 8601 Format, e.g. PT2M = 2 Minutes'
-    Default: PT2M        
+    Default: PT2M
+  DynamoDBSourceTableBackupArn:
+    Type: String
+    Description: 'DynamoDBSourceTableBackupArn to restore from backup'
+  RecoveryPointDateTime:
+    Type: String
+    Description: 'RecoveryPointDateTime to restore from pitr in time in format YYYY-MM-DDTHH:MM:SSZ'
 Resources:
   AWSResilienceHubSwitchLambdaVersionInAliasSOPAssumeRole:
     Type: AWS::IAM::Role
@@ -322,16 +328,26 @@ Resources:
               ArnEquals:
                 'iam:PolicyARN':
                   - !Ref AwsFisApiPolicyDenyApiRoleLambda
+          - Sid: DynanodbRecoverFis
+            Effect: Allow
+            Action:
+              - 'dynamodb:*'
+              - 'kinesis:*'
+              - 'ssm:*'
 
-
-  FisDenyS3Template:
+              - 'iam:PassRole'
+              - 'cloudwatch:*'
+              - 'application-autoscaling::*'
+              - 'ssm:*'
+            Resource: '*'
+  FisDenyApigatewatLambdaTemplate:
     Type: AWS::FIS::ExperimentTemplate
     DeletionPolicy: Delete
     Properties: 
       Actions:
         InjectAccessDenied:  
           ActionId: aws:ssm:start-automation-execution
-          Description: Action to deny S3 access
+          Description: Action to deny api gateway lambda access
           Parameters:
             documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/${SsmAutomationIamAttachDetachDocument}'
             documentParameters: !Sub >-
@@ -351,6 +367,84 @@ Resources:
       Targets:
         {}
 
+  FisDeleteDynamodbTableTemplate:
+    Type: AWS::FIS::ExperimentTemplate
+    DeletionPolicy: Delete
+    Properties: 
+      Actions:
+        DeleteDynamodbTable:  
+          ActionId: aws:ssm:start-automation-execution
+          Description: Action to delete dynamodb table
+          Parameters:
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSConfigRemediation-DeleteDynamoDbTable' 
+            documentParameters: !Sub >-
+              {
+                "TableName":"global-table", 
+                "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
+              }
+            maxDuration: "PT8M"
+      Description: Delete dynamodb Role.
+      RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
+      StopConditions:
+        - Source: none
+      Tags: 
+        Name: FISAPI-DELETE_DYNAMODB_TABLE
+      Targets:
+        {}
+  FisRecoverDynamodbTablePITRTemplate:
+    Type: AWS::FIS::ExperimentTemplate
+    DeletionPolicy: Delete
+    Properties: 
+      Actions:
+        RecoverDynamodbTablePITR:  
+          ActionId: aws:ssm:start-automation-execution
+          Description: Action to recover dynamodb table from pitr
+          Parameters:
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSResilienceHub-RestoreDynamoDBTableToPointInTimeSOP_2020-04-01' 
+            documentParameters: !Sub >-
+              {
+                "DynamoDBTableSourceName":"global-table",
+                "DynamoDBTableTargetName":"global-table-pitr",
+                "RecoveryPointDateTime":"${RecoveryPointDateTime}",
+                "CopyAllProperties":"True",                 
+                "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
+              }
+            maxDuration: "PT8M"
+      Description: Recover dynamodb Role.
+      RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
+      StopConditions:
+        - Source: none
+      Tags: 
+        Name: FISAPI-RECOVER_DYNAMODB_TABLE_PITR
+      Targets:
+        {}
+  FisRecoverDynamodbTableBackupTemplate:
+    Type: AWS::FIS::ExperimentTemplate
+    DeletionPolicy: Delete
+    Properties: 
+      Actions:
+        RecoverDynamodbBackup:  
+          ActionId: aws:ssm:start-automation-execution
+          Description: Action to recover dynamodb table from backup
+          Parameters:
+            documentArn: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/AWSResilienceHub-RestoreDynamoDBTableFromBackupSOP_2020-04-01' 
+            documentParameters: !Sub >-
+              {
+                "DynamoDBTableSourceName":"global-table",
+                "DynamoDBSourceTableBackupArn":"${DynamoDBSourceTableBackupArn}",
+                "DynamoDBTableTargetName":"global-table",
+                "CopyAllProperties":"True",
+                "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
+              }
+            maxDuration: "PT8M"
+      Description: Recover dynamodb from backup.
+      RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
+      StopConditions:
+        - Source: none
+      Tags: 
+        Name: FISAPI-RECOVER_DYNAMODB_TABLE_BACKUP
+      Targets:
+        {}
   ############################################################################
   # FIS experiment execution role
   #
