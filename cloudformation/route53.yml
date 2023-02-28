@@ -96,5 +96,5 @@ Resources:
             DNSName: !Ref RestApiDomainNameRegionalDomainName2
 Metadata: {}
 Outputs:
-  Route53RecordSetGroup:
+  Route53RecordSet:
     Value: !Ref DeliveryApiRoute53RecordSetGroup
