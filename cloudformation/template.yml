@@ -778,6 +778,8 @@ Outputs:
     Value: !GetAtt RestApiDomainName.RegionalHostedZoneId
   AliasTargetDNSName:
     Value: !GetAtt RestApiDomainName.RegionalDomainName
+  ApiRole:
+    Value: !Ref ApiRole
   GlobalTable:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
   GlobalTableIndex:

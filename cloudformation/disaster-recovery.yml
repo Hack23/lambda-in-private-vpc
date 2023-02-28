@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: "Disaster recovery test"
 Parameters:
   ApiRole:
-    Description: ApiRoleArn
+    Description: ApiRole Name
     Type: String
     Default: ''
   FaultInjectionExperimentDuration:
