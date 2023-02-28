@@ -405,7 +405,7 @@ Resources:
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBTableTargetName":"global-table-pitr",
                 "RecoveryPointDateTime":"${RecoveryPointDateTime}",
-                "CopyAllProperties":"True",                 
+                "CopyAllProperties": true,                 
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
             maxDuration: "PT8M"
@@ -432,7 +432,7 @@ Resources:
                 "DynamoDBTableSourceName":"global-table",
                 "DynamoDBSourceTableBackupArn":"${DynamoDBSourceTableBackupArn}",
                 "DynamoDBTableTargetName":"global-table",
-                "CopyAllProperties":"True",
+                "CopyAllProperties":true,
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
             maxDuration: "PT8M"
