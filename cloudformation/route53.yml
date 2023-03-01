@@ -52,6 +52,7 @@ Resources:
           SetIdentifier: apizone1a
           HealthCheckId: !Ref HealthCheckId
           Weight: '50'
+          TTL: '30'
           AliasTarget:
             HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId
             DNSName: !Ref  RestApiDomainNameRegionalDomainName
@@ -65,6 +66,7 @@ Resources:
           SetIdentifier: apizone2a
           HealthCheckId: !Ref HealthCheckId2
           Weight: '50'
+          TTL: '30'
           AliasTarget:
             HostedZoneId: !Ref  RestApiDomainNameRegionalHostedZoneId2
             DNSName: !Ref  RestApiDomainNameRegionalDomainName2
@@ -78,6 +80,7 @@ Resources:
           SetIdentifier: apizone1aaa
           HealthCheckId: !Ref HealthCheckId
           Weight: '50'
+          TTL: '30'
           AliasTarget:
             HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId
             DNSName: !Ref RestApiDomainNameRegionalDomainName
@@ -91,6 +94,7 @@ Resources:
           SetIdentifier: apizone2aaa
           HealthCheckId: !Ref HealthCheckId2
           Weight: '50'
+          TTL: '30'
           AliasTarget:
             HostedZoneId: !Ref RestApiDomainNameRegionalHostedZoneId2
             DNSName: !Ref RestApiDomainNameRegionalDomainName2
