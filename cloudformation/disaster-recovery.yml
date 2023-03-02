@@ -358,12 +358,12 @@ Resources:
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
             maxDuration: "PT8M"
-      Description: Deny Access to lambda on APi Role.
+      Description: Deny Access to lambda on APi Gateway.
       RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
       StopConditions:
         - Source: none
       Tags: 
-        Name: FISAPI-DENY-API-LAMBDAA
+        Name: DENY-API-LAMBDA
       Targets:
         {}
 
@@ -382,13 +382,13 @@ Resources:
                 "TableName":"global-table", 
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
-            maxDuration: "PT8M"
-      Description: Delete dynamodb Role.
+            maxDuration: "PT10M"
+      Description: Delete dynamodb table.
       RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
       StopConditions:
         - Source: none
       Tags: 
-        Name: FISAPI-DELETE_DYNAMODB_TABLE
+        Name: DELETE_DYNAMODB_TABLE
       Targets:
         {}
   FisRecoverDynamodbTablePITRTemplate:
@@ -409,13 +409,13 @@ Resources:
                 "CopyAllProperties": true,                 
                 "AutomationAssumeRole":"arn:aws:iam::${AWS::AccountId}:role/${SsmAutomationRole}"
               }
-            maxDuration: "PT8M"
-      Description: Recover dynamodb Role.
+            maxDuration: "PT30M"
+      Description: Recover dynamodb from PITR.
       RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${FisExperimentRole}'
       StopConditions:
         - Source: none
       Tags: 
-        Name: FISAPI-RECOVER_DYNAMODB_TABLE_PITR
+        Name: RECOVER_DYNAMODB_TABLE_PITR
       Targets:
         {}
   FisRecoverDynamodbTableBackupTemplate:
@@ -442,7 +442,7 @@ Resources:
       StopConditions:
         - Source: none
       Tags: 
-        Name: FISAPI-RECOVER_DYNAMODB_TABLE_BACKUP
+        Name: RECOVER_DYNAMODB_TABLE_BACKUP
       Targets:
         {}
   ############################################################################
