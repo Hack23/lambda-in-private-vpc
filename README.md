@@ -18,10 +18,11 @@ Learn more about AWS Resilience Hub concepts [here](https://docs.aws.amazon.com/
 * [IAM Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html)
 
 ## Architecture Diagrams
-* [Resilience Hub Policy](ResilienceHubPolicy.png)
-* [Route53 Policy](route53-policy.png)
-* [Application](ResiliencyHub-App.png)
 * [Infrastructure](cloudformation/template.png)
+
+## Resiliencehub screenhots
+* [Resilience Hub Policy](ResilienceHubPolicy.png)
+* [Application](ResiliencyHub-App.png)
 * [App Recommendation 1](ResiliencyHub-App-rec1.png)
 * [App Recommendation 2](ResiliencyHub-App-rec2.png)
 
