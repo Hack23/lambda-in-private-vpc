@@ -55,7 +55,7 @@ jobs:
           output_file_path: reports/results.sarif 
           download_external_modules: true
       - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::172017021075:role/GithubWorkFlowRole
           role-session-name: githubworkflowrolesessiont2
@@ -84,7 +84,7 @@ jobs:
             echo "${{ env.AliasTargetHostedZoneId }}"
             echo "${{ env.AliasTargetDNSName }}"            
       - name: configure aws credentials Frankfurt region
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::172017021075:role/GithubWorkFlowRole
           role-session-name: githubworkflowrolesessiont2
