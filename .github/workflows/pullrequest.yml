@@ -9,34 +9,34 @@ jobs:
   verifypr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
       - name: Run StandardLint
-        uses: mikaelvesavuori/standardlint-action@v1.0.0
+        uses: mikaelvesavuori/standardlint-action@6aa06559941f5dda07f7d89eefff6da591e9e0b9 # v1.0.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Testing template with CFN Lint
-        uses: scottbrenner/cfn-lint-action@v2
+        uses: scottbrenner/cfn-lint-action@d4b491a1ac58da9e28f5aaeda243c2debe491624 # v2.3.0
         with:
           command: cfn-lint -t cloudformation/template.yml
       - name: Testing route53 with CFN Lint
-        uses: scottbrenner/cfn-lint-action@v2
+        uses: scottbrenner/cfn-lint-action@d4b491a1ac58da9e28f5aaeda243c2debe491624 # v2.3.0
         with:
           command: cfn-lint -t cloudformation/route53.yml
       - name: Testing disaster-recovery with CFN Lint
-        uses: scottbrenner/cfn-lint-action@v2
+        uses: scottbrenner/cfn-lint-action@d4b491a1ac58da9e28f5aaeda243c2debe491624 # v2.3.0
         with:
           command: cfn-lint -t cloudformation/disaster-recovery.yml
       - name: Testing app with CFN Lint
-        uses: scottbrenner/cfn-lint-action@v2
+        uses: scottbrenner/cfn-lint-action@d4b491a1ac58da9e28f5aaeda243c2debe491624 # v2.3.0
         with:
           command: cfn-lint -t cloudformation/app.yml
       - name: Run cfn-nag
-        uses: stelligent/cfn_nag@master
+        uses: stelligent/cfn_nag@8b5f03da74202ba323a145e9d037ddce6cab9dec # master
         with:
           input_path: cloudformation
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@master
+        uses: bridgecrewio/checkov-action@28f996072c5e38b2083293a8162907dc39ef7315 # master
         with:
           file: cloudformation/template.yml
           skip_check: CKV_AWS_59
