@@ -1,89 +1,44 @@
-# lambda-in-private-vpc
 
-status : WIP
+# Lambda in Private VPC
 
-POC of multi region active/active site with resilience hub policy compliance with RTO/RPO 5 Min for Application/AZ/Region failures with setup SOP and fault injections(proof of executions of SOP)
-Zero trust example
+**Status:** Work in Progress
 
-Api gateway with schema request validation and cross region replicated dynamodb. Route53 geolocation  dns setup. Using https://github.com/aws-samples/amazon-cloudfront-secure-static-site with Cloudfront failover S3 bucket in different region for frontend. 
+This project demonstrates a multi-region active/active site using AWS Resilience Hub policy compliance with an RTO/RPO for Application/AZ/Region failures, ensuring high availability and fault tolerance.
 
-https://api.hack23.com/v1/healthcheck
+## Badges
 
-Badges
-[![license](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)]([https://github.com/Hack23/lambda-in-private-vpc](https://github.com/Hack23/lambda-in-private-vpc)/raw/master/LICENSE.md)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc)
+[![License](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)](https://github.com/Hack23/lambda-in-private-vpc/raw/master/LICENSE.md) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc)
 
+## Concepts
 
-# Concepts
+Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
 
-https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html
+## Runbooks
 
+- [DynamoDB Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html) - Automates the management of DynamoDB tables and indexes.
+- [Lambda Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html) - Helps manage Lambda functions, layers, and aliases.
+- [Application Bridge Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html) - Supports management of Amazon App Runner services and custom domains.
+- [IAM Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html) - Facilitates IAM user, group, role, and policy management.
 
-# Runbooks
+## Architecture Diagrams
 
-https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html
-https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html
-https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html
-https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html
+- [Infrastructure](cloudformation/template.png) - Depicts the overall infrastructure, including AWS services and components.
+- [DNS Route53](cloudformation/route53.png) - Shows the Route 53 configuration for DNS routing and failover.
+- [Web Application Firewall](cloudformation/waf.png) - Displays the setup of the Web Application Firewall for securing your application.
+- [Disaster Recovery](cloudformation/disaster-recovery.png) - Illustrates the disaster recovery strategy for the application.
 
+## Resilience Hub Screenshots
 
-![Policy](ResilienceHubPolicy.png)
+- [Resilience Hub Policy](ResilienceHubPolicy.png) - Overview of the policy settings in AWS Resilience Hub.
+- [Application](ResiliencyHub-App.png) - The application setup and components in AWS Resilience Hub.
+- [App Recommendation 1](ResiliencyHub-App-rec1.png) - First set of recommendations for improving application resiliency.
+- [App Recommendation 2](ResiliencyHub-App-rec2.png) - Second set of recommendations for enhancing application resiliency.
+- [Region](ResHub-region.png) - Regional recommendations
 
-![Route53 Policy](route53-policy.png)
+## Relevant Links
 
-![App](ResiliencyHub-App.png)
+- [Route53 Application Recovery Controller](https://aws.amazon.com/route53/application-recovery-controller/) - Service for managing and testing application recovery across AWS Regions.
+- [Route53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html) - A managed DNS firewall service to protect applications from malicious DNS activity.
+- [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla) - Tools for calculating and comparing cloud service SLAs.
 
-![Infrastructure](cloudformation/template.png)
-
-![App recommendation](ResiliencyHub-App-rec1.png)
-
-![App recommendation2](ResiliencyHub-App-rec2.png)
-
-
-https://aws.amazon.com/route53/application-recovery-controller/
-https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html
-
-
-
-https://github.com/mikaelvesavuori/slamax / https://github.com/mikaelvesavuori/cloud-sla
-
-
-Please refer to [https://aws.amazon.com/legal/service-level-agreements/](https://aws.amazon.com/legal/service-level-agreements/) for more information.
-
-| **Service**                                                                                                                         | **Key**                                | **SLA**               |
-| ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | --------------------- |
-| Amazon API Gateway                                                                                                                  | `amazon-api-gateway`                   | 99.95%                |
-| Amazon CloudWatch (including Metrics API, Logs Data Ingestion API and Alarms)                                                       | `amazon-cloudwatch`                    | 99.9%                 |
-| Amazon DynamoDB (Global Tables SLA)                                                                                                 | `amazon-dynamodb-globaltables`         | 99.999%               |
-| Amazon Messaging (SQS, SNS)                                                                                                         | `amazon-messaging`                     | 99.9%                 |
-| Amazon Route 53                                                                                                                     | `amazon-route53`                       | 100%                  |
-| AWS Certificate Manager Private Certificate Authority                                                                               | `aws-certificate-manager-privateca`    | 99.9%                 |
-| AWS Key Management Service (KMS)                                                                                                    | `aws-kms`                              | 99.999%               |
-| AWS Lambda                                                                                                                          | `aws-lambda`                           | 99.95%                |
-| AWS WAF                                                                                                                             | `aws-waf`                              | 99.95%                |
-| AWS X-Ray                                                                                                                           | `aws-xray`                             | 99.9%                 |
-
-
-SLA MAX = 0.994592393 (0.9995 * 0.999 * 0.99999 * 0.999 1* 0.999 * 0.99999 * 0.9995 * 0.9995 * 0.999)
-
-SLO = 99.45%
-
-SLA level of 99.45 % uptime/availability results in the following periods of allowed downtime/unavailability:
-
-Daily: 7m 55s
-Weekly: 55m 26s
-Monthly: 3h 59m 4.8s
-Quarterly: 11h 57m 14s
-Yearly: 1d 23h 48m 58s
-Direct link to the page with these results: https://uptime.is/99.45
-
-
-Multi region active/active is more resilient to regional failures and dynamodb global tables (99.999%)
-
-
-![Region](https://github.com/Hack23/lambda-in-private-vpc/raw/main/ResHub-region.png)
-
-
-https://aws.amazon.com/premiumsupport/technology/pes/
-
-
+For more information on AWS service level agreements, visit the [AWS SLA page](
