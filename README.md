@@ -1,8 +1,9 @@
+
 # Lambda in Private VPC
 
 **Status:** Work in Progress
 
-This project demonstrates a multi-region active/active site using AWS Resilience Hub policy compliance with an RTO/RPO for Application/AZ/Region failures.
+This project demonstrates a multi-region active/active site using AWS Resilience Hub policy compliance with an RTO/RPO for Application/AZ/Region failures, ensuring high availability and fault tolerance.
 
 ## Badges
 
@@ -10,49 +11,34 @@ This project demonstrates a multi-region active/active site using AWS Resilience
 
 ## Concepts
 
-Learn more about AWS Resilience Hub concepts [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
+Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
 
 ## Runbooks
 
-- [DynamoDB Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html)
-- [Lambda Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html)
-- [Application Bridge Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html)
-- [IAM Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html)
+- [DynamoDB Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html) - Automates the management of DynamoDB tables and indexes.
+- [Lambda Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html) - Helps manage Lambda functions, layers, and aliases.
+- [Application Bridge Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html) - Supports management of Amazon App Runner services and custom domains.
+- [IAM Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html) - Facilitates IAM user, group, role, and policy management.
 
 ## Architecture Diagrams
 
-- [Infrastructure](cloudformation/template.png)
-- [DNS Route53](cloudformation/route53.png)
-- [Web Application Firewall](cloudformation/waf.png)
-- [Disaster Recovery](cloudformation/disaster-recovery.png)
-
+- [Infrastructure](cloudformation/template.png) - Depicts the overall infrastructure, including AWS services and components.
+- [DNS Route53](cloudformation/route53.png) - Shows the Route 53 configuration for DNS routing and failover.
+- [Web Application Firewall](cloudformation/waf.png) - Displays the setup of the Web Application Firewall for securing your application.
+- [Disaster Recovery](cloudformation/disaster-recovery.png) - Illustrates the disaster recovery strategy for the application.
 
 ## Resilience Hub Screenshots
 
-- [Resilience Hub Policy](ResilienceHubPolicy.png)
-- [Application](ResiliencyHub-App.png)
-- [App Recommendation 1](ResiliencyHub-App-rec1.png)
-- [App Recommendation 2](ResiliencyHub-App-rec2.png)
-- [Region](ResHub-region.png)
+- [Resilience Hub Policy](ResilienceHubPolicy.png) - Overview of the policy settings in AWS Resilience Hub.
+- [Application](ResiliencyHub-App.png) - The application setup and components in AWS Resilience Hub.
+- [App Recommendation 1](ResiliencyHub-App-rec1.png) - First set of recommendations for improving application resiliency.
+- [App Recommendation 2](ResiliencyHub-App-rec2.png) - Second set of recommendations for enhancing application resiliency.
+- [Region](ResHub-region.png) - Regional recommendations
 
 ## Relevant Links
 
-- [Route53 Application Recovery Controller](https://aws.amazon.com/route53/application-recovery-controller/)
-- [Route53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html)
-- [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla)
+- [Route53 Application Recovery Controller](https://aws.amazon.com/route53/application-recovery-controller/) - Service for managing and testing application recovery across AWS Regions.
+- [Route53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html) - A managed DNS firewall service to protect applications from malicious DNS activity.
+- [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla) - Tools for calculating and comparing cloud service SLAs.
 
-For more information on AWS service level agreements, visit the [AWS SLA page](https://aws.amazon.com/legal/service-level-agreements/).
-
-## SLA and SLO
-
-This setup provides an SLA level of 99.45% uptime/availability, which allows for the following periods of downtime/unavailability:
-
-- Daily: 7m 55s
-- Weekly: 55m 26s
-- Monthly: 3h 59m 4.8s
-- Quarterly: 11h 57m 14s
-- Yearly: 1d 23h 48m 58s
-
-A multi-region active/active architecture is more resilient to regional failures, and DynamoDB global tables offer a 99.999% availability.
-
-For more information on AWS Proactive Event Support, visit [AWS Premium Support](https://aws.amazon.com/premiumsupport/technology/pes/).
+For more information on AWS service level agreements, visit the [AWS SLA page](
