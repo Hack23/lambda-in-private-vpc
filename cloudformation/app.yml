@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ResilienceHub Application
+Parameters:
+  StackIrland:
+    Description: Arn for StackIrland
+    Type: String
+    Default: ''
+  StackFrankfurt:
+    Description: Arn for StackFrankfurt
+    Type: String
+    Default: ''
+  AppPolicy:
+    Description: Arn for Policy
+    Type: String
+    Default: ''    
+Resources:
+  Application:
+    Type: AWS::ResilienceHub::App
+    Properties:
+      AppAssessmentSchedule: Daily
+      AppTemplateBody: !Sub '{"resources":[{"logicalResourceId":{"identifier":"RestApi","logicalStackName":"${StackIrland}","resourceGroupName":null},"type":"AWS::ApiGateway::RestApi","name":"apigatewayrestapi-1"},{"logicalResourceId":{"identifier":"LambdaDynamo","logicalStackName":"${StackIrland}","resourceGroupName":null},"type":"AWS::Lambda::Function","name":"lambdafunction-2"},{"logicalResourceId":{"identifier":"DeadLetterTopic","logicalStackName":"${StackIrland}","resourceGroupName":null},"type":"AWS::SNS::Topic","name":"snstopic"},{"logicalResourceId":{"identifier":"DeadLetterTopic","logicalStackName":"lambda-vpc","resourceGroupName":null},"type":"AWS::SNS::Topic","name":"snstopic-1"},{"logicalResourceId":{"identifier":"LambdaDynamo","logicalStackName":"lambda-vpc","resourceGroupName":null},"type":"AWS::Lambda::Function","name":"lambdafunction-1"},{"logicalResourceId":{"identifier":"Lambda","logicalStackName":"lambda-vpc","resourceGroupName":null},"type":"AWS::Lambda::Function","name":"lambdafunction-3"},{"logicalResourceId":{"identifier":"RestApi","logicalStackName":"lambda-vpc","resourceGroupName":null},"type":"AWS::ApiGateway::RestApi","name":"apigatewayrestapi"},{"logicalResourceId":{"identifier":"Lambda","logicalStackName":"${StackIrland}","resourceGroupName":null},"type":"AWS::Lambda::Function","name":"lambdafunction"},{"logicalResourceId":{"identifier":"GlobalTable","logicalStackName":"${StackIrland}","resourceGroupName":null},"type":"AWS::DynamoDB::GlobalTable","name":"dynamodbglobaltable"}],"appComponents":[{"id":null,"name":"NotificationAppComponent-SNSTopic-DeadLetterTopic","type":"AWS::ResilienceHub::NotificationAppComponent","resourceNames":["snstopic","snstopic-1"]},{"id":null,"name":"ComputeAppComponent-LambdaFunction-LambdaDynamo","type":"AWS::ResilienceHub::ComputeAppComponent","resourceNames":["lambdafunction-1","lambdafunction-2"]},{"id":null,"name":"ComputeAppComponent-ApiGatewayRestApi-RestApi","type":"AWS::ResilienceHub::ComputeAppComponent","resourceNames":["apigatewayrestapi","apigatewayrestapi-1"]},{"id":null,"name":"ComputeAppComponent-LambdaFunction-Lambda","type":"AWS::ResilienceHub::ComputeAppComponent","resourceNames":["lambdafunction","lambdafunction-3"]},{"id":null,"name":"DatabaseAppComponent-DynamoDBTable-GlobalTable","type":"AWS::ResilienceHub::DatabaseAppComponent","resourceNames":["dynamodbglobaltable"]},{"id":null,"name":"appcommon","type":"AWS::ResilienceHub::AppCommonAppComponent","resourceNames":[]}],"excludedResources":{"logicalResourceIds":[{"identifier":"dns","logicalStackName":"","resourceGroupName":"","terraformSourceName":"","eksSourceName":""}]},"version":2.0}'
+      Description: lambda-vpc
+      Name: lambda-vpc
+      ResiliencyPolicyArn: !Ref 'AppPolicy'
+      ResourceMappings:
+        - LogicalStackName: 'StackIrland'
+          MappingType: CfnStack
+          PhysicalResourceId:
+            Identifier: !Sub '"${StackIrland}"'
+            Type: Arn
+        - LogicalStackName: 'StackFrankfurt'
+          MappingType: CfnStack
+          PhysicalResourceId:
+            Identifier: !Sub '${StackFrankfurt}'
+            Type: Arn
+Metadata: {}
+Outputs:
+  Application:
+    Value: !Ref Application
