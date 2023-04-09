@@ -80,6 +80,8 @@ jobs:
             echo "HealthCheckId=$HealthCheckId"  >> $GITHUB_ENV
             AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId"  >> $GITHUB_ENV 
+            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
+            echo "AliasTargetDNSName=$AliasTargetDNSName"  >> $GITHUB_ENV
             RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep aws | xargs`
             echo "RestApi=$RestApi"  >> $GITHUB_ENV
             HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep aws | xargs`
