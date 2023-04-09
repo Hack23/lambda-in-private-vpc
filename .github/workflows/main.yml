@@ -80,8 +80,18 @@ jobs:
             echo "HealthCheckId=$HealthCheckId"  >> $GITHUB_ENV
             AliasTargetHostedZoneId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetHostedZoneId'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId"  >> $GITHUB_ENV 
-            AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
-            echo "AliasTargetDNSName=$AliasTargetDNSName"  >> $GITHUB_ENV
+            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep aws | xargs`
+            echo "RestApi=$RestApi"  >> $GITHUB_ENV
+            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep aws | xargs`
+            echo "HealthcheckFunction=$HealthcheckFunction"  >> $GITHUB_ENV
+            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
+            echo "DynamoFunction=$DynamoFunction"  >> $GITHUB_ENV
+            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadletterTopic'].OutputValue" | grep aws | xargs`
+            echo "DeadletterTopic=$DeadletterTopic"  >> $GITHUB_ENV            
+            AlarmTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AlarmTopic'].OutputValue" | grep aws | xargs`
+            echo "AlarmTopic=$AlarmTopic"  >> $GITHUB_ENV
+            StackId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'StackId'].OutputValue" | grep aws | xargs`
+            echo "StackId=$StackId"  >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
             echo "${{ env.GlobalTableZoneFrankfurt }}"
@@ -112,6 +122,18 @@ jobs:
             echo "AliasTargetDNSName2=$AliasTargetDNSName"  >> $GITHUB_ENV
             ApiRoleName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'ApiRoleName'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "ApiRoleName=$ApiRoleName"  >> $GITHUB_ENV
+            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep aws | xargs`
+            echo "RestAp2i=$RestApi"  >> $GITHUB_ENV
+            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep aws | xargs`
+            echo "HealthcheckFunction2=$HealthcheckFunction"  >> $GITHUB_ENV
+            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
+            echo "DynamoFunction2=$DynamoFunction"  >> $GITHUB_ENV
+            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadletterTopic'].OutputValue" | grep aws | xargs`
+            echo "DeadletterTopic2=$DeadletterTopic"  >> $GITHUB_ENV            
+            AlarmTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AlarmTopic'].OutputValue" | grep aws | xargs`
+            echo "AlarmTopic2=$AlarmTopic"  >> $GITHUB_ENV
+            StackId=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'StackId'].OutputValue" | grep aws | xargs`
+            echo "StackId2=$StackId"  >> $GITHUB_ENV
       - name: Show Output Irland
         run: |
             echo "${{ env.HealthCheckId }}"
@@ -131,3 +153,10 @@ jobs:
           template: cloudformation/disaster-recovery.yml
           capabilities: CAPABILITY_NAMED_IAM
           parameter-overrides: "ApiRole=${{ env.ApiRoleName }}"
+      - name: Deploy to AWS CloudFormation Resilience hub App and Policy
+        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        with:
+          name: lambda-vpc-resiliencehub-app
+          template: cloudformation/app.yml
+          capabilities: CAPABILITY_NAMED_IAM
+          parameter-overrides: "StackIrland=${{ env.StackId }},StackFrankfurt=${{ env.StackId2 }},RestApIrland=${{ env.RestAp }},RestApiFrankfurt=${{ env.RestApi2 }},HealthcheckFunctionIrland=${{ env.HealthcheckFunction }},HealthcheckFunctionFrankfurt=${{ env.HealthcheckFunctionFrankfurt2 }},DynamoFunctionIrland=${{ env.DynamoFunction }},DynamoFunctionFrankfurt=${{ env.DynamoFunction2 }},DeadLetterTopicIrland=${{ env.DeadLetterTopic }},DeadLetterTopicFrankfurt=${{ env.DeadLetterTopic2 }},AlarmTopicIrland=${{ env.AlarmTopic }},AlarmTopicFrankfurt=${{ env.AlarmTopic2 }}"

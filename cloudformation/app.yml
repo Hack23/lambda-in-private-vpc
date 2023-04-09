@@ -7,37 +7,34 @@ Parameters:
   StackFrankfurt:
     Description: Arn for StackFrankfurt
     Type: String
-  AppPolicy:
-    Description: Arn for Policy
-    Type: String
   RestApIrland:
     Description: ID for RestApiIrland
     Type: String
   RestApiFrankfurt:
     Description: ID for RestApiFrankfurt
     Type: String
-  HealthcheckIrland:
+  HealthcheckFunctionIrland:
     Description: ID for HealthcheckIrland
     Type: String
-  HealthcheckFrankfurt:
+  HealthcheckFunctionFrankfurt:
     Description: ID for HealthcheckFrankfurt
     Type: String
-  DynamoIrland:
+  DynamoFunctionIrland:
     Description: ID for DynamocheckIrland
     Type: String
-  DynamoFrankfurt:
+  DynamoFunctionFrankfurt:
     Description: ID for DynamoFrankfurt
     Type: String
-  DeadLetterIrland:
+  DeadLetterTopicIrland:
     Description: ID for DynamocheckIrland
     Type: String
-  DeadletterFrankfurt:
+  DeadletterTopicFrankfurt:
     Description: ID for DynamoFrankfurt
     Type: String
-  AlarmIrland:
+  AlarmTopicIrland:
     Description: ID for DynamocheckIrland
     Type: String
-  AlarmFrankfurt:
+  AlarmTopicFrankfurt:
     Description: ID for DynamoFrankfurt
     Type: String
   DynamoGlobalTableName:
@@ -45,6 +42,26 @@ Parameters:
     Type: String
     Default: 'dynamodbglobaltable'
 Resources:
+  AppPolicy:
+    Type: AWS::ResilienceHub::ResiliencyPolicy
+    Properties:
+      DataLocationConstraint: AnyLocation
+      Policy:
+        Software:
+          RpoInSecs: 300
+          RtoInSecs: 1800
+        Hardware:
+          RpoInSecs: 0
+          RtoInSecs: 0
+        AZ:
+          RpoInSecs: 0
+          RtoInSecs: 0
+        Region:
+          RpoInSecs: 300
+          RtoInSecs: 900
+      PolicyDescription: "Global Mission Critical"
+      PolicyName: GlobalMissionCritical
+      Tier: MissionCritical
   Application:
     Type: AWS::ResilienceHub::App
     Properties:

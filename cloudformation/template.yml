@@ -18,26 +18,6 @@ Conditions:
     - ''
     - !Ref 'GlobalTableArn'
 Resources:
-  AppPolicy:
-    Type: AWS::ResilienceHub::ResiliencyPolicy
-    Properties:
-      DataLocationConstraint: AnyLocation
-      Policy:
-        Software:
-          RpoInSecs: 300
-          RtoInSecs: 1800
-        Hardware:
-          RpoInSecs: 0
-          RtoInSecs: 0
-        AZ:
-          RpoInSecs: 0
-          RtoInSecs: 0
-        Region:
-          RpoInSecs: 300
-          RtoInSecs: 900
-      PolicyDescription: "Global Mission Critical"
-      PolicyName: GlobalMissionCritical
-      Tier: MissionCritical
   VPC:
     Type: "AWS::EC2::VPC"
     Properties:
@@ -780,6 +760,18 @@ Outputs:
     Value: !GetAtt RestApiDomainName.RegionalDomainName
   ApiRoleName:
     Value: !Ref ApiRole
+  StackId:
+    Value: !Ref AWS::StackId
+  RestApi:
+    Value: !Ref RestApi
+  HealthcheckFunction:
+    Value: !Ref Lambda
+  DynamoFunction:
+    Value: !Ref LambdaDynamo
+  DeadletterTopic:
+    Value: !Ref DeadLetterTopic
+  AlarmTopic:
+    Value: !Ref AlarmTopic
   GlobalTable:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
   GlobalTableIndex:
