@@ -88,7 +88,7 @@ jobs:
             echo "HealthcheckFunction=$HealthcheckFunction"  >> $GITHUB_ENV
             DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
             echo "DynamoFunction=$DynamoFunction"  >> $GITHUB_ENV
-            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadletterTopic'].OutputValue" | grep aws | xargs`
+            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadLetterTopic'].OutputValue" | grep aws | xargs`
             echo "DeadletterTopic=$DeadletterTopic"  >> $GITHUB_ENV            
             AlarmTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AlarmTopic'].OutputValue" | grep aws | xargs`
             echo "AlarmTopic=$AlarmTopic"  >> $GITHUB_ENV
@@ -130,7 +130,7 @@ jobs:
             echo "HealthcheckFunction2=$HealthcheckFunction"  >> $GITHUB_ENV
             DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
             echo "DynamoFunction2=$DynamoFunction"  >> $GITHUB_ENV
-            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadletterTopic'].OutputValue" | grep aws | xargs`
+            DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadLetterTopic'].OutputValue" | grep aws | xargs`
             echo "DeadletterTopic2=$DeadletterTopic"  >> $GITHUB_ENV            
             AlarmTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AlarmTopic'].OutputValue" | grep aws | xargs`
             echo "AlarmTopic2=$AlarmTopic"  >> $GITHUB_ENV
@@ -161,4 +161,4 @@ jobs:
           name: lambda-vpc-resiliencehub-app
           template: cloudformation/app.yml
           capabilities: CAPABILITY_NAMED_IAM
-          parameter-overrides: "StackIrland=${{ env.StackId }},StackFrankfurt=${{ env.StackId2 }},RestApiIrland=${{ env.RestAp }},RestApiFrankfurt=${{ env.RestApi2 }},HealthcheckFunctionIrland=${{ env.HealthcheckFunction }},HealthcheckFunctionFrankfurt=${{ env.HealthcheckFunctionFrankfurt2 }},DynamoFunctionIrland=${{ env.DynamoFunction }},DynamoFunctionFrankfurt=${{ env.DynamoFunction2 }},DeadletterTopicIrland=${{ env.DeadLetterTopic }},DeadletterTopicFrankfurt=${{ env.DeadLetterTopic2 }},AlarmTopicIrland=${{ env.AlarmTopic }},AlarmTopicFrankfurt=${{ env.AlarmTopic2 }}"
+          parameter-overrides: "StackIrland=${{ env.StackId }},StackFrankfurt=${{ env.StackId2 }},RestApiIrland=${{ env.RestApi }},RestApiFrankfurt=${{ env.RestApi2 }},HealthcheckFunctionIrland=${{ env.HealthcheckFunction }},HealthcheckFunctionFrankfurt=${{ env.HealthcheckFunction2 }},DynamoFunctionIrland=${{ env.DynamoFunction }},DynamoFunctionFrankfurt=${{ env.DynamoFunction2 }},DeadletterTopicIrland=${{ env.DeadletterTopic }},DeadletterTopicFrankfurt=${{ env.DeadletterTopic2 }},AlarmTopicIrland=${{ env.AlarmTopic }},AlarmTopicFrankfurt=${{ env.AlarmTopic2 }}"
