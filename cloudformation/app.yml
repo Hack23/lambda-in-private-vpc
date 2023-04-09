@@ -76,11 +76,15 @@ Resources:
           PhysicalResourceId:
             Identifier: !Ref 'StackIrland'
             Type: Arn
+            Region: eu-west-1
+            AwsAccountId: !Ref "AWS::AccountId"
         - LogicalStackName: 'StackFrankfurt'
           MappingType: CfnStack
           PhysicalResourceId:
             Identifier: !Ref 'StackFrankfurt'
             Type: Arn
+            Region: eu-central-1
+            AwsAccountId: !Ref "AWS::AccountId"
 Metadata: {}
 Outputs:
   Application:
