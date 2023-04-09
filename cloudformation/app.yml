@@ -7,7 +7,7 @@ Parameters:
   StackFrankfurt:
     Description: Arn for StackFrankfurt
     Type: String
-  RestApIrland:
+  RestApiIrland:
     Description: ID for RestApiIrland
     Type: String
   RestApiFrankfurt:
@@ -25,17 +25,17 @@ Parameters:
   DynamoFunctionFrankfurt:
     Description: ID for DynamoFrankfurt
     Type: String
-  DeadLetterTopicIrland:
-    Description: ID for DynamocheckIrland
+  DeadletterTopicIrland:
+    Description: ID for DeadletterTopicIrland
     Type: String
   DeadletterTopicFrankfurt:
-    Description: ID for DynamoFrankfurt
+    Description: ID for DeadletterTopicFrankfurt
     Type: String
   AlarmTopicIrland:
-    Description: ID for DynamocheckIrland
+    Description: ID for AlarmTopicIrland
     Type: String
   AlarmTopicFrankfurt:
-    Description: ID for DynamoFrankfurt
+    Description: ID for AlarmTopicFrankfurt
     Type: String
   DynamoGlobalTableName:
     Description: ID for DynamoGlobalTableName

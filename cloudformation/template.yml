@@ -768,7 +768,7 @@ Outputs:
     Value: !Ref Lambda
   DynamoFunction:
     Value: !Ref LambdaDynamo
-  DeadletterTopic:
+  DeadLetterTopic:
     Value: !Ref DeadLetterTopic
   AlarmTopic:
     Value: !Ref AlarmTopic
