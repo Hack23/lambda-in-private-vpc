@@ -763,15 +763,15 @@ Outputs:
   StackId:
     Value: !Ref AWS::StackId
   RestApi:
-    Value: !Ref RestApi
+    Value: RestApi
   HealthcheckFunction:
-    Value: !Ref Lambda
+    Value: Lambda
   DynamoFunction:
-    Value: !Ref LambdaDynamo
+    Value: LambdaDynamo
   DeadLetterTopic:
-    Value: !Ref DeadLetterTopic
+    Value: DeadLetterTopic
   AlarmTopic:
-    Value: !Ref AlarmTopic
+    Value: AlarmTopic
   GlobalTable:
     Value: !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
   GlobalTableIndex:
