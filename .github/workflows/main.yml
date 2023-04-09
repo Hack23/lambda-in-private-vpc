@@ -82,11 +82,11 @@ jobs:
             echo "AliasTargetHostedZoneId=$AliasTargetHostedZoneId"  >> $GITHUB_ENV 
             AliasTargetDNSName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'AliasTargetDNSName'].OutputValue" | grep aws | xargs`
             echo "AliasTargetDNSName=$AliasTargetDNSName"  >> $GITHUB_ENV
-            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep aws | xargs`
+            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "RestApi=$RestApi"  >> $GITHUB_ENV
-            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep aws | xargs`
+            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "HealthcheckFunction=$HealthcheckFunction"  >> $GITHUB_ENV
-            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
+            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "DynamoFunction=$DynamoFunction"  >> $GITHUB_ENV
             DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadLetterTopic'].OutputValue" | grep aws | xargs`
             echo "DeadletterTopic=$DeadletterTopic"  >> $GITHUB_ENV            
@@ -124,11 +124,11 @@ jobs:
             echo "AliasTargetDNSName2=$AliasTargetDNSName"  >> $GITHUB_ENV
             ApiRoleName=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'ApiRoleName'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "ApiRoleName=$ApiRoleName"  >> $GITHUB_ENV
-            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep aws | xargs`
+            RestApi=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'RestApi'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "RestAp2i=$RestApi"  >> $GITHUB_ENV
-            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep aws | xargs`
+            HealthcheckFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'HealthcheckFunction'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "HealthcheckFunction2=$HealthcheckFunction"  >> $GITHUB_ENV
-            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep aws | xargs`
+            DynamoFunction=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DynamoFunction'].OutputValue" | grep -v '\[' | grep -v '\]' | xargs`
             echo "DynamoFunction2=$DynamoFunction"  >> $GITHUB_ENV
             DeadletterTopic=`aws cloudformation describe-stacks --stack-name lambda-vpc --query "Stacks[0].Outputs[?OutputKey == 'DeadLetterTopic'].OutputValue" | grep aws | xargs`
             echo "DeadletterTopic2=$DeadletterTopic"  >> $GITHUB_ENV            
