@@ -1,8 +1,8 @@
 name: Verify and Deploy
 on:
-  pull_request_target:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 permissions:
   checks: write
   id-token: write   # This is required for requesting the JWT
