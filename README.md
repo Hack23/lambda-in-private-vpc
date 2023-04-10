@@ -43,4 +43,7 @@ Learn more about AWS Resilience Hub concepts and understand the key terms and pr
 - [Route53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html) - A managed DNS firewall service to protect applications from malicious DNS activity.
 - [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla) - Tools for calculating and comparing cloud service SLAs.
 
-For more information on AWS service level agreements, visit the [AWS SLA page](
+For more information on AWS service level agreements, visit the [AWS SLA page](https://aws.amazon.com/legal/service-level-agreements/).
+
+## License
+This project is licensed under the Apache License 2.0.
