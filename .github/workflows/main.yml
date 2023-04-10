@@ -15,7 +15,6 @@ env:
   AWS_REGION_ZONE : "eu-central-1"  
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
