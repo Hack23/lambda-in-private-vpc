@@ -6,7 +6,10 @@ on:
 permissions:
   checks: write
   id-token: write   # This is required for requesting the JWT
-  contents: read    # This is required for actions/checkout
+  contents: write    # This is required for actions/checkout
+  packages: write
+  deployments: write
+  pages: write
 env:
   AWS_REGION : "eu-west-1"
   AWS_REGION_ZONE : "eu-central-1"  
@@ -151,7 +154,7 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@fcfbdceb3093f6d85a3b194740f8c6cec632f4e2 # v6.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
       - name: Create a GitHub release
         uses: ncipollo/release-action@a2e71bdd4e7dab70ca26a852f29600c98b33153e # v1.12.0
         with:
