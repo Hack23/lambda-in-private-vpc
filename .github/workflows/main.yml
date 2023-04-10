@@ -71,6 +71,7 @@ jobs:
           name: lambda-vpc
           template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
+          no-fail-on-empty-changeset: "1"
           parameter-overrides: "DomainNamePrefix=api"
       - name: Get Output Irland
         run: |
@@ -103,6 +104,7 @@ jobs:
           name: lambda-vpc
           template: cloudformation/template.yml
           capabilities: CAPABILITY_NAMED_IAM
+          no-fail-on-empty-changeset: "1"
           parameter-overrides: "DomainNamePrefix=api,GlobalTableArn=${{ env.GlobalTableZoneFrankfurt }}"
       - name: Get Output Frankfurt
         run: |
@@ -127,6 +129,7 @@ jobs:
           name: lambda-vpc-route53
           template: cloudformation/route53.yml
           capabilities: CAPABILITY_NAMED_IAM
+          no-fail-on-empty-changeset: "1"
           parameter-overrides: "DomainNamePrefix=api,HealthCheckId=${{ env.HealthCheckId }},RestApiDomainNameRegionalHostedZoneId=${{ env.AliasTargetHostedZoneId }},RestApiDomainNameRegionalDomainName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},RestApiDomainNameRegionalHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},RestApiDomainNameRegionalDomainName2=${{ env.AliasTargetDNSName2 }}"          
       - name: Deploy to AWS CloudFormation Disaster Recovery
         uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
@@ -134,6 +137,7 @@ jobs:
           name: lambda-vpc-disaster-recovery
           template: cloudformation/disaster-recovery.yml
           capabilities: CAPABILITY_NAMED_IAM
+          no-fail-on-empty-changeset: "1"
           parameter-overrides: "ApiRole=${{ env.ApiRoleName }}"
       - name: Deploy to AWS CloudFormation Resilience hub App and Policy
         uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
@@ -141,6 +145,7 @@ jobs:
           name: lambda-vpc-resiliencehub-app
           template: cloudformation/app.yml
           capabilities: CAPABILITY_NAMED_IAM
+          no-fail-on-empty-changeset: "1"
           parameter-overrides: "StackIrland=${{ env.StackId }},StackFrankfurt=${{ env.StackId2 }}"
       - name: Bump version and push tag
         id: tag_version
