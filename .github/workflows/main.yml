@@ -3,13 +3,7 @@ on:
   push:
     branches:
       - main
-permissions:
-  checks: write
-  id-token: write   # This is required for requesting the JWT
-  contents: write    # This is required for actions/checkout
-  packages: write
-  deployments: write
-  pages: write
+permissions: write-all
 env:
   AWS_REGION : "eu-west-1"
   AWS_REGION_ZONE : "eu-central-1"  
