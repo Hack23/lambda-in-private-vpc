@@ -13,7 +13,7 @@ jobs:
         uses: step-security/harden-runner@03bee3930647ebbf994244c21ddbc0d4933aab4f # v2.3.0
         with:
           egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs    
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: Testing template with CFN Lint
         uses: scottbrenner/cfn-lint-action@d4b491a1ac58da9e28f5aaeda243c2debe491624 # v2.3.0
         with:
