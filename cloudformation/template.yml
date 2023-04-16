@@ -607,8 +607,7 @@ Resources:
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
 #      RequestValidatorId: !Ref ApiRequestValidator
       RequestModels:
-        application/json:
-          !Ref RequestModel
+        application/json: ""
       MethodResponses:
         - StatusCode: 200
           ResponseModels:
@@ -620,14 +619,6 @@ Resources:
       OperationName: 'lambda'
       ResourceId: !Ref ApiResource
       RestApiId: !Ref RestApi
-  RequestModel:
-    Type: AWS::ApiGateway::Model
-    Properties:
-      ContentType: 'application/json'
-      RestApiId: !Ref RestApi
-      Schema: {"$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Stats",
-      "type": "object" }
   ApiLoggingGroup:
     Type: "AWS::Logs::LogGroup"
     Properties:
