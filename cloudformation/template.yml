@@ -611,6 +611,12 @@ Resources:
           !Ref RequestModel
       MethodResponses:
         - StatusCode: 200
+          ResponseModels:
+            application/json: ""
+          ResponseParameters:
+            method.response.header.Strict-Transport-Security: true
+            method.response.header.X-Content-Type-Options: true
+            method.response.header.Cache-Control: true
       OperationName: 'lambda'
       ResourceId: !Ref ApiResource
       RestApiId: !Ref RestApi
