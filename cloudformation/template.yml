@@ -597,6 +597,12 @@ Resources:
         IntegrationHttpMethod: POST
         IntegrationResponses:
           - StatusCode: 200
+            ResponseTemplates:
+              application/json: ""
+            ResponseParameters:
+              method.response.header.Strict-Transport-Security: "'max-age=31536000; includeSubDomains'"
+              method.response.header.X-Content-Type-Options: "'nosniff'"
+              method.response.header.Cache-Control: "'no-store, no-cache, must-revalidate, private'"
         Type: AWS
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
 #      RequestValidatorId: !Ref ApiRequestValidator
