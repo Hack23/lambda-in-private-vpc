@@ -605,9 +605,6 @@ Resources:
               method.response.header.Cache-Control: "'no-store, no-cache, must-revalidate, private'"
         Type: AWS
         Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Lambda.Arn}/invocations'
-#      RequestValidatorId: !Ref ApiRequestValidator
-      RequestModels:
-        application/json: ""
       MethodResponses:
         - StatusCode: 200
           ResponseModels:
