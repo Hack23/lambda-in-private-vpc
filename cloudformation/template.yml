@@ -231,6 +231,13 @@ Resources:
             Principal:
               Service: route53.amazonaws.com
             Resource: '*'
+          - Sid: route53resolver-access-policy-statement
+            Action:
+              - kms:*
+            Effect: Allow
+            Principal:
+              Service: route53resolver.amazonaws.com
+            Resource: '*'
           - Sid: api-access-policy-statement
             Action:
               - kms:*
