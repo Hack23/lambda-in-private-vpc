@@ -224,20 +224,6 @@ Resources:
             Principal:
               Service: logs.amazonaws.com
             Resource: '*'
-          - Sid: route53-access-policy-statement
-            Action:
-              - kms:*
-            Effect: Allow
-            Principal:
-              Service: route53.amazonaws.com
-            Resource: '*'
-          - Sid: route53resolver-access-policy-statement
-            Action:
-              - kms:*
-            Effect: Allow
-            Principal:
-              Service: route53resolver.amazonaws.com
-            Resource: '*'
           - Sid: api-access-policy-statement
             Action:
               - kms:*
@@ -245,25 +231,6 @@ Resources:
             Principal:
               Service: apigateway.amazonaws.com
             Resource: '*'
-  Route53QueryLoggingGroup:
-    Type: "AWS::Logs::LogGroup"
-    Properties:
-      KmsKeyId: !GetAtt "EncryptionKey.Arn"
-      RetentionInDays: 30
-  Route53QueryLoggingConfig:
-    Type: "AWS::Route53Resolver::ResolverQueryLoggingConfig"
-    Properties:
-      DestinationArn:
-        !GetAtt "Route53QueryLoggingGroup.Arn"
-  Route53QueryLoggingConfigAssociation:
-    Type: "AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation"
-    Properties:
-      ResolverQueryLogConfigId:
-        Fn::GetAtt:
-          - "Route53QueryLoggingConfig"
-          - "Id"
-      ResourceId:
-        Ref: "VPC"
   DNSFIrewallDomainsList:
     Type: AWS::Route53Resolver::FirewallDomainList
     Properties: 
