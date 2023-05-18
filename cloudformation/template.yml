@@ -67,7 +67,7 @@ Resources:
   PrivateSubnet2:
     Type: "AWS::EC2::Subnet"
     Properties:
-      !Sub "${VpcCidrPrefix}.1.0/24"
+      CidrBlock: !Sub "${VpcCidrPrefix}.1.0/24"
       MapPublicIpOnLaunch: false
       VpcId:
         Ref: "VPC"
