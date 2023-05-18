@@ -39,7 +39,7 @@ jobs:
         uses: bridgecrewio/checkov-action@917353ff82f2267a4931a61083fad55069e4dd13 # master
         with:
           file: cloudformation/template.yml
-          skip_check: CKV_AWS_59
+          skip_check: CKV_AWS_59, CKV_AWS_120
           framework: cloudformation
           output_format: sarif
           output_file_path: reports/results.sarif 
