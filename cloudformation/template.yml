@@ -441,7 +441,7 @@ Resources:
       Architectures:
         - arm64
       MemorySize: 256
-      ReservedConcurrentExecutions: 1
+      ReservedConcurrentExecutions: 4
       DeadLetterConfig:
         TargetArn: !Ref "DeadLetterTopic"
       PackageType: "Zip"
@@ -474,7 +474,7 @@ Resources:
       Architectures:
         - arm64
       MemorySize: 256
-      ReservedConcurrentExecutions: 1
+      ReservedConcurrentExecutions: 4
       DeadLetterConfig:
         TargetArn: !Ref "DeadLetterTopic"
       PackageType: "Zip"
