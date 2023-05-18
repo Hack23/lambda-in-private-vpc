@@ -23,7 +23,7 @@ Resources:
           RpoInSecs: 1
           RtoInSecs: 1
         Region:
-          RpoInSecs: 300
+          RpoInSecs: 5
           RtoInSecs: 3600
       PolicyDescription: "Global Mission Critical"
       PolicyName: GlobalMissionCritical
