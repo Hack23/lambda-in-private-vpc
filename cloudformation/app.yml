@@ -15,7 +15,7 @@ Resources:
       Policy:
         Software:
           RpoInSecs: 300
-          RtoInSecs: 1800
+          RtoInSecs: 5400
         Hardware:
           RpoInSecs: 0
           RtoInSecs: 0
@@ -24,7 +24,7 @@ Resources:
           RtoInSecs: 0
         Region:
           RpoInSecs: 300
-          RtoInSecs: 900
+          RtoInSecs: 3600
       PolicyDescription: "Global Mission Critical"
       PolicyName: GlobalMissionCritical
       Tier: MissionCritical

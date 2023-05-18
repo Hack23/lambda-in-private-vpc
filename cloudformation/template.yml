@@ -13,6 +13,10 @@ Parameters:
     Description: Domain name (optional), used to setup route53 dns
     Type: String
     Default: hack23.com
+  VpcCidrPrefix:
+    Description: The first part of the CIDR block for the VPC and subnets
+    Type: String
+    Default: "10.1"    
 Conditions:
   deployGlobalTable: !Equals
     - ''
@@ -21,7 +25,7 @@ Resources:
   VPC:
     Type: "AWS::EC2::VPC"
     Properties:
-      CidrBlock: "10.1.0.0/16"
+      CidrBlock: !Sub "${VpcCidrPrefix}.0.0/16"
       EnableDnsHostnames: true
       EnableDnsSupport: true
       Tags:
@@ -48,7 +52,7 @@ Resources:
   PrivateSubnet1:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.1.0.0/24"
+      CidrBlock: !Sub "${VpcCidrPrefix}.0.0/24"
       MapPublicIpOnLaunch: false
       VpcId:
         Ref: "VPC"
@@ -63,7 +67,7 @@ Resources:
   PrivateSubnet2:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.1.1.0/24"
+      CidrBlock: !Sub "${VpcCidrPrefix}.1.0/24"
       MapPublicIpOnLaunch: false
       VpcId:
         Ref: "VPC"
@@ -78,7 +82,7 @@ Resources:
   PrivateSubnet3:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.1.2.0/24"
+      CidrBlock: !Sub "${VpcCidrPrefix}.2.0/24"
       MapPublicIpOnLaunch: false
       VpcId:
         Ref: "VPC"
