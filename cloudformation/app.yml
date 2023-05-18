@@ -17,11 +17,11 @@ Resources:
           RpoInSecs: 300
           RtoInSecs: 5400
         Hardware:
-          RpoInSecs: 0
-          RtoInSecs: 0
+          RpoInSecs: 1
+          RtoInSecs: 1
         AZ:
-          RpoInSecs: 0
-          RtoInSecs: 0
+          RpoInSecs: 1
+          RtoInSecs: 1
         Region:
           RpoInSecs: 300
           RtoInSecs: 3600
