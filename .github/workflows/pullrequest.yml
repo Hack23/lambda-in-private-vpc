@@ -11,8 +11,14 @@ jobs:
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969 # v2.4.0
-        with:
-          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs    
+         with:
+           disable-sudo: true
+           egress-policy: block
+           allowed-endpoints: >
+             files.pythonhosted.org:443
+             github.com:443
+             pypi.org:443
+             www.bridgecrew.cloud:443
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: Testing template with CFN Lint
         uses: scottbrenner/cfn-lint-action@c9b118541f6b917fea5e199db1b8a62e828897a8 # v2.3.1
