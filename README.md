@@ -15,6 +15,11 @@ This project demonstrates a multi-region active/active site using AWS Resilience
 
 Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
 
+## About Hack23
+
+- Website: [www.hack23.com](https://www.hack23.com/)
+- LinkedIn: [in/jamessorling](https://www.linkedin.com/in/jamessorling)
+
 ## Runbooks
 
 - [DynamoDB Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html) - Automates the management of DynamoDB tables and indexes.
