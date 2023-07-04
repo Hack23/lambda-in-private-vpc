@@ -3,7 +3,7 @@
 
 **Status:** Work in Progress
 
-This project demonstrates a multi-region active/active site using AWS Resilience Hub policy compliance with an RTO/RPO for Application/AZ/Region failures, ensuring high availability and fault tolerance.
+This project shows how to build a highly available system that runs in multiple AWS regions at the same time. It uses AWS Resilience Hub to ensure compliance with policies for Recovery Time Objective (RTO) and Recovery Point Objective (RPO), which help to minimize downtime and data loss in case of failures at the application, availability zone, or region level. This ensures high availability and fault tolerance for your applications.
 
 ## Badges
 
