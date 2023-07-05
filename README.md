@@ -11,6 +11,16 @@ This project shows how to build a highly available system that runs in multiple 
 [![Verify and Deploy](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml/badge.svg)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml)
 [![Scorecard supply-chain security](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml/badge.svg?branch=main)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml)
 
+
+## CloudFormation Templates
+
+The project includes several AWS CloudFormation templates that automate the creation and management of the necessary AWS resources:
+
+- `app.yml`: This template sets up an application named "lambda-vpc" with a ResilienceHub ResiliencyPolicy. The application includes AWS Lambda functions, API Gateway Rest APIs, and DynamoDB Global Tables.
+- `disaster-recovery.yml`: This template sets up a disaster recovery test using AWS Fault Injection Simulator (FIS). The experiments include denying access to Lambda on API Gateway, deleting a DynamoDB table, and recovering a DynamoDB table from a point-in-time recovery (PITR) or a backup.
+- `template.yml`: This template deploys a Lambda function in a private VPC with internet access. The function can access resources in the VPC and make outbound calls to the internet.
+- `route53.yml`: This template sets up DNS records in Amazon Route 53 for two API Gateway Rest APIs. The DNS records are configured for failover routing, which means that if one API becomes unavailable, traffic will be routed to the other API.
+
 ## Concepts
 
 Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
