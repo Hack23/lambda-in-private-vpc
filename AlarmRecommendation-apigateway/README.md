@@ -5,18 +5,18 @@ The following was generated to be added to your application.
 
 ### Alarms:
 
-- AWSResilienceHub-RestApiGwLatencyAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub that tracks time between when REST API Gateway receives a request from a client and when it returns a response to the client. Triggers when this interval statistically exceed threshold  
-  - Relevant Resource Ids: zhkuxajjsi
-- AWSResilienceHub-RestApiGw4xxErrorsAlarm_2020-04-01
-  - Description: Alarm by AWS Resilience Hub that tracks the percentage of 4xx responses received from REST API Gateway. Remember that some services may expect a certain percent of legitimate 4xx responses  
-  - Relevant Resource Ids: zhkuxajjsi
-- AWSResilienceHub-RestApiGw5xxErrorsAlarm_2020-04-01
-  - Description: Alarm by AWS Resilience Hub that tracks the percentage of 5xx responses received from API Gateway. Triggers when the 5xx are over ${Threshold} percent  
-  - Relevant Resource Ids: zhkuxajjsi
 - AWSResilienceHub-RestApiGwErrorCountAlarm_2020-04-01
   - Description: Alarm by AWS ResilienceHub that tracks the invocation anomalies, when requests count from REST API Gateway abnormally spike or drop.  
-  - Relevant Resource Ids: zhkuxajjsi
+  - Relevant Resource Ids: qpp5m03en4, 0uq060248k
+- AWSResilienceHub-RestApiGw4xxErrorsAlarm_2020-04-01
+  - Description: Alarm by AWS Resilience Hub that tracks the percentage of 4xx responses received from REST API Gateway. Remember that some services may expect a certain percent of legitimate 4xx responses  
+  - Relevant Resource Ids: 0uq060248k, qpp5m03en4
+- AWSResilienceHub-RestApiGwLatencyAlarm_2020-04-01
+  - Description: Alarm by AWS ResilienceHub that tracks time between when REST API Gateway receives a request from a client and when it returns a response to the client. Triggers when this interval statistically exceed threshold  
+  - Relevant Resource Ids: qpp5m03en4, 0uq060248k
+- AWSResilienceHub-RestApiGw5xxErrorsAlarm_2020-04-01
+  - Description: Alarm by AWS Resilience Hub that tracks the percentage of 5xx responses received from API Gateway. Triggers when the 5xx are over ${Threshold} percent  
+  - Relevant Resource Ids: qpp5m03en4, 0uq060248k
 ---
 
 ## app_common recommendations:
@@ -43,45 +43,33 @@ Make sure that the Synthetics Name passed in the alarm dimension matches the nam
 
 ### Alarms:
 
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyUpdateItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to UpdateItem operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBPendingReplicationCountAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub that triggers when the number of item updates that are written to one replica table, but that have not yet been written to another replica in the global table is too high  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyDeleteItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to DeleteItem operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactWriteItemsAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to TransactWriteItems operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyPutItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to PutItem operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBConditionalCheckFailedRequestsAlarm_2020-04-01
-  - Description: Reports when the number of failed attempts to perform conditional writes (Put/Update/Delete) is greater than or equal to the threshold  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchGetItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to BatchGetItem operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyGetItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to GetItem operation, is equal to or greater than the specified ${Threshold}.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBWriteThrottleEventsAlarm_2020-04-01
-  - Description: Reports when amount of write throttle events is greater than threshold  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyBatchWriteItemAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to BatchWriteItem operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBSuccessfulRequestLatencyTransactGetItemsAlarm_2020-04-01
-  - Description: Alarm by AWS ResilienceHub for Amazon DynamoDB, that reports elapsed time for successful requests with regards to TransactGetItems operation, is equal to or greater than the specified threshold.  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBReadThrottleEventsAlarm_2020-04-01
-  - Description: Reports when amount of read throttle events is greater than threshold  
-  - Relevant Resource Ids: global-table
-- AWSResilienceHub-DynamoDBReplicationLatencyAlarm_2020-04-01
+- AWSResilienceHub-DynamoDBConditionalCheckFailedRequestsAlarm_2023-06-03
+  - Description: Alarm by AWS Resilience Hub that reports when conditional errors exceed the threshold limit  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBUserErrorsAlarm_2023-06-03
+  - Description: Alarm by AWS ResilienceHub that reports when user errors exceed 2% of total read + write requests  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBReadThrottlingAlarm_2023-06-03
+  - Description: Alarm by AWS Resilience Hub that reports when read throttle requests exceed 2% of total number of read requests  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBSystemErrorsAlarm_2023-06-03
+  - Description: Alarm by AWS ResilienceHub that reports when system errors exceed 2% of total read + write requests  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBAccountLimitReadsAlarm_2023-06-03
+  - Description: Alarm by AWS Resilience Hub that reports when consumed table reads approach the account limit  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBReplicationLatencyAlarm_2023-06-03
   - Description: Alarm by AWS ResilienceHub that reports when replication from one replica table to another takes too much time  
-  - Relevant Resource Ids: global-table
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-west-1:172017021075:table/global-table, arn:aws:dynamodb:eu-central-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBWriteThrottlingAlarm_2023-06-03
+  - Description: Alarm by AWS Resilience Hub that reports when write throttle requests exceed 2% of total number of write requests  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBTransactionConflictAlarm_2023-06-03
+  - Description: Alarm that reports when number of transaction conflicts exceed threshold limit of 100  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
+- AWSResilienceHub-DynamoDBAccountLimitWritesAlarm_2023-06-03
+  - Description: Alarm by AWS Resilience Hub that reports when consumed table writes approach the account limit  
+  - Relevant Resource Ids: arn:aws:dynamodb:eu-central-1:172017021075:table/global-table, arn:aws:dynamodb:eu-west-1:172017021075:table/global-table
 ---
 
 ## lambda recommendations:
@@ -89,36 +77,49 @@ Make sure that the Synthetics Name passed in the alarm dimension matches the nam
 
 ### Alarms:
 
-- AWSResilienceHub-LambdaAnomalousInvocationCountAlarm_2020-07-13
-  - Description: Reports when invocations count is anomalous  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
-- AWSResilienceHub-LambdaThrottlesAlarm_2020-07-13
-  - Description: Reports when sustained throttles occur  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
 - AWSResilienceHub-LambdaAnomalousMemoryDeviationsAlarm_2020-04-01
   - Description: Reports when average memory consumption is anomalous  
   - Prerequisite: LambdaInsights must be enabled on the function https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started.html  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
-- AWSResilienceHub-LambdaErrorsAlarm_2020-07-13
-  - Description: Reports when sustained errors occur  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
+- AWSResilienceHub-LambdaConcurrentExecutionsAlarm_2020-04-01
+  - Description: Reports concurrent execution status  
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
 - AWSResilienceHub-LambdaAnomalousMemorySoftLimitAlarm_2020-04-01
   - Description: Reports when memory consumption achieves soft limit  
   - Prerequisite: LambdaInsights must be enabled on the function https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started.html  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
+- AWSResilienceHub-LambdaErrorsAlarm_2020-07-13
+  - Description: Reports when sustained errors occur  
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
+- AWSResilienceHub-LambdaAnomalousMemoryDeviationsAlarm_2020-04-01
+  - Description: Reports when average memory consumption is anomalous  
+  - Prerequisite: LambdaInsights must be enabled on the function https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started.html  
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
+- AWSResilienceHub-LambdaThrottlesAlarm_2020-07-13
+  - Description: Reports when sustained throttles occur  
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
+- AWSResilienceHub-LambdaAnomalousMemorySoftLimitAlarm_2020-04-01
+  - Description: Reports when memory consumption achieves soft limit  
+  - Prerequisite: LambdaInsights must be enabled on the function https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Lambda-Insights-Getting-Started.html  
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
 - AWSResilienceHub-LambdaAnomalousDurationCountAlarm_2020-04-01
   - Description: alarm by AWS ResilienceHub that that reports when lambda duration is less or higher then normal  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
+- AWSResilienceHub-LambdaAnomalousInvocationCountAlarm_2020-07-13
+  - Description: Reports when invocations count is anomalous  
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
+- AWSResilienceHub-LambdaErrorsAlarm_2020-07-13
+  - Description: Reports when sustained errors occur  
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
 - AWSResilienceHub-LambdaConcurrentExecutionsAlarm_2020-04-01
   - Description: Reports concurrent execution status  
-  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:audittest
----
-
-## sns recommendations:
-
-
-### Alarms:
-
-- AWSResilienceHub-SNSNumberOfNotificationsFailedAlarm_2022-04-04
-  - Description: Alarm by AWS Resilience Hub that alerts when there are notification failures.  
-  - Relevant Resource Ids: arn:aws:sns:eu-west-1:172017021075:lambda-vpc-DeadLetterTopic-N9updhYF6ukA
+  - Relevant Resource Ids: arn:aws:lambda:eu-west-1:172017021075:function:database, arn:aws:lambda:eu-central-1:172017021075:function:database
+- AWSResilienceHub-LambdaAnomalousInvocationCountAlarm_2020-07-13
+  - Description: Reports when invocations count is anomalous  
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
+- AWSResilienceHub-LambdaThrottlesAlarm_2020-07-13
+  - Description: Reports when sustained throttles occur  
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
+- AWSResilienceHub-LambdaAnomalousDurationCountAlarm_2020-04-01
+  - Description: alarm by AWS ResilienceHub that that reports when lambda duration is less or higher then normal  
+  - Relevant Resource Ids: arn:aws:lambda:eu-central-1:172017021075:function:audittest, arn:aws:lambda:eu-west-1:172017021075:function:audittest
