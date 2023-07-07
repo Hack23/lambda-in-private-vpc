@@ -14,7 +14,28 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
         with:
-          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            api.hack23.com:443
+            auth.docker.io:443
+            cfu.zaproxy.org:443
+            cloudformation.eu-central-1.amazonaws.com:443
+            cloudformation.eu-west-1.amazonaws.com:443
+            files.pythonhosted.org:443
+            github.com:443
+            news.zaproxy.org:443
+            objects.githubusercontent.com:443
+            production.cloudflare.docker.com:443
+            pypi.org:443
+            raw.githubusercontent.com:443
+            registry-1.docker.io:443
+            sts.eu-central-1.amazonaws.com:443
+            sts.eu-west-1.amazonaws.com:443
+            tel.zaproxy.org:443
+            www.bridgecrew.cloud:443
+
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Run StandardLint
