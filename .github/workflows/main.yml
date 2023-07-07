@@ -35,7 +35,7 @@ jobs:
             sts.eu-west-1.amazonaws.com:443
             tel.zaproxy.org:443
             www.bridgecrew.cloud:443
-
+            api.snapcraft.io:443
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Run StandardLint
