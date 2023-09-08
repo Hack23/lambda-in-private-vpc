@@ -1,8 +1,10 @@
 name: Verify and Deploy
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Version to release'
+        required: true
 permissions: write-all
 env:
   AWS_REGION : "eu-west-1"
