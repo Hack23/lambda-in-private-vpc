@@ -19,7 +19,13 @@ jobs:
             github.com:443
             pypi.org:443
             www.bridgecrew.cloud:443
+            docs.github.com:433
+            api.github.com:443
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+      - name: Run StandardLint
+        uses: mikaelvesavuori/standardlint-action@b376b6d6afc5885d102894f6972133fa91d200f0 # v1.0.5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Testing template with CFN Lint
         uses: scottbrenner/cfn-lint-action@14cbcc8ad4659b16b50e58e677a970e94543dc0b # v2.3.5
         with:

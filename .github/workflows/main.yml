@@ -19,6 +19,7 @@ jobs:
           disable-sudo: true
           egress-policy: block
           allowed-endpoints: >
+            docs.github.com:433
             api.github.com:443
             api.hack23.com:443
             auth.docker.io:443
