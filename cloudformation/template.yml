@@ -450,7 +450,7 @@ Resources:
         TargetArn: !Ref "DeadLetterTopic"
       PackageType: "Zip"
       Role: !GetAtt LambdaFunctionRole.Arn
-      Runtime: "nodejs18.x"
+      Runtime: "nodejs20.x"
       Timeout: 30
       VpcConfig:
         SecurityGroupIds:
@@ -483,7 +483,7 @@ Resources:
         TargetArn: !Ref "DeadLetterTopic"
       PackageType: "Zip"
       Role: !GetAtt LambdaFunctionRole.Arn
-      Runtime: "nodejs18.x"
+      Runtime: "nodejs20.x"
       Timeout: 30
       VpcConfig:
         SecurityGroupIds:
