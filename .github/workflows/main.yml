@@ -42,15 +42,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Testing with CFN Lint Command
-        uses: scottbrenner/cfn-lint-action@d7a7fc1277addd4aa2a4bdf766eeb7b5fa30e0c7 # v2.3.6
+        uses: scottbrenner/cfn-lint-action@b287c7005cdc87888e23b1292f313dc3ae7e1755 # v2.3.7
         with:
           command: cfn-lint -t cloudformation/template.yml
       - name: Testing route53 with CFN Lint
-        uses: scottbrenner/cfn-lint-action@d7a7fc1277addd4aa2a4bdf766eeb7b5fa30e0c7 # v2.3.6
+        uses: scottbrenner/cfn-lint-action@b287c7005cdc87888e23b1292f313dc3ae7e1755 # v2.3.7
         with:
           command: cfn-lint -t cloudformation/route53.yml
       - name: Testing disaster-recovery with CFN Lint
-        uses: scottbrenner/cfn-lint-action@d7a7fc1277addd4aa2a4bdf766eeb7b5fa30e0c7 # v2.3.6
+        uses: scottbrenner/cfn-lint-action@b287c7005cdc87888e23b1292f313dc3ae7e1755 # v2.3.7
         with:
           command: cfn-lint -t cloudformation/disaster-recovery.yml
       - name: Run cfn-nag
@@ -58,7 +58,7 @@ jobs:
         with:
           input_path: cloudformation
       - name: Testing app with CFN Lint
-        uses: scottbrenner/cfn-lint-action@d7a7fc1277addd4aa2a4bdf766eeb7b5fa30e0c7 # v2.3.6
+        uses: scottbrenner/cfn-lint-action@b287c7005cdc87888e23b1292f313dc3ae7e1755 # v2.3.7
         with:
           command: cfn-lint -t cloudformation/app.yml
       - name: Run cfn-nag
