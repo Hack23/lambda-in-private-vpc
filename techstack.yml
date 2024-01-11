@@ -1,7 +1,8 @@
 repo_name: Hack23/lambda-in-private-vpc
 report_id: 3e422197e63f2f7adbb5a52e0aa40b5b
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-09T15:20:16+00:00'
+timestamp: '2024-01-11T12:57:11+00:00'
 requested_by: dependabot[bot]
 provider: github
 branch: main
@@ -15,6 +16,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/Hack23/lambda-in-private-vpc
   detection_source: Repo Metadata
 - name: GitHub Actions
   description: Automate your workflow from idea to production
@@ -24,6 +26,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
-  detection_source: ".github/workflows/scorecard.yml"
+  detection_source_url: https://github.com/Hack23/lambda-in-private-vpc/blob/main/.github/workflows/dependency-review.yml
+  detection_source: ".github/workflows/dependency-review.yml"
   last_updated_by: dependabot[bot]
-  last_updated_on: 2023-11-08 13:20:25.000000000 Z
+  last_updated_on: 2024-01-08 13:01:55.000000000 Z
