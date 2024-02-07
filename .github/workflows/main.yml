@@ -82,7 +82,7 @@ jobs:
           role-session-name: githubworkflowrolesessiont2
           aws-region: ${{ env.AWS_REGION }}
       - name: Deploy to AWS CloudFormation Irland
-        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        uses: aws-actions/aws-cloudformation-github-deploy@33527b83bddcf6b3f0b135d9550bde8475325c73 # v1
         with:
           name: lambda-vpc
           template: cloudformation/template.yml
@@ -115,7 +115,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION_ZONE }}
 
       - name: Deploy to AWS CloudFormation Frankfurt
-        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        uses: aws-actions/aws-cloudformation-github-deploy@33527b83bddcf6b3f0b135d9550bde8475325c73 # v1
         with:
           name: lambda-vpc
           template: cloudformation/template.yml
@@ -140,7 +140,7 @@ jobs:
             echo "${{ env.AliasTargetHostedZoneId }}"
             echo "${{ env.AliasTargetDNSName }}"            
       - name: Deploy to AWS CloudFormation Route53
-        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        uses: aws-actions/aws-cloudformation-github-deploy@33527b83bddcf6b3f0b135d9550bde8475325c73 # v1
         with:
           name: lambda-vpc-route53
           template: cloudformation/route53.yml
@@ -148,7 +148,7 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides: "DomainNamePrefix=api,HealthCheckId=${{ env.HealthCheckId }},RestApiDomainNameRegionalHostedZoneId=${{ env.AliasTargetHostedZoneId }},RestApiDomainNameRegionalDomainName=${{ env.AliasTargetDNSName }},HealthCheckId2=${{ env.HealthCheckId2 }},RestApiDomainNameRegionalHostedZoneId2=${{ env.AliasTargetHostedZoneId2 }},RestApiDomainNameRegionalDomainName2=${{ env.AliasTargetDNSName2 }}"          
       - name: Deploy to AWS CloudFormation Disaster Recovery
-        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        uses: aws-actions/aws-cloudformation-github-deploy@33527b83bddcf6b3f0b135d9550bde8475325c73 # v1
         with:
           name: lambda-vpc-disaster-recovery
           template: cloudformation/disaster-recovery.yml
@@ -156,7 +156,7 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides: "ApiRole=${{ env.ApiRoleName }}"
       - name: Deploy to AWS CloudFormation Resilience hub App and Policy
-        uses: aws-actions/aws-cloudformation-github-deploy@023f4ef60d0103d690f31a504cfda9f4f2d66265 # v1
+        uses: aws-actions/aws-cloudformation-github-deploy@33527b83bddcf6b3f0b135d9550bde8475325c73 # v1
         with:
           name: lambda-vpc-resiliencehub-app
           template: cloudformation/app.yml
