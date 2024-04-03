@@ -164,7 +164,7 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides: "StackIrland=${{ env.StackId }},StackFrankfurt=${{ env.StackId2 }}"
       - name: ZAP API Scan
-        uses: zaproxy/action-api-scan@411cbe8fc59d9966a77d61b50daf6c49b6763605 # v0.6.0
+        uses: zaproxy/action-api-scan@f34b07497d46a84e06d71ad4f304311634c24137 # v0.7.0
         with:
           target: 'https://api.hack23.com/v1/healthcheck'
       - name: Bump version and push tag
