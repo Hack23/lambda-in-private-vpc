@@ -40,7 +40,7 @@ jobs:
             www.bridgecrew.cloud:443
             api.snapcraft.io:443
       - name: Checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - name: Testing with CFN Lint Command
         uses: scottbrenner/cfn-lint-action@3d62d6342d536631db0f577ea353ef0952818281 # v2.4.1
         with:
