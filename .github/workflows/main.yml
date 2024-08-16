@@ -69,7 +69,7 @@ jobs:
           input_path: cloudformation
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@3c0837b189c5ba53dfd39613840444c5dc1c7801 # master
+        uses: bridgecrewio/checkov-action@e983355829b735cff43000af6158aac9f7b4a7da # master
         with:
           file: cloudformation/template.yml
           skip_check: CKV_AWS_59,CKV_AWS_120
