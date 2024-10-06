@@ -378,7 +378,7 @@ Resources:
             Action:
               - "dynamodb:ListTables"
             Resource:
-              - "todo"
+              - !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/global-table'
       RouteTableIds:
         - Ref: "RouteTablePrivate1"
         - Ref: "RouteTablePrivate2"
