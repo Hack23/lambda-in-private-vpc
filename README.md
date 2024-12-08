@@ -1,4 +1,3 @@
-
 # Lambda in Private VPC
 
 **Status:** Work in Progress
@@ -10,7 +9,6 @@ This project shows how to build a highly available system that runs in multiple 
 [![License](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)](https://github.com/Hack23/lambda-in-private-vpc/raw/master/LICENSE.md) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://scorecard.dev/viewer/?uri=github.com/Hack23/lambda-in-private-vpc)
 [![Verify and Deploy](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml/badge.svg)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml)
 [![Scorecard supply-chain security](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml/badge.svg?branch=main)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml)
-
 
 ## CloudFormation Templates
 
@@ -39,18 +37,25 @@ Learn more about AWS Resilience Hub concepts and understand the key terms and pr
 
 ## Architecture Diagrams
 
-- [Infrastructure](cloudformation/template.png) - Depicts the overall infrastructure, including AWS services and components.
-- [DNS Route53](cloudformation/route53.png) - Shows the Route 53 configuration for DNS routing and failover.
-- [Web Application Firewall](cloudformation/waf.png) - Displays the setup of the Web Application Firewall for securing your application.
-- [Disaster Recovery](cloudformation/disaster-recovery.png) - Illustrates the disaster recovery strategy for the application.
+- ![Infrastructure](cloudformation/template.png) - Depicts the overall infrastructure, including AWS services and components.
+- ![DNS Route53](cloudformation/route53.png) - Shows the Route 53 configuration for DNS routing and failover.
+- ![Web Application Firewall](cloudformation/waf.png) - Displays the setup of the Web Application Firewall for securing your application.
+- ![Disaster Recovery](cloudformation/disaster-recovery.png) - Illustrates the disaster recovery strategy for the application.
 
 ## Resilience Hub Screenshots
 
-- [Resilience Hub Policy](ResilienceHubPolicy.png) - Overview of the policy settings in AWS Resilience Hub.
-- [Application](ResiliencyHub-App.png) - The application setup and components in AWS Resilience Hub.
-- [App Recommendation 1](ResiliencyHub-App-rec1.png) - First set of recommendations for improving application resiliency.
-- [App Recommendation 2](ResiliencyHub-App-rec2.png) - Second set of recommendations for enhancing application resiliency.
-- [Region](ResHub-region.png) - Regional recommendations
+- ![Resilience Hub Policy](ResilienceHubPolicy.png) - Overview of the policy settings in AWS Resilience Hub.
+- ![Application](ResiliencyHub-App.png) - The application setup and components in AWS Resilience Hub.
+- ![App Recommendation 1](ResiliencyHub-App-rec1.png) - First set of recommendations for improving application resiliency.
+- ![App Recommendation 2](ResiliencyHub-App-rec2.png) - Second set of recommendations for enhancing application resiliency.
+- ![Region](ResHub-region.png) - Regional recommendations
+
+## Tech Stack
+Hack23/lambda-in-private-vpc is built on the following main stack:
+
+- <img width='25' height='25' src='https://img.stackshare.io/service/11563/actions.png' alt='GitHub Actions'/> [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+
+Full tech stack [here](/techstack.md)
 
 ## Relevant Links
 
@@ -59,6 +64,21 @@ Learn more about AWS Resilience Hub concepts and understand the key terms and pr
 - [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla) - Tools for calculating and comparing cloud service SLAs.
 
 For more information on AWS service level agreements, visit the [AWS SLA page](https://aws.amazon.com/legal/service-level-agreements/).
+
+## Additional Documentation
+
+- [CHANGELOG.md](CHANGELOG.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [LICENSE.md](LICENSE.md)
+- [SECURITY.md](SECURITY.md)
+- [AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-1.json](AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-1.json)
+- [AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-2.json](AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-2.json)
+- [AlarmRecommendation-apigateway/manifest.json](AlarmRecommendation-apigateway/manifest.json)
+- [AlarmRecommendation-apigateway/README.md](AlarmRecommendation-apigateway/README.md)
+- [SopRecommendation-apigateway/sop/SopRecommendation-apigateway-Sop-172017021075-eu-west-1.json](SopRecommendation-apigateway/sop/SopRecommendation-apigateway-Sop-172017021075-eu-west-1.json)
+- [SopRecommendation-apigateway/manifest.json](SopRecommendation-apigateway/manifest.json)
+- [SopRecommendation-apigateway/README.md](SopRecommendation-apigateway/README.md)
 
 ## License
 This project is licensed under the Apache License 2.0.
