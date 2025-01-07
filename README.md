@@ -23,6 +23,10 @@ The project includes several AWS CloudFormation templates that automate the crea
 
 Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
 
+[Disaster Recovery (DR) Architecture on AWS, Part I: Strategies for Recovery in the Cloud
+](https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/)
+[Disaster Recovery (DR) Architecture on AWS, Part IV: Multi-site Active/Active](https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-iv-multi-site-active-active/)
+
 ## About Hack23
 
 - Website: [www.hack23.com](https://www.hack23.com/)
