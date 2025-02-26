@@ -27,19 +27,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Testing template with CFN Lint
-        uses: scottbrenner/cfn-lint-action@b8b449ced9a89d5335b2ed60c3b3c6088af82e13 # v2.4.7
+        uses: scottbrenner/cfn-lint-action@2d3d07f3527aab48a973d3ee6e66009e87ea3491 # v2.4.8
         with:
           command: cfn-lint -t cloudformation/template.yml
       - name: Testing route53 with CFN Lint
-        uses: scottbrenner/cfn-lint-action@b8b449ced9a89d5335b2ed60c3b3c6088af82e13 # v2.4.7
+        uses: scottbrenner/cfn-lint-action@2d3d07f3527aab48a973d3ee6e66009e87ea3491 # v2.4.8
         with:
           command: cfn-lint -t cloudformation/route53.yml
       - name: Testing disaster-recovery with CFN Lint
-        uses: scottbrenner/cfn-lint-action@b8b449ced9a89d5335b2ed60c3b3c6088af82e13 # v2.4.7
+        uses: scottbrenner/cfn-lint-action@2d3d07f3527aab48a973d3ee6e66009e87ea3491 # v2.4.8
         with:
           command: cfn-lint -t cloudformation/disaster-recovery.yml
       - name: Testing app with CFN Lint
-        uses: scottbrenner/cfn-lint-action@b8b449ced9a89d5335b2ed60c3b3c6088af82e13 # v2.4.7
+        uses: scottbrenner/cfn-lint-action@2d3d07f3527aab48a973d3ee6e66009e87ea3491 # v2.4.8
         with:
           command: cfn-lint -t cloudformation/app.yml
       - name: Run cfn-nag
