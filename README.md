@@ -31,7 +31,7 @@
 
 ```mermaid
 mindmap
-  root((Lambda in Private VPC))
+  Root((Lambda in Private VPC))
     Infra((Infrastructure))
       VPC((VPC))
       Subnets((Subnets))
@@ -44,17 +44,6 @@ mindmap
       Gateway((API Gateway))
       Domain((Custom Domain))
       DNS((Route 53 Failover))
-    Resilience((Resilience & DR))
-      ResHub((AWS Resilience Hub))
-      RTO_RPO((RTO & RPO Policies))
-      HA((High Availability))
-      DR((Disaster Recovery))
-        DR_Strategies((Recovery Strategies))
-          BackupRestore((Backup & Restore))
-          PilotLight((Pilot Light))
-          WarmStandby((Warm Standby))
-          MultiSite((Multi-site Active-Active))
-      BCP((Business Continuity Plan))
     Data((Data))
       DynamoDB((Global Table))
       DLQ((Dead‑Letter SNS))
@@ -62,9 +51,20 @@ mindmap
       WAF((AWS WAFv2))
       IAM((IAM Roles & Policies))
       NetworkACL((Network ACLs))
-      SecurityGroup((Security Groups))
+      SG((Security Groups))
+    Resilience((Resilience & DR))
+      ResHub((AWS Resilience Hub))
+      RTO_RPO((RTO & RPO Policies))
+      HA((High Availability))
+      DR((Disaster Recovery))
+        Strategies((Recovery Strategies))
+          BackupRestore((Backup & Restore))
+          PilotLight((Pilot Light))
+          WarmStandby((Warm Standby))
+          MultiSite((Multi-site Active-Active))
+      BCP((Business Continuity Plan))
     CI_CD((CI/CD & Scanning))
-      Linting((cfn-lint))
+      Lint((cfn-lint))
       CNag((cfn-nag))
       Checkov((Checkov))
       ZAP((ZAP API Scan))
@@ -75,58 +75,62 @@ mindmap
       DRPlan((DR Plan))
       BCPPlan((BCP Plan))
       TechStack((Tech Stack))
-  
-  classDef root fill:#ffcc00,stroke:#333,stroke-width:2px;
-  classDef Infra,Compute,API,Resilience,Data,Security,CI_CD,Docs fill:#00ccff,stroke:#333;
-  classDef DR_Strategies,RTO_RPO,HA,DR,BCP fill:#ff6666,stroke:#333;
-  classDef VPC,Subnets,Endpoints,Networking fill:#99ee99,stroke:#333;
-  classDef HealthLambda,CrudLambda fill:#cc99ff,stroke:#333;
-  classDef Gateway,Domain,DNS fill:#ff99cc,stroke:#333;
-  classDef DynamoDB,DLQ fill:#ffcc99,stroke:#333;
-  classDef WAF,IAM,NetworkACL,SecurityGroup fill:#ff9966,stroke:#333;
-  classDef Linting,CNag,Checkov,ZAP,Scorecard,Actions fill:#99ccff,stroke:#333;
-  classDef Runbooks,DRPlan,BCPPlan,TechStack fill:#ccccff,stroke:#333;
+
+classDef Root fill:#ffdd57,stroke:#333,stroke-width:2px;
+classDef Infra,Compute,API,Data,Security,Resilience,CI_CD,Docs fill:#88ccff,stroke:#333,stroke-width:1px;
+classDef DR,Strategies,BCP fill:#ff6b6b,stroke:#c92a2a,stroke-width:1px;
+classDef RTO_RPO,HA fill:#ffa94d,stroke:#e8590c,stroke-width:1px;
+classDef VPC,Subnets,Endpoints,Networking fill:#63e6be,stroke:#228be6;
+classDef HealthLambda,CrudLambda fill:#b197fc,stroke:#5f3dc4;
+classDef Gateway,Domain,DNS fill:#ff8787,stroke:#c2255c;
+classDef DynamoDB,DLQ fill:#ffe066,stroke:#f08c00;
+classDef WAF,IAM,NetworkACL,SG fill:#fab005,stroke:#b36200;
+classDef Lint,CNag,Checkov,ZAP,Scorecard,Actions fill:#74c0fc,stroke:#364fc7;
+classDef Runbooks,DRPlan,BCPPlan,TechStack fill:#d0ebff,stroke:#1c7ed6;
 ```
 
 ---
 
 ## 🚧 Disaster Recovery Strategies
 
-This section outlines the four main AWS disaster recovery patterns supported by this project:
-
 ```mermaid
 flowchart TB
-  style DR fill:#f9f,stroke:#333,stroke-width:2px
-  DR[Disaster Recovery Strategies]
-
-  DR --> BR[Backup & Restore]
-  DR --> PL[Pilot Light]
-  DR --> WS[Warm Standby]
-  DR --> MS[Multi-site Active-Active]
-
-  subgraph BR_Info [Backup & Restore]
-    direction LR
-    BR1>Data & Snapshots]
-    BR2>Restore in New Region]
+  subgraph DR [Disaster Recovery Strategies]
+    direction TB
+    BR([Backup & Restore])
+    PL([Pilot Light])
+    WS([Warm Standby])
+    MS([Multi-site Active-Active])
   end
 
-  subgraph PL_Info [Pilot Light]
-    direction LR
-    PL1>Minimal Infra Always On]
-    PL2>Scale Up On Demand]
+  subgraph BR_info [Backup & Restore]
+    BR1([Periodic backups of data & configs])
+    BR2([Restore in alternate region])
   end
 
-  subgraph WS_Info [Warm Standby]
-    direction LR
-    WS1>Scaled-Down Prod Copy]
-    WS2>Instant Scale to Prod]
+  subgraph PL_info [Pilot Light]
+    PL1([Minimal core infra always on])
+    PL2([Scale up apps on demand])
   end
 
-  subgraph MS_Info [Multi-site Active-Active]
-    direction LR
-    MS1>Full Production in All Regions]
-    MS2>Global Load Balancing]
+  subgraph WS_info [Warm Standby]
+    WS1([Scaled-down prod copy])
+    WS2([Instant scale to full capacity])
   end
+
+  subgraph MS_info [Multi-site Active-Active]
+    MS1([Full production in each region])
+    MS2([Global load balancing])
+  end
+
+  DR --> BR --> BR_info
+  DR --> PL --> PL_info
+  DR --> WS --> WS_info
+  DR --> MS --> MS_info
+
+  classDef DR fill:#fa5252,stroke:#c92a2a,stroke-width:2px;
+  classDef BR,PL,WS,MS fill:#ff922b,stroke:#b94500,stroke-width:1px;
+  classDef BR1,BR2,PL1,PL2,WS1,WS2,MS1,MS2 fill:#ffd43b,stroke:#b48c06;
 ```
 
 - **Backup & Restore**: Periodic backups of configuration and data; recovery time depends on restore duration.  
