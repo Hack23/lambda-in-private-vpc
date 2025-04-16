@@ -32,30 +32,107 @@
 ```mermaid
 mindmap
   root((Lambda in Private VPC))
-    Infra
-      VPC
-      Subnets
-      Endpoints
-      ACLs & SGs
-    Compute
-      LambdaHealth
-      LambdaCRUD
-    API
-      API_Gateway
-      CustomDomain
-      Route53
-    Resilience
-      ResilienceHub
-      FIS
-      WAFv2
-    CI_CD
-      Linting
-      SecurityScans
-      Deploy
-    Data
-      DynamoDBGlobal
-      DeadLetterSNS
+    Infra((Infrastructure))
+      VPC((VPC))
+      Subnets((Subnets))
+      Endpoints((VPC Endpoints))
+      Networking((ACLs & SGs))
+    Compute((Compute))
+      HealthLambda((Healthcheck Lambda))
+      CrudLambda((CRUD Lambda))
+    API((API Layer))
+      Gateway((API Gateway))
+      Domain((Custom Domain))
+      DNS((Route 53 Failover))
+    Resilience((Resilience & DR))
+      ResHub((AWS Resilience Hub))
+      RTO_RPO((RTO & RPO Policies))
+      HA((High Availability))
+      DR((Disaster Recovery))
+        DR_Strategies((Recovery Strategies))
+          BackupRestore((Backup & Restore))
+          PilotLight((Pilot Light))
+          WarmStandby((Warm Standby))
+          MultiSite((Multi-site Active-Active))
+      BCP((Business Continuity Plan))
+    Data((Data))
+      DynamoDB((Global Table))
+      DLQ((Dead‑Letter SNS))
+    Security((Security))
+      WAF((AWS WAFv2))
+      IAM((IAM Roles & Policies))
+      NetworkACL((Network ACLs))
+      SecurityGroup((Security Groups))
+    CI_CD((CI/CD & Scanning))
+      Linting((cfn-lint))
+      CNag((cfn-nag))
+      Checkov((Checkov))
+      ZAP((ZAP API Scan))
+      Scorecard((OSSF Scorecard))
+      Actions((GitHub Actions))
+    Docs((Documentation))
+      Runbooks((Runbooks))
+      DRPlan((DR Plan))
+      BCPPlan((BCP Plan))
+      TechStack((Tech Stack))
+  
+  classDef root fill:#ffcc00,stroke:#333,stroke-width:2px;
+  classDef Infra,Compute,API,Resilience,Data,Security,CI_CD,Docs fill:#00ccff,stroke:#333;
+  classDef DR_Strategies,RTO_RPO,HA,DR,BCP fill:#ff6666,stroke:#333;
+  classDef VPC,Subnets,Endpoints,Networking fill:#99ee99,stroke:#333;
+  classDef HealthLambda,CrudLambda fill:#cc99ff,stroke:#333;
+  classDef Gateway,Domain,DNS fill:#ff99cc,stroke:#333;
+  classDef DynamoDB,DLQ fill:#ffcc99,stroke:#333;
+  classDef WAF,IAM,NetworkACL,SecurityGroup fill:#ff9966,stroke:#333;
+  classDef Linting,CNag,Checkov,ZAP,Scorecard,Actions fill:#99ccff,stroke:#333;
+  classDef Runbooks,DRPlan,BCPPlan,TechStack fill:#ccccff,stroke:#333;
 ```
+
+---
+
+## 🚧 Disaster Recovery Strategies
+
+This section outlines the four main AWS disaster recovery patterns supported by this project:
+
+```mermaid
+flowchart TB
+  style DR fill:#f9f,stroke:#333,stroke-width:2px
+  DR[Disaster Recovery Strategies]
+
+  DR --> BR[Backup & Restore]
+  DR --> PL[Pilot Light]
+  DR --> WS[Warm Standby]
+  DR --> MS[Multi-site Active-Active]
+
+  subgraph BR_Info [Backup & Restore]
+    direction LR
+    BR1>Data & Snapshots]
+    BR2>Restore in New Region]
+  end
+
+  subgraph PL_Info [Pilot Light]
+    direction LR
+    PL1>Minimal Infra Always On]
+    PL2>Scale Up On Demand]
+  end
+
+  subgraph WS_Info [Warm Standby]
+    direction LR
+    WS1>Scaled-Down Prod Copy]
+    WS2>Instant Scale to Prod]
+  end
+
+  subgraph MS_Info [Multi-site Active-Active]
+    direction LR
+    MS1>Full Production in All Regions]
+    MS2>Global Load Balancing]
+  end
+```
+
+- **Backup & Restore**: Periodic backups of configuration and data; recovery time depends on restore duration.  
+- **Pilot Light**: Core components running in standby; scale up non-critical services when needed.  
+- **Warm Standby**: Fully functional but scaled-down duplicate environment; fast failover.  
+- **Multi-site Active-Active**: Full environments in all regions; automatic global traffic distribution.
 
 ---
 
