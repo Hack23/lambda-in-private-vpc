@@ -175,32 +175,19 @@ sequenceDiagram
 
 ---
 
-## 🛡️ Resilience Hub Policy
+### 🛡️ Resilience Hub Policy
 
 ```mermaid
 stateDiagram-v2
-  [*] --> Region
-  Region --> AZ
-  AZ --> Hardware
-  Hardware --> Software
-  Software --> [*]
-
-  state Region {
-    RTO: 3600s
-    RPO: 5s
-  }
-  state AZ {
-    RTO: 1s
-    RPO: 1s
-  }
-  state Hardware {
-    RTO: 1s
-    RPO: 1s
-  }
-  state Software {
-    RTO: 5400s
-    RPO: 300s
-  }
+    [*] --> Region
+    Region: RTO = 3600s\nRPO = 5s
+    Region --> AZ
+    AZ: RTO = 1s\nRPO = 1s
+    AZ --> Hardware
+    Hardware: RTO = 1s\nRPO = 1s
+    Hardware --> Software
+    Software: RTO = 5400s\nRPO = 300s
+    Software --> [*]
 ```
 
 ---
