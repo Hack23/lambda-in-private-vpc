@@ -25,50 +25,43 @@ This project implements a highly resilient serverless architecture with AWS Lamb
 
 ```mermaid
 mindmap
-  root((("Lambda in<br>Private VPC")))
-    Infrastructure["🏢 Infrastructure"]:::infra
+  root((Lambda in Private VPC))
+    Infrastructure["🏢 Infrastructure"]
       ["Multi-Region VPCs"]
       ["Private Subnets"]
       ["VPC Endpoints"]
       ["DNS Firewall"]
       ["Flow Logs"]
-    Security["🔒 Security"]:::security
+    Security["🔒 Security"]
       ["Private DNS"]
       ["WAF Protection"]
       ["Network ACLs"]
       ["IAM Least Privilege"]
       ["KMS Encryption"]
-    Resilience["🛡️ Resilience"]:::resilience
+    Resilience["🛡️ Resilience"]
       ["Mission-Critical Policy"]
       ["RTO/RPO Enforcement"]
       ["Multi-Region Active/Active"]
       ["Automatic Failover"]
       ["Chaos Engineering Tests"]
-    Data["💾 Data Layer"]:::data
+    Data["💾 Data Layer"]
       ["DynamoDB Global Tables"]
       ["Cross-Region Replication"]
       ["Point-in-Time Recovery"]
       ["Backup/Restore Automation"]
       ["Dead Letter Queues"]
-    Compute["⚙️ Compute & API"]:::compute
+    Compute["⚙️ Compute & API"]
       ["Lambda Functions"]
       ["API Gateway"]
       ["Custom Domain"]
       ["Route 53 Failover"]
       ["Health Checks"]
-    CI_CD["🔄 CI/CD & Observability"]:::cicd
+    CI_CD["🔄 CI/CD & Observability"]
       ["Security Scanning"]
       ["Automated Deployment"]
       ["CloudWatch Monitoring"]
       ["X-Ray Tracing"]
       ["Alarm Notifications"]
-
-classDef infra fill:#388e3c,color:#ffffff,stroke:#1b5e20,stroke-width:2px
-classDef security fill:#d32f2f,color:#ffffff,stroke:#b71c1c,stroke-width:2px
-classDef resilience fill:#7b1fa2,color:#ffffff,stroke:#4a148c,stroke-width:2px
-classDef data fill:#1976d2,color:#ffffff,stroke:#0d47a1,stroke-width:2px
-classDef compute fill:#f57c00,color:#ffffff,stroke:#e65100,stroke-width:2px 
-classDef cicd fill:#5d4037,color:#ffffff,stroke:#3e2723,stroke-width:2px
 ```
 
 ### Key Resilience Metrics
@@ -87,7 +80,7 @@ A true active/active multi-region architecture with isolated private subnets, gl
 ```mermaid
 flowchart TB
     subgraph "Multi-Region Active/Active Architecture"
-        subgraph "Ireland (eu-west-1)":::ireland
+        subgraph "Ireland (eu-west-1)"
             IR_VPC["VPC 10.1.0.0/16"]
             IR_SUBNETS["Private Subnets (3 AZs)"]
             IR_LAMBDA["Lambda Functions"]
@@ -106,7 +99,7 @@ flowchart TB
             IR_SUBNETS --> IR_EP
         end
         
-        subgraph "Frankfurt (eu-central-1)":::frankfurt
+        subgraph "Frankfurt (eu-central-1)"
             FR_VPC["VPC 10.5.0.0/16"]
             FR_SUBNETS["Private Subnets (3 AZs)"]
             FR_LAMBDA["Lambda Functions"]
@@ -125,18 +118,18 @@ flowchart TB
             FR_SUBNETS --> FR_EP
         end
         
-        IR_DOMAIN -.-> R53["Route 53 Weighted/Failover"]:::routing
+        IR_DOMAIN -.-> R53["Route 53 Weighted/Failover"]
         FR_DOMAIN -.-> R53
         IR_DYNAMO <--> FR_DYNAMO
         
-        WAF["WAF v2"]:::security --> IR_API
+        WAF["WAF v2"] --> IR_API
         WAF --> FR_API
         
-        HC["Health Checks"]:::monitoring --> IR_API
+        HC["Health Checks"] --> IR_API
         HC --> FR_API
         HC -.-> R53
         
-        REH["AWS Resilience Hub<br>Mission Critical Policy"]:::resilience --> IR_LAMBDA
+        REH["AWS Resilience Hub<br>Mission Critical Policy"] --> IR_LAMBDA
         REH --> FR_LAMBDA
         REH --> IR_DYNAMO
         REH --> FR_DYNAMO
@@ -148,6 +141,13 @@ flowchart TB
     classDef routing fill:#FF9800,stroke:#F57C00,stroke-width:3px,color:#ffffff
     classDef resilience fill:#9C27B0,stroke:#7B1FA2,stroke-width:3px,color:#ffffff
     classDef monitoring fill:#FFC107,stroke:#FFA000,stroke-width:3px,color:#000000
+    
+    class IR_VPC,IR_SUBNETS,IR_LAMBDA,IR_DYNAMO,IR_API,IR_DOMAIN,IR_DNS,IR_EP ireland
+    class FR_VPC,FR_SUBNETS,FR_LAMBDA,FR_DYNAMO,FR_API,FR_DOMAIN,FR_DNS,FR_EP frankfurt
+    class WAF security
+    class R53 routing
+    class REH resilience
+    class HC monitoring
 ```
 
 ### Key Architecture Components
@@ -168,11 +168,11 @@ flowchart TB
 ```mermaid
 graph TD
     subgraph "Comprehensive Security Framework"
-        VPC["🏢 VPC Security"]:::vpc
-        NW["🔌 Network Controls"]:::network
-        IAM["🔑 Identity & Access"]:::iam
-        DATA["🔒 Data Protection"]:::data
-        APP["🛡️ Application Security"]:::app
+        VPC["🏢 VPC Security"]
+        NW["🔌 Network Controls"]
+        IAM["🔑 Identity & Access"]
+        DATA["🔒 Data Protection"]
+        APP["🛡️ Application Security"]
         
         VPC --> DNS_FW["DNS Firewall<br>Allow AWS domains only"]
         VPC --> FLOW["Flow Logs<br>Network traffic auditing"]
@@ -202,6 +202,12 @@ graph TD
     classDef iam fill:#D32F2F,stroke:#B71C1C,stroke-width:2px,color:#FFFFFF
     classDef data fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#FFFFFF
     classDef app fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#FFFFFF
+    
+    class VPC,DNS_FW,FLOW,PDNS vpc
+    class NW,NACL,SG,DENY network
+    class IAM,ROLES,POLICY,TEMP iam
+    class DATA,KMS,ENC_SNS,ENC_LOG data
+    class APP,WAF_IP,WAF_ANON,WAF_CRS,WAF_BAD,WAF_OS app
 ```
 
 ### Network Security Features
@@ -224,13 +230,13 @@ The AWS Resilience Hub integration enforces strict recovery time objectives (RTO
 ```mermaid
 graph TD
     subgraph "Mission Critical Resilience Framework"
-        POLICY["Mission Critical Policy"]:::policy
+        POLICY["Mission Critical Policy"]
         
         subgraph "Failure Domains"
-            REGION["Regional Failure"]:::region
-            AZ["AZ Failure"]:::az
-            HW["Hardware Failure"]:::hardware
-            SW["Software Failure"]:::software
+            REGION["Regional Failure"]
+            AZ["AZ Failure"]
+            HW["Hardware Failure"]
+            SW["Software Failure"]
         end
         
         POLICY --> REGION
@@ -238,29 +244,29 @@ graph TD
         POLICY --> HW
         POLICY --> SW
         
-        REGION --> REG_RTO["RTO: 3600s (1h)"]:::rto
-        REGION --> REG_RPO["RPO: 5s"]:::rpo
+        REGION --> REG_RTO["RTO: 3600s (1h)"]
+        REGION --> REG_RPO["RPO: 5s"]
         
-        AZ --> AZ_RTO["RTO: 1s"]:::rto
-        AZ --> AZ_RPO["RPO: 1s"]:::rpo
+        AZ --> AZ_RTO["RTO: 1s"]
+        AZ --> AZ_RPO["RPO: 1s"]
         
-        HW --> HW_RTO["RTO: 1s"]:::rto
-        HW --> HW_RPO["RPO: 1s"]:::rpo
+        HW --> HW_RTO["RTO: 1s"]
+        HW --> HW_RPO["RPO: 1s"]
         
-        SW --> SW_RTO["RTO: 5400s (90m)"]:::rto
-        SW --> SW_RPO["RPO: 300s (5m)"]:::rpo
+        SW --> SW_RTO["RTO: 5400s (90m)"]
+        SW --> SW_RPO["RPO: 300s (5m)"]
     end
     
     subgraph "Implementation Components"
-        REG_RTO --> MULTI_REG["Multi-region active/active"]:::impl
-        REG_RPO --> DDB_GLOB["DynamoDB global tables"]:::impl
+        REG_RTO --> MULTI_REG["Multi-region active/active"]
+        REG_RPO --> DDB_GLOB["DynamoDB global tables"]
         
-        AZ_RTO & AZ_RPO --> MULTI_AZ["Multi-AZ deployment"]:::impl
+        AZ_RTO & AZ_RPO --> MULTI_AZ["Multi-AZ deployment"]
         
-        HW_RTO & HW_RPO --> AWS_INFRA["AWS infrastructure redundancy"]:::impl
+        HW_RTO & HW_RPO --> AWS_INFRA["AWS infrastructure redundancy"]
         
-        SW_RTO --> AUTO_RECOVER["Automated recovery procedures"]:::impl
-        SW_RPO --> BACKUP_STRAT["Comprehensive backup strategy"]:::impl
+        SW_RTO --> AUTO_RECOVER["Automated recovery procedures"]
+        SW_RPO --> BACKUP_STRAT["Comprehensive backup strategy"]
     end
 
     classDef policy fill:#7B1FA2,stroke:#4A148C,stroke-width:3px,color:#FFFFFF
@@ -271,6 +277,15 @@ graph TD
     classDef rto fill:#FFC107,stroke:#FFA000,stroke-width:2px,color:#000000
     classDef rpo fill:#9C27B0,stroke:#7B1FA2,stroke-width:2px,color:#FFFFFF
     classDef impl fill:#607D8B,stroke:#455A64,stroke-width:2px,color:#FFFFFF
+    
+    class POLICY policy
+    class REGION region
+    class AZ az
+    class HW hardware
+    class SW software
+    class REG_RTO,AZ_RTO,HW_RTO,SW_RTO rto
+    class REG_RPO,AZ_RPO,HW_RPO,SW_RPO rpo
+    class MULTI_REG,DDB_GLOB,MULTI_AZ,AWS_INFRA,AUTO_RECOVER,BACKUP_STRAT impl
 ```
 
 ### Recovery Time & Point Objectives
@@ -289,23 +304,23 @@ The architecture includes comprehensive disaster recovery testing using AWS Faul
 ```mermaid
 flowchart TD
     subgraph "Chaos Engineering Framework"
-        DR["Fault Injection Service<br>Experiments"]:::framework
+        DR["Fault Injection Service<br>Experiments"]
         
         subgraph "API Resilience Tests"
-            API_FAIL["Lambda Access<br>Denial"]:::experiment
-            API_FAIL --> SSM_IAM["IAM Policy<br>Injection"]:::automation
-            SSM_IAM --> DENY_LAMBDA["Deny Lambda<br>Access"]:::action
+            API_FAIL["Lambda Access<br>Denial"]
+            API_FAIL --> SSM_IAM["IAM Policy<br>Injection"]
+            SSM_IAM --> DENY_LAMBDA["Deny Lambda<br>Access"]
         end
         
         subgraph "Data Layer Tests"
-            DDB_DEL["DynamoDB<br>Table Deletion"]:::experiment
-            DDB_DEL --> SSM_DEL["Table Delete<br>Automation"]:::automation
+            DDB_DEL["DynamoDB<br>Table Deletion"]
+            DDB_DEL --> SSM_DEL["Table Delete<br>Automation"]
             
-            PITR["Point-In-Time<br>Recovery Test"]:::experiment
-            PITR --> SSM_PITR["PITR Restore<br>Automation"]:::automation
+            PITR["Point-In-Time<br>Recovery Test"]
+            PITR --> SSM_PITR["PITR Restore<br>Automation"]
             
-            BACKUP["Backup<br>Restoration Test"]:::experiment
-            BACKUP --> SSM_BACK["Backup Restore<br>Automation"]:::automation
+            BACKUP["Backup<br>Restoration Test"]
+            BACKUP --> SSM_BACK["Backup Restore<br>Automation"]
         end
         
         DR --> API_FAIL
@@ -314,9 +329,9 @@ flowchart TD
         DR --> BACKUP
         
         subgraph "Recovery Monitoring"
-            MONITOR["Health Check<br>Monitoring"]:::monitoring
-            FAILOVER["Route 53<br>Failover"]:::recovery
-            RESTORE["Recovery<br>Procedures"]:::recovery
+            MONITOR["Health Check<br>Monitoring"]
+            FAILOVER["Route 53<br>Failover"]
+            RESTORE["Recovery<br>Procedures"]
         end
         
         SSM_IAM & SSM_DEL & SSM_PITR & SSM_BACK --> MONITOR
@@ -330,6 +345,13 @@ flowchart TD
     classDef action fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#FFFFFF
     classDef monitoring fill:#FFC107,stroke:#FFA000,stroke-width:2px,color:#000000
     classDef recovery fill:#D32F2F,stroke:#B71C1C,stroke-width:2px,color:#FFFFFF
+    
+    class DR framework
+    class API_FAIL,DDB_DEL,PITR,BACKUP experiment
+    class SSM_IAM,SSM_DEL,SSM_PITR,SSM_BACK automation
+    class DENY_LAMBDA action
+    class MONITOR monitoring
+    class FAILOVER,RESTORE recovery
 ```
 
 ### Chaos Test Scenarios
@@ -346,29 +368,29 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    GH_PUSH["GitHub Push/<br>Workflow Dispatch"]:::trigger --> SEC_SCAN{"Security<br>Scanning"}:::security
+    GH_PUSH["GitHub Push/<br>Workflow Dispatch"] --> SEC_SCAN{"Security<br>Scanning"}
     
-    SEC_SCAN --> CFN_LINT["cfn-lint"]:::scan
-    SEC_SCAN --> CFN_NAG["cfn-nag"]:::scan
-    SEC_SCAN --> CHECKOV["Checkov"]:::scan
-    SEC_SCAN --> SCORECARD["Scorecard"]:::scan
-    SEC_SCAN --> ZAP["ZAP API<br>Scan"]:::scan
+    SEC_SCAN --> CFN_LINT["cfn-lint"]
+    SEC_SCAN --> CFN_NAG["cfn-nag"]
+    SEC_SCAN --> CHECKOV["Checkov"]
+    SEC_SCAN --> SCORECARD["Scorecard"]
+    SEC_SCAN --> ZAP["ZAP API<br>Scan"]
     
-    CFN_LINT & CFN_NAG & CHECKOV & SCORECARD & ZAP --> CONFIG_IR["Configure AWS<br>(eu-west-1)"]:::deploy
+    CFN_LINT & CFN_NAG & CHECKOV & SCORECARD & ZAP --> CONFIG_IR["Configure AWS<br>(eu-west-1)"]
     
-    CONFIG_IR --> DEPLOY_IR["Deploy Core<br>Ireland"]:::deploy
-    DEPLOY_IR --> OUTPUTS["Collect<br>Outputs"]:::deploy
-    OUTPUTS --> CONFIG_FR["Configure AWS<br>(eu-central-1)"]:::deploy
-    CONFIG_FR --> DEPLOY_FR["Deploy Core<br>Frankfurt"]:::deploy
+    CONFIG_IR --> DEPLOY_IR["Deploy Core<br>Ireland"]
+    DEPLOY_IR --> OUTPUTS["Collect<br>Outputs"]
+    OUTPUTS --> CONFIG_FR["Configure AWS<br>(eu-central-1)"]
+    CONFIG_FR --> DEPLOY_FR["Deploy Core<br>Frankfurt"]
     
-    DEPLOY_FR --> DEPLOY_AUX["Deploy<br>Auxiliary Stacks"]:::aux
+    DEPLOY_FR --> DEPLOY_AUX["Deploy<br>Auxiliary Stacks"]
     
-    DEPLOY_AUX --> DEPLOY_R53["Route 53<br>Configuration"]:::aux
-    DEPLOY_AUX --> DEPLOY_WAF["WAF<br>Configuration"]:::aux
-    DEPLOY_AUX --> DEPLOY_RHB["Resilience Hub<br>App"]:::aux
-    DEPLOY_AUX --> DEPLOY_DR["Disaster<br>Recovery Tests"]:::aux
+    DEPLOY_AUX --> DEPLOY_R53["Route 53<br>Configuration"]
+    DEPLOY_AUX --> DEPLOY_WAF["WAF<br>Configuration"]
+    DEPLOY_AUX --> DEPLOY_RHB["Resilience Hub<br>App"]
+    DEPLOY_AUX --> DEPLOY_DR["Disaster<br>Recovery Tests"]
     
-    DEPLOY_R53 & DEPLOY_WAF & DEPLOY_RHB & DEPLOY_DR --> TAG["Tag &<br>Release"]:::release
+    DEPLOY_R53 & DEPLOY_WAF & DEPLOY_RHB & DEPLOY_DR --> TAG["Tag &<br>Release"]
     
     classDef trigger fill:#D32F2F,stroke:#B71C1C,stroke-width:3px,color:#FFFFFF
     classDef security fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#FFFFFF
@@ -376,6 +398,13 @@ flowchart LR
     classDef deploy fill:#1565C0,stroke:#0D47A1,stroke-width:2px,color:#FFFFFF
     classDef aux fill:#F57C00,stroke:#E65100,stroke-width:2px,color:#FFFFFF
     classDef release fill:#9C27B0,stroke:#7B1FA2,stroke-width:2px,color:#FFFFFF
+    
+    class GH_PUSH trigger
+    class SEC_SCAN security
+    class CFN_LINT,CFN_NAG,CHECKOV,SCORECARD,ZAP scan
+    class CONFIG_IR,DEPLOY_IR,OUTPUTS,CONFIG_FR,DEPLOY_FR deploy
+    class DEPLOY_AUX,DEPLOY_R53,DEPLOY_WAF,DEPLOY_RHB,DEPLOY_DR aux
+    class TAG release
 ```
 
 ### CI/CD Pipeline Features
@@ -450,3 +479,6 @@ This project is entirely defined using CloudFormation templates with comprehensi
 ## 📄 License
 
 This project is licensed under the Apache License 2.0 - see [LICENSE.md](LICENSE.md) for details.
+
+---
+*Last updated: 2025-04-16*
