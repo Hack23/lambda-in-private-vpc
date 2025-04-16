@@ -1,88 +1,279 @@
-# Lambda in Private VPC
+# 🚀 Lambda in Private VPC
 
-**Status:** Work in Progress
+![License](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)  
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://securityscorecards.dev/viewer/?uri=github.com/Hack23/lambda-in-private-vpc)  
+[![CI/CD](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml/badge.svg)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml)  
+[![Scorecard Security](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml/badge.svg?branch=main)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml)
 
-This project shows how to build a highly available system that runs in multiple AWS regions at the same time. It uses AWS Resilience Hub to ensure compliance with policies for Recovery Time Objective (RTO) and Recovery Point Objective (RPO), which help to minimize downtime and data loss in case of failures at the application, availability zone, or region level. This ensures high availability and fault tolerance for your applications.
+> **Description:** A highly available system spanning **Ireland** and **Frankfurt** AWS regions, enforcing RTO/RPO via AWS Resilience Hub, chaos‑tested by FIS, and fronted by API Gateway with Route 53 failover & WAF protection.
 
-## Badges
+---
 
-[![License](https://img.shields.io/github/license/Hack23/lambda-in-private-vpc.svg)](https://github.com/Hack23/lambda-in-private-vpc/raw/master/LICENSE.md) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hack23/lambda-in-private-vpc/badge)](https://scorecard.dev/viewer/?uri=github.com/Hack23/lambda-in-private-vpc)
-[![Verify and Deploy](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml/badge.svg)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/main.yml)
-[![Scorecard supply-chain security](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml/badge.svg?branch=main)](https://github.com/Hack23/lambda-in-private-vpc/actions/workflows/scorecard.yml)
+## 📋 Table of Contents
 
-## CloudFormation Templates
+- [🧠 Project Mindmap](#-project-mindmap)  
+- [🌐 Overview](#-overview)  
+- [📐 Architecture](#-architecture)  
+- [🔗 Network Topology](#-network-topology)  
+- [🚦 CI/CD Workflow](#-ci-cd-workflow)  
+- [🚨 Disaster Recovery Flow](#-disaster-recovery-flow)  
+- [🛡️ Resilience Hub Policy](#️-resilience-hub-policy)  
+- [🖼️ Screenshots](#️-screenshots)  
+- [📦 Templates](#-templates)  
+- [🛠️ Tech Stack](#️-tech-stack)  
+- [📖 Runbooks](#-runbooks)  
+- [🔗 References](#-references)  
+- [📄 License](#-license)
 
-The project includes several AWS CloudFormation templates that automate the creation and management of the necessary AWS resources:
+---
 
-- `app.yml`: This template sets up an application named "lambda-vpc" with a ResilienceHub ResiliencyPolicy. The application includes AWS Lambda functions, API Gateway Rest APIs, and DynamoDB Global Tables.
-- `disaster-recovery.yml`: This template sets up a disaster recovery test using AWS Fault Injection Simulator (FIS). The experiments include denying access to Lambda on API Gateway, deleting a DynamoDB table, and recovering a DynamoDB table from a point-in-time recovery (PITR) or a backup.
-- `template.yml`: This template deploys a Lambda function in a private VPC with internet access. The function can access resources in the VPC and make outbound calls to the internet.
-- `route53.yml`: This template sets up DNS records in Amazon Route 53 for two API Gateway Rest APIs. The DNS records are configured for failover routing, which means that if one API becomes unavailable, traffic will be routed to the other API.
+## 🧠 Project Mindmap
 
-## Concepts
+```mermaid
+mindmap
+  root((Lambda in Private VPC))
+    Infra
+      VPC
+      Subnets
+      Endpoints
+      ACLs & SGs
+    Compute
+      LambdaHealth
+      LambdaCRUD
+    API
+      API_Gateway
+      CustomDomain
+      Route53
+    Resilience
+      ResilienceHub
+      FIS
+      WAFv2
+    CI_CD
+      Linting
+      SecurityScans
+      Deploy
+    Data
+      DynamoDBGlobal
+      DeadLetterSNS
+```
 
-Learn more about AWS Resilience Hub concepts and understand the key terms and principles involved in building resilient applications [here](https://docs.aws.amazon.com/resilience-hub/latest/userguide/concepts-terms.html).
+---
 
-[Disaster Recovery (DR) Architecture on AWS, Part I: Strategies for Recovery in the Cloud
-](https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/)
-[Disaster Recovery (DR) Architecture on AWS, Part IV: Multi-site Active/Active](https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-iv-multi-site-active-active/)
+## 🌐 Overview
 
-## About Hack23
+Run Lambda inside private subnets in two regions, with:
 
-- Website: [www.hack23.com](https://www.hack23.com/)
-- LinkedIn: [in/jamessorling](https://www.linkedin.com/in/jamessorling)
+- **No public access**: VPC Endpoints for S3, EC2, DynamoDB  
+- **Multi-region failover**: Route 53 weighted DNS  
+- **Resiliency**: AWS Resilience Hub policies & AWS FIS chaos  
+- **Layer7 Security**: AWS WAFv2 rules  
+- **CI/CD**: GitHub Actions with CFN lint, cfn-nag, Checkov, ZAP, scoring, and cross‑account deploys  
 
-## Runbooks
+---
 
-- [DynamoDB Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-ddb.html) - Automates the management of DynamoDB tables and indexes.
-- [Lambda Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-lam.html) - Helps manage Lambda functions, layers, and aliases.
-- [Application Bridge Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-abp.html) - Supports management of Amazon App Runner services and custom domains.
-- [IAM Runbook](https://docs.aws.amazon.com/systems-manager-automation-runbooks/latest/userguide/automation-ref-iam.html) - Facilitates IAM user, group, role, and policy management.
+## 📐 Architecture
 
-## Architecture Diagrams
+```mermaid
+flowchart LR
+  subgraph Ireland [eu-west-1]
+    VPC1[VPC: 10.1.0.0/16]
+    Subs1["Private Subnets A/B/C"]
+    EP1["S3/EC2/DDB Endpoints"]
+    Lambdas1["Lambda (Health & CRUD)"]
+    APIGW1["API Gateway"]
+  end
 
-- ![Infrastructure](cloudformation/template.png) - Depicts the overall infrastructure, including AWS services and components.
-- ![DNS Route53](cloudformation/route53.png) - Shows the Route 53 configuration for DNS routing and failover.
-- ![Web Application Firewall](cloudformation/waf.png) - Displays the setup of the Web Application Firewall for securing your application.
-- ![Disaster Recovery](cloudformation/disaster-recovery.png) - Illustrates the disaster recovery strategy for the application.
+  subgraph Frankfurt [eu-central-1]
+    VPC2[VPC: 10.5.0.0/16]
+    Subs2["Private Subnets A/B/C"]
+    EP2["S3/EC2/DDB Endpoints"]
+    Lambdas2["Lambda (Health & CRUD)"]
+    APIGW2["API Gateway"]
+  end
 
-## Resilience Hub Screenshots
+  Ireland --> Subs1 --> Lambdas1 --> EP1
+  Subs1 --> APIGW1
+  Frankfurt --> Subs2 --> Lambdas2 --> EP2
+  Subs2 --> APIGW2
 
-- ![Resilience Hub Policy](ResilienceHubPolicy.png) - Overview of the policy settings in AWS Resilience Hub.
-- ![Application](ResiliencyHub-App.png) - The application setup and components in AWS Resilience Hub.
-- ![App Recommendation 1](ResiliencyHub-App-rec1.png) - First set of recommendations for improving application resiliency.
-- ![App Recommendation 2](ResiliencyHub-App-rec2.png) - Second set of recommendations for enhancing application resiliency.
-- ![Region](ResHub-region.png) - Regional recommendations
+  APIGW1 -. Failover .-> Route53
+  APIGW2 -. Failover .-> Route53
+  classDef region fill:#f9f,stroke:#333,stroke-width:1px;
+  class Ireland,Frankfurt region
+```
 
-## Tech Stack
-Hack23/lambda-in-private-vpc is built on the following main stack:
+---
 
-- <img width='25' height='25' src='https://img.stackshare.io/service/11563/actions.png' alt='GitHub Actions'/> [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+## 🔗 Network Topology
 
-Full tech stack [here](/techstack.md)
+```mermaid
+graph TD
+  VPC[VPC<br/>10.1.0.0/16]
+  subgraph Subnets["Private Subnets"]
+    S1[10.1.0.0/24]
+    S2[10.1.1.0/24]
+    S3[10.1.2.0/24]
+  end
+  VPC --> Subnets
+  Subnets --> ACL[Network ACL]
+  Subnets --> SG_L[Lambda SG]
+  subgraph Endpoints["VPC Endpoints"]
+    EP_S3[S3]
+    EP_EC2[EC2]
+    EP_DDB[DynamoDB]
+  end
+  Subnets --> Endpoints
+```
 
-## Relevant Links
+---
 
-- [Route53 Application Recovery Controller](https://aws.amazon.com/route53/application-recovery-controller/) - Service for managing and testing application recovery across AWS Regions.
-- [Route53 Resolver DNS Firewall](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html) - A managed DNS firewall service to protect applications from malicious DNS activity.
-- [SLA MAX Calculator](https://github.com/mikaelvesavuori/slamax) and [Cloud SLA](https://github.com/mikaelvesavuori/cloud-sla) - Tools for calculating and comparing cloud service SLAs.
+## 🚦 CI/CD Workflow
 
-For more information on AWS service level agreements, visit the [AWS SLA page](https://aws.amazon.com/legal/service-level-agreements/).
+```mermaid
+flowchart TD
+  A[Push or Dispatch] --> B{Lint & Security}
+  B --> C[cfn-lint]
+  B --> D[cfn-nag]
+  B --> E[Checkov]
+  B --> F[StandardLint]
+  F --> G[DependencyReview]
+  E --> H[Scorecard]
+  C --> I[ZAP API Scan]
+  H --> J{Deploy Jobs}
+  J --> K[Deploy Ireland]
+  K --> L[Collect Outputs]
+  L --> M[Deploy Frankfurt]
+  M --> N[Route53 Stack]
+  N --> O[DR Stack]
+  O --> P[ResilienceHub App]
+  P --> Q[Tag & Release]
+```
 
-## Additional Documentation
+---
 
-- [CHANGELOG.md](CHANGELOG.md)
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [LICENSE.md](LICENSE.md)
-- [SECURITY.md](SECURITY.md)
-- [AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-1.json](AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-1.json)
-- [AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-2.json](AlarmRecommendation-apigateway/alarm/AlarmRecommendation-apigateway-Alarm-172017021075-eu-west-2.json)
-- [AlarmRecommendation-apigateway/manifest.json](AlarmRecommendation-apigateway/manifest.json)
-- [AlarmRecommendation-apigateway/README.md](AlarmRecommendation-apigateway/README.md)
-- [SopRecommendation-apigateway/sop/SopRecommendation-apigateway-Sop-172017021075-eu-west-1.json](SopRecommendation-apigateway/sop/SopRecommendation-apigateway-Sop-172017021075-eu-west-1.json)
-- [SopRecommendation-apigateway/manifest.json](SopRecommendation-apigateway/manifest.json)
-- [SopRecommendation-apigateway/README.md](SopRecommendation-apigateway/README.md)
+## 🚨 Disaster Recovery Flow
 
-## License
-This project is licensed under the Apache License 2.0.
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant R53 as Route53
+  participant GW as API_Gateway
+  participant L as Lambda
+  participant D as DynamoDB
+  U->>R53: GET /v1/healthcheck
+  R53->>GW: Route to region
+  GW->>L: Invoke healthcheck
+  L-->>U: "OK"
+  Note over FIS: Inject failures
+  FIS->>GW: Deny invoke
+  FIS->>D: Delete table
+  alt Recovery
+    R53->>GW: Failover to backup
+    GW->>L: Invoke fallback
+  end
+```
+
+---
+
+## 🛡️ Resilience Hub Policy
+
+```mermaid
+stateDiagram-v2
+  [*] --> Region
+  Region --> AZ
+  AZ --> Hardware
+  Hardware --> Software
+  Software --> [*]
+
+  state Region {
+    RTO: 3600s
+    RPO: 5s
+  }
+  state AZ {
+    RTO: 1s
+    RPO: 1s
+  }
+  state Hardware {
+    RTO: 1s
+    RPO: 1s
+  }
+  state Software {
+    RTO: 5400s
+    RPO: 300s
+  }
+```
+
+---
+
+## 🖼️ Screenshots
+
+### Resilience Hub
+
+![Policy](ResilienceHubPolicy.png)  
+![App](ResiliencyHub-App.png)  
+![Rec1](ResiliencyHub-App-rec1.png)  
+![Rec2](ResiliencyHub-App-rec2.png)  
+![Region View](ResHub-region.png)
+
+### Infrastructure Diagrams
+
+| Diagram             | Preview                                  |
+|---------------------|------------------------------------------|
+| Core Infra          | ![Infra](cloudformation/template.png)    |
+| Route 53 DNS        | ![Route53](cloudformation/route53.png)   |
+| Application Firewall| ![WAF](cloudformation/waf.png)           |
+
+---
+
+## 📦 Templates
+
+```bash
+cloudformation/
+├─ template.yml           # VPC, subnets, Lambdas, API, DynamoDB
+├─ route53.yml            # DNS failover records
+├─ app.yml                # Resilience Hub App & Policy
+├─ disaster-recovery.yml  # FIS experiments
+└─ waf.yml                # WAFv2 rules
+```
+
+---
+
+## 🛠️ Tech Stack
+
+- **Infra as Code:** CloudFormation  
+- **Serverless:** Lambda (Node.js 20.x)  
+- **API:** API Gateway (Regional, Custom Domain)  
+- **Storage:** DynamoDB Global Tables  
+- **Networking:** VPC, Private Subnets, Endpoints, ACLs, SGs  
+- **DNS:** Route 53 Weighted Failover  
+- **Resiliency:** AWS Resilience Hub, FIS  
+- **Security:** WAFv2, IAM Roles & Policies  
+- **CI/CD:** GitHub Actions, cfn-lint, cfn-nag, Checkov, ZAP, Scorecard  
+
+Details: [techstack.md](./techstack.md)
+
+---
+
+## 📖 Runbooks
+
+- **DynamoDB** – SSM Automation for tables/indexes  
+- **Lambda** – SSM Automation for functions & aliases  
+- **App Runner** – Manage App Runner & domains  
+- **IAM** – Automate IAM user/group/role operations  
+
+---
+
+## 🔗 References
+
+- DR I: https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-i-strategies-for-recovery-in-the-cloud/  
+- DR IV: https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-iv-multi-site-active-active/  
+- Resilience Hub: https://docs.aws.amazon.com/resilience-hub/latest/userguide/  
+- Route 53 ARC: https://aws.amazon.com/route53/application-recovery-controller/  
+- DNS Firewall: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver-dns-firewall.html/  
+- SLA Tools: https://github.com/mikaelvesavuori/slamax | https://github.com/mikaelvesavuori/cloud-sla  
+
+---
+
+## 📄 License
+
+This project is licensed under the **Apache License 2.0**. See [LICENSE.md](LICENSE.md).  
