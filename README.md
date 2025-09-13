@@ -567,6 +567,47 @@ This project is entirely defined using CloudFormation templates with comprehensi
 - [AWS Best Practices for DDoS Resiliency](https://d1.awsstatic.com/whitepapers/Security/DDoS_White_Paper.pdf)
 - [Route 53 Application Recovery Controller](https://aws.amazon.com/route53/application-recovery-controller/)
 
+## ☁️ Lambda in Private VPC Project Classification
+
+### 🎯 Project Classification
+[![Project Type](https://img.shields.io/badge/Type-Core_Infrastructure-red?style=for-the-badge&logo=server&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#project-type-classifications)
+[![Process Type](https://img.shields.io/badge/Process-Operations-brown?style=for-the-badge&logo=cogs&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#project-type-classifications)
+
+### 🔒 Security Classification
+[![Confidentiality](https://img.shields.io/badge/Confidentiality-Public-lightgrey?style=for-the-badge&logo=shield&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#confidentiality-levels)
+[![Integrity](https://img.shields.io/badge/Integrity-High-orange?style=for-the-badge&logo=check-circle&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#integrity-levels)
+[![Availability](https://img.shields.io/badge/Availability-High-orange?style=for-the-badge&logo=server&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#availability-levels)
+
+### ⏱️ Business Continuity
+[![RTO](https://img.shields.io/badge/RTO-Critical_(5--60min)-orange?style=for-the-badge&logo=clock&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#rto-classifications)
+[![RPO](https://img.shields.io/badge/RPO-Near_Realtime_(1--15min)-orange?style=for-the-badge&logo=database&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#rpo-classifications)
+
+### 💰 Business Impact Analysis Matrix
+
+| Impact Category | Financial | Operational | Reputational | Regulatory |
+|-----------------|-----------|-------------|--------------|------------|
+| **🔒 Confidentiality** | [![Negligible - No impact](https://img.shields.io/badge/Negligible-No_impact-lightgrey?style=for-the-badge&logo=dollar-sign&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#financial-impact-levels) | [![Negligible - No impact](https://img.shields.io/badge/Negligible-No_impact-lightgrey?style=for-the-badge&logo=exclamation-triangle&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#operational-impact-levels) | [![Negligible - No impact](https://img.shields.io/badge/Negligible-No_impact-lightgrey?style=for-the-badge&logo=newspaper&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#reputational-impact-levels) | [![Negligible - No implications](https://img.shields.io/badge/Negligible-No_implications-lightgrey?style=for-the-badge&logo=gavel&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#regulatory-impact-levels) |
+| **✅ Integrity** | [![Negligible - No impact](https://img.shields.io/badge/Negligible-No_impact-lightgrey?style=for-the-badge&logo=dollar-sign&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#financial-impact-levels) | [![High - Major degradation](https://img.shields.io/badge/High-Major_degradation-orange?style=for-the-badge&logo=trending-down&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#operational-impact-levels) | [![Low - Limited visibility](https://img.shields.io/badge/Low-Limited_visibility-lightgreen?style=for-the-badge&logo=newspaper&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#reputational-impact-levels) | [![Negligible - No implications](https://img.shields.io/badge/Negligible-No_implications-lightgrey?style=for-the-badge&logo=gavel&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#regulatory-impact-levels) |
+| **⏱️ Availability** | [![Negligible - No impact](https://img.shields.io/badge/Negligible-No_impact-lightgrey?style=for-the-badge&logo=dollar-sign&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#financial-impact-levels) | [![High - Major degradation](https://img.shields.io/badge/High-Major_degradation-orange?style=for-the-badge&logo=stop-circle&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#operational-impact-levels) | [![Low - Limited visibility](https://img.shields.io/badge/Low-Limited_visibility-lightgreen?style=for-the-badge&logo=newspaper&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#reputational-impact-levels) | [![Negligible - No implications](https://img.shields.io/badge/Negligible-No_implications-lightgrey?style=for-the-badge&logo=gavel&logoColor=black)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#regulatory-impact-levels) |
+
+### 🛡️ Security Investment Returns
+[![ROI Level](https://img.shields.io/badge/ROI-High-green?style=for-the-badge&logo=chart-line&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#security-investment-returns)
+[![Risk Mitigation](https://img.shields.io/badge/Risk_Mitigation-70%25_Reduction-green?style=for-the-badge&logo=shield&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#security-investment-returns)
+[![Breach Prevention](https://img.shields.io/badge/Breach_Prevention-$15K_Savings-green?style=for-the-badge&logo=lock&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#security-investment-returns)
+
+### 🎯 Competitive Differentiation
+[![Market Position](https://img.shields.io/badge/Position-Premium_Provider-blue?style=for-the-badge&logo=trending-up&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#competitive-differentiation)
+[![Customer Trust](https://img.shields.io/badge/Trust-High_scores-blue?style=for-the-badge&logo=handshake&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#competitive-differentiation)
+[![Regulatory Access](https://img.shields.io/badge/Access-Major_access-blue?style=for-the-badge&logo=key&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#competitive-differentiation)
+
+### 📈 Porter's Five Forces Strategic Impact
+[![Buyer Power](https://img.shields.io/badge/Buyer_Power-Reduced-lightgreen?style=flat-square&logo=users&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#porters-five-forces)
+[![Supplier Power](https://img.shields.io/badge/Supplier_Power-High-orange?style=flat-square&logo=handshake&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#porters-five-forces)
+[![Entry Barriers](https://img.shields.io/badge/Entry_Barriers-High-orange?style=flat-square&logo=shield-alt&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#porters-five-forces)
+[![Substitute Threat](https://img.shields.io/badge/Substitute_Threat-Low-lightgreen?style=flat-square&logo=shield&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#porters-five-forces)
+[![Rivalry](https://img.shields.io/badge/Rivalry-Strong_Advantage-blue?style=flat-square&logo=trophy&logoColor=white)](https://github.com/Hack23/ISMS-PUBLIC/blob/main/CLASSIFICATION.md#porters-five-forces)
+
+
 ## 📄 License
 
 This project is licensed under the Apache License 2.0 - see [LICENSE.md](LICENSE.md) for details.
