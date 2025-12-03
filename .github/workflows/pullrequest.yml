@@ -21,7 +21,7 @@ jobs:
             www.bridgecrew.cloud:443
             docs.github.com:433
             api.github.com:443
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Run StandardLint
         uses: mikaelvesavuori/standardlint-action@b376b6d6afc5885d102894f6972133fa91d200f0 # v1.0.5
         env:
