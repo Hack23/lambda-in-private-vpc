@@ -68,7 +68,7 @@ Caches Python packages for cfn-lint and checkov security scanning tools.
     path: |
       ~/.cache/pip
       ~/.local/lib/python3.12/site-packages
-    key: ${{ runner.os }}-pip-cfn-lint-checkov-${{ hashFiles('**/requirements.txt', '.github/workflows/*.yml') }}
+    key: ${{ runner.os }}-pip-cfn-lint-checkov-${{ hashFiles('.github/workflows/*.yml') }}
     restore-keys: |
       ${{ runner.os }}-pip-cfn-lint-checkov-
       ${{ runner.os }}-pip-
@@ -79,7 +79,7 @@ Caches Python packages for cfn-lint and checkov security scanning tools.
 - `~/.local/lib/python3.12/site-packages` - Installed Python packages
 
 **Cache Key Strategy:**
-- Primary key includes requirements.txt and workflow file hashes
+- Primary key includes workflow file hash for invalidation on workflow changes
 - Multiple restore keys for progressive fallback
 - Tool-specific prefix for better cache organization
 
@@ -103,7 +103,7 @@ Caches Ruby gems for cfn-nag security scanning tool.
   uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
   with:
     path: vendor/bundle
-    key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('**/Gemfile.lock', '.github/workflows/*.yml') }}
+    key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('.github/workflows/*.yml') }}
     restore-keys: |
       ${{ runner.os }}-gems-cfn-nag-
       ${{ runner.os }}-gems-
@@ -113,7 +113,7 @@ Caches Ruby gems for cfn-nag security scanning tool.
 - `vendor/bundle` - Bundler gem installation directory
 
 **Cache Key Strategy:**
-- Primary key includes Gemfile.lock and workflow file hashes
+- Primary key includes workflow file hash for invalidation on workflow changes
 - Multiple restore keys for progressive fallback
 - Tool-specific prefix for better cache organization
 
@@ -183,9 +183,10 @@ Caches Docker image layers for ZAP API security scanning.
 ### When Caches Are Invalidated
 
 1. **Workflow File Changes**: Cache key includes workflow file hash
-2. **Dependency Changes**: Cache key includes requirements.txt, Gemfile.lock hashes
-3. **OS Changes**: Cache key includes runner.os
-4. **Manual Invalidation**: Update cache key prefix in workflow
+2. **OS Changes**: Cache key includes runner.os
+3. **Manual Invalidation**: Update cache key prefix in workflow
+
+**Note**: Since the repository doesn't have requirements.txt or Gemfile.lock files (dependencies are managed by composite actions), the cache keys are based on workflow file hashes. This means caches will be invalidated when workflows are modified.
 
 ### Automatic Fallback
 

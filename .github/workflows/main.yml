@@ -65,7 +65,7 @@ jobs:
           path: |
             ~/.cache/pip
             ~/.local/lib/python3.12/site-packages
-          key: ${{ runner.os }}-pip-cfn-lint-checkov-${{ hashFiles('**/requirements.txt', '.github/workflows/main.yml') }}
+          key: ${{ runner.os }}-pip-cfn-lint-checkov-${{ hashFiles('.github/workflows/main.yml') }}
           restore-keys: |
             ${{ runner.os }}-pip-cfn-lint-checkov-
             ${{ runner.os }}-pip-
@@ -79,7 +79,7 @@ jobs:
         uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('**/Gemfile.lock', '.github/workflows/main.yml') }}
+          key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('.github/workflows/main.yml') }}
           restore-keys: |
             ${{ runner.os }}-gems-cfn-nag-
             ${{ runner.os }}-gems-
