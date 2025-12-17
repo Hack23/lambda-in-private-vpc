@@ -58,7 +58,7 @@ Caches Python packages for cfn-lint and checkov security scanning tools.
 
 ```yaml
 - name: Setup Python
-  uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+  uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
   with:
     python-version: '3.12'
 
@@ -95,7 +95,7 @@ Caches Ruby gems for cfn-nag security scanning tool.
 
 ```yaml
 - name: Setup Ruby
-  uses: ruby/setup-ruby@f26937343756d1117ac1691f0f5c4bfc373a0a01 # v1.208.0
+  uses: ruby/setup-ruby@ac793fdd38cc468a4dd57246fa9d0e868aba9085 # v1.270.0
   with:
     ruby-version: '3.3'
 
@@ -269,8 +269,8 @@ If cache save/restore is slow:
 
 All cache actions use SHA-pinned versions for security:
 - `actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1`
-- `actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0`
-- `ruby/setup-ruby@f26937343756d1117ac1691f0f5c4bfc373a0a01 # v1.208.0`
+- `actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0`
+- `ruby/setup-ruby@ac793fdd38cc468a4dd57246fa9d0e868aba9085 # v1.270.0`
 - `docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349 # v3.7.1`
 
 ### Cache Isolation
