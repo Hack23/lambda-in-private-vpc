@@ -22,6 +22,47 @@ jobs:
             docs.github.com:433
             api.github.com:443
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      
+      - name: Cache APT packages
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: |
+            /var/cache/apt/archives
+            /var/lib/apt/lists
+          key: ${{ runner.os }}-apt-${{ hashFiles('.github/workflows/pullrequest.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+      
+      - name: Setup Python
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
+        with:
+          python-version: '3.12'
+      
+      - name: Cache Python dependencies
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.local/lib/python3.12/site-packages
+          key: ${{ runner.os }}-pip-cfn-lint-checkov-${{ hashFiles('.github/workflows/pullrequest.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-cfn-lint-checkov-
+            ${{ runner.os }}-pip-
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@ac793fdd38cc468a4dd57246fa9d0e868aba9085 # v1.270.0
+        with:
+          ruby-version: '3.3'
+      
+      - name: Cache Ruby gems
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('.github/workflows/pullrequest.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-cfn-nag-
+            ${{ runner.os }}-gems-
+      
       - name: Run StandardLint
         uses: mikaelvesavuori/standardlint-action@b376b6d6afc5885d102894f6972133fa91d200f0 # v1.0.5
         env:
