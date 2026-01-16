@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       
       - name: Cache APT packages
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: |
             /var/cache/apt/archives
@@ -39,7 +39,7 @@ jobs:
           python-version: '3.12'
       
       - name: Cache Python dependencies
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: |
             ~/.cache/pip
@@ -55,7 +55,7 @@ jobs:
           ruby-version: '3.3'
       
       - name: Cache Ruby gems
-        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5.0.2
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-cfn-nag-${{ hashFiles('.github/workflows/pullrequest.yml') }}
