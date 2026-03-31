@@ -18,6 +18,7 @@ jobs:
             files.pythonhosted.org:443
             github.com:443
             objects.githubusercontent.com:443
+            release-assets.githubusercontent.com:443
             pypi.org:443
             www.bridgecrew.cloud:443
             docs.github.com:433
