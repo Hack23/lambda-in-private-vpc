@@ -8,7 +8,8 @@ on:
 permissions: write-all
 env:
   AWS_REGION : "eu-west-1"
-  AWS_REGION_ZONE : "eu-central-1"  
+  AWS_REGION_ZONE : "eu-central-1"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   deploy:
     runs-on: ubuntu-latest

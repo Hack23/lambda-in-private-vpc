@@ -1,6 +1,9 @@
 name: Verify Pull Request
 on: [pull_request]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   checks: write
   id-token: write   # This is required for requesting the JWT
